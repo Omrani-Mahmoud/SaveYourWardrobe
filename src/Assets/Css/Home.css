@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+.mainContainer{
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: url('../images/photo-1445205170230-053b83016050.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+
+}
+
+.info{
+    margin-top: 50px;
+    margin-right: 3%;
+}
+
+.logoContainer{
+    margin-left: 3%;
+
+ 
+ 
+}
+
+.logoContainer img{
+    margin-top: 50px;
+}
+
+.inside{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+   
+}
+.imageBodyContainer{
+    margin-left: 3%;
+}
+.trySmth{
+    text-align: left;
+    font-family: 'Lato'; 
+    margin-top: 5% !important;
+    font-size: 5em!important;
+    color: white;
+
+}
+
+.smthAmazing{
+    text-align: left;
+    font-family: 'Lato'; 
+    color: white;
+    font-size: 5em!important;
+    margin-top: -1.5% !important;
+}
+
+.navBtn{
+    color: white !important;
+}
+.aboutUsDescription{
+    width: 350px;
+    color: white;
+    font-family: 'Lato'; 
+    font-size: 1.1em!important;
+}
+hr { 
+    display: block;
+    margin-before: 0.5em;
+    margin-after: 0.5em;
+    margin-start: auto;
+    margin-end: auto;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+}
+
