@@ -1,3 +1,52 @@
-.imgContainer{
-  margin-left: 10%;
+.container{
+  margin-top: 100px;
+  display: flex;
+}
+
+.container .card{
+
+  width: 500px;
+  height: 300px;
+
+  transition: 0.5s;
+}
+
+.container .card .face1{
+  box-sizing: border-box;
+  position: absolute;
+  width: 500px;
+  height: 300px;
+}
+.container .card .face2{
+ position: relative;
+  width: 500px;
+  height: 300px;
+  display: flex;
+ 
+  
+
+
+  
+
+ background-color: white;
+}
+
+.btnInsideDesc{
+  border: none;
+ 
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+
+ 
+
+}
+
+.aaaa{
+  display: flex;
+  flex-direction: column;
+
 }

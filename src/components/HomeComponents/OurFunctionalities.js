@@ -1,14 +1,57 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import '../../Assets/Css/OurFunctionalities.css';
-import image from "../../Assets/images/Capture d’écran 2020-02-27 à 10.19.13 PM.png"
+import donationImage from "../../Assets/images/donation.jpg"
+import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
+import NavigateBeforeRoundedIcon from '@material-ui/icons/NavigateBeforeRounded';
+import Anime, {anime} from 'react-anime';
 
 
-function OurFunctionalities() {
+function OurFunctionalities(props) {
+
+
     return(
-            <div className="imgContainer">
-       
-                <img src={image} width="300"/>
-    
+            <div className="container" style={props.position==='right'?{justifyContent:'flex-end',marginRight: '10%'}:{ justifyContent:'flex-start',marginLeft: '10%'}}>
+                <div className="card" >
+                    <div className="face1">
+                        <div className="content">
+                        <img src={props.image} width="500" height="300"/>
+                        </div>
+                    </div>
+                    <Anime easing="easeOutSine"
+                        
+                        duration={2000}
+                        loop={false}
+                        translateX={props.position==='right'?'-27rem':'27rem'}
+                        scaleY={.61}
+                        autoplay={!props.startAnimation}
+                        translateY='6rem'>
+                        <div className="face2" style={props.position==='right'?{flexDirection:'row-reverse'}:{flexDirection:'row'}}>
+                      
+                        <Anime easing="easeOutSine"
+                        
+                        duration={2000}
+                        loop={false}
+                        scale={1}
+                        autoplay={!props.startAnimation}
+                        translateY='6rem'>  <div className="aaaa" style={!props.startAnimation?{marginTop:"-30px"}:null}>
+                            <h1 style={{textAlign:"left",marginLeft:"10%",color:props.titleColor,fontFamily:'Lato'}}>{props.title}</h1>
+    <p style={{textAlign:"left",marginLeft:"10%",marginRight:'5%',fontFamily:'Lato',fontSize:'17px',color:'rgb(204,204,204)'}}>{props.description}</p>
+                            
+                           </div>
+                           
+                            </Anime>
+                            
+                            <div className='btnInsideDesc' style={{ backgroundColor:props.btnColor}}>
+                            {props.position==='left'?
+                            <NavigateNextRoundedIcon fontSize="large" />
+                            :
+                            <NavigateBeforeRoundedIcon fontSize="large" />}
+
+                            </div>
+                           
+                        </div>
+                    </Anime>
+                </div>
             </div>
            
     )
@@ -17,3 +60,5 @@ function OurFunctionalities() {
 
 
 export default OurFunctionalities
+
+//Your donation help us deliver a world every needed person is wanted , every one could wear new clothes 
