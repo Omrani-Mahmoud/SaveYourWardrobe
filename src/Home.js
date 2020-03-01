@@ -100,10 +100,10 @@ function Home (){
                 </Button>
             </div>
             <div className="bodyContainer">
-                <OurFunctionalities startAnimation={startIt.func1} image={donationImage} titleColor={'rgb(114,210,217)'} btnColor={'rgb(36,181,223)'} position={'left'} title={"Donation"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
-                <OurFunctionalities startAnimation={startIt.func2} image={sellingImage} titleColor={'rgb(210,104,105)'} btnColor={'rgb(237,69,54)'} position={'right'} title={"Selling"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
-                <OurFunctionalities startAnimation={startIt.func3} image={wardrobeImage} titleColor={'rgb(237,208,139)'} btnColor={'rgb(245,181,67)'} position={'left'} title={"Online wardrobe"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
-                <OurFunctionalities startAnimation={startIt.func4} image={outfitImage} titleColor={'rgb(189,139,191)'} btnColor={'rgb(161,78,191)'} position={'right'} title={"Outfit Suggetion"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
+                <OurFunctionalities startAnimation={startIt.func1} image={donationImage} titleColor={'rgb(75, 75, 75)'} btnColor={'rgb(193,139,65)'} position={'left'} title={"Donation"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
+                <OurFunctionalities startAnimation={startIt.func2} image={sellingImage} titleColor={'rgb(75, 75, 75)'} btnColor={'rgb(102,49,31)'} position={'right'} title={"Selling"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
+                <OurFunctionalities startAnimation={startIt.func3} image={wardrobeImage} titleColor={'rgb(75, 75, 75)'} btnColor={'rgb(193,139,65)'} position={'left'} title={"Online wardrobe"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
+                <OurFunctionalities startAnimation={startIt.func4} image={outfitImage} titleColor={'rgb(75, 75, 75)'} btnColor={'rgb(102,49,31)'} position={'right'} title={"Outfit Suggetion"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
                
                 <div className="imageWardrobe">
                 <ThemeProvider theme={theme}>
