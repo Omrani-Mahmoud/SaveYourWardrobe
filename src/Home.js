@@ -13,6 +13,11 @@ import sellingImage from "../src/Assets/images/selling.jpg"
 import wardrobeImage from "../src/Assets/images/wardrobe.jpg"
 import outfitImage from "../src/Assets/images/outfit.jpg"
 import wardrobeImage2 from "../src/Assets/images/wardrobe2.png"
+import EmailIcon from '@material-ui/icons/Email';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+
 
 
 
@@ -30,7 +35,25 @@ const useStyles = makeStyles(({
         fontFamily:'Lato',
         textTransform:'capitalize',
         width:"170px"
-    }
+    },
+    input:{
+        width:"200px",
+        '& label': {
+            color: 'white !important',
+          },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: 'black',
+          },
+    },
+    paper: {
+        backgroundColor:"transparent",
+        marginTop:"10px"
+      },
+      icon:{
+          marginTop:'6px',
+          color:"black"
+      }
+     
   }));
   const theme = createMuiTheme();
 
@@ -121,7 +144,41 @@ function Home (){
                     Learn More
                      </Button>
                 </div>
+
+                <div className="footer">
+                    <div className="insideFooter">
+                        <div className="part1">
+                        <h3>NEWS ?</h3>
+                            <span>Whant to know what's new </span>
+                            <Paper className={classes.paper} elevation={0} >
+                            <TextField classes={{root: classes.input}} label="Your email" />
+                            <IconButton>
+                            <EmailIcon className={classes.icon} />
+                            </IconButton>
+                            </Paper>
+                        </div>
+                        <div className="part2">
+                        <h3>CONTACT</h3>
+                            <span>Esprit , Ghazela 2080</span>
+                            <span>(+216) 33 333 3333</span>
+                            <br />
+                            <span>CodeBeast@esprit.Tn</span>
+
+                        </div>
+                        <div className="part3">
+                        <h3>JOIN US</h3>
+                            <span>Facebook</span>
+                            <span>Instagram</span>
+                            <span>Google+</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div className="footer2">
+
+                </div>
             </div>
+        
            
         </div>
     )
@@ -130,8 +187,4 @@ function Home (){
 export default Home
 
 
-/* <ThemeProvider theme={theme}>
-                <Typography variant="h3" style={{marginLeft:"10%",marginTop:"10%",marginBottom:"2%"}}> How we help</Typography>
-            </ThemeProvider>
-            */
 
