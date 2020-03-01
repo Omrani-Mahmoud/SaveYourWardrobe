@@ -65,6 +65,7 @@
     color: white;
     font-family: 'Lato'; 
     font-size: 1.1em!important;
+    margin-left: 4%;
 }
 .bodyContainer{
     margin-top: 20vh;
@@ -75,4 +76,36 @@
 }
 
 
-    
+.imageWardrobe{
+    margin-top: 15%;
+   margin-left: 10%;
+    margin-right: 10%;
+}
+
+.imageWardrobe img{
+        border-radius: 30% 45% 36% 21% / 10% 18% 34% 48%;
+        margin-top: -90px;
+        float: right;
+}
+
+
+.imageWardrobe h1{
+    font-family: "Lato";
+   width: 300px;
+   font-size: 2.3rem;
+}
+.imageWardrobe p{
+    font-family: "Lato";
+    width: 300px;
+    margin-left: 4%;
+ 
+}
+
+.trySmth2{
+    text-align: left;
+    font-family: 'Lato'; 
+    margin-top: 5% !important;
+    font-size: 5em!important;
+    color: rgb(75, 75, 75);
+
+}

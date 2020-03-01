@@ -61,4 +61,3 @@ function OurFunctionalities(props) {
 
 export default OurFunctionalities
 
-//Your donation help us deliver a world every needed person is wanted , every one could wear new clothes 

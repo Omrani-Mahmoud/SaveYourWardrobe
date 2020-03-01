@@ -12,6 +12,8 @@ import donationImage from "../src/Assets/images/donation.jpg"
 import sellingImage from "../src/Assets/images/selling.jpg"
 import wardrobeImage from "../src/Assets/images/wardrobe.jpg"
 import outfitImage from "../src/Assets/images/outfit.jpg"
+import wardrobeImage2 from "../src/Assets/images/wardrobe2.png"
+
 
 
 const useStyles = makeStyles(({
@@ -51,10 +53,10 @@ function Home (){
     
         console.log(currPos.y)
         
-        if (currPos.y <= -370) setStartIt({...startIt,func1:false})
-        if (currPos.y <= -776) setStartIt({...startIt,func2:false})
-        if (currPos.y <= -1132) setStartIt({...startIt,func3:false})
-        if (currPos.y <= -1485) setStartIt({...startIt,func4:false})
+        if (currPos.y <= -370 ) setStartIt({...startIt,func1:false})
+        if (currPos.y <= -776) setStartIt({...startIt,func2:false,func1:false})
+        if (currPos.y <= -1132) setStartIt({...startIt,func3:false,func2:false,func1:false})
+        if (currPos.y <= -1485) setStartIt({...startIt,func4:false,func3:false,func2:false,func1:false})
 
       },[])
   
@@ -103,8 +105,24 @@ function Home (){
                 <OurFunctionalities startAnimation={startIt.func3} image={wardrobeImage} titleColor={'rgb(237,208,139)'} btnColor={'rgb(245,181,67)'} position={'left'} title={"Online wardrobe"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
                 <OurFunctionalities startAnimation={startIt.func4} image={outfitImage} titleColor={'rgb(189,139,191)'} btnColor={'rgb(161,78,191)'} position={'right'} title={"Outfit Suggetion"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
                
-                
+                <div className="imageWardrobe">
+                <ThemeProvider theme={theme}>
+                    <Typography variant="h3" className="trySmth2" > WHAT DO WE HAVE IN OUR WARDROBE ?</Typography>
+                </ThemeProvider>
+              
+                    <h1> </h1>
+                   
+                    <img src={wardrobeImage2} width="600" height="400"/>
+                    <p>aaa aaa a a a aaaaaa  a a a  a a  a a  a a  adza d az d az e aze
+                    aaa aaa a a a aaaaaa  a a a  a a  a a  a a  adza d az d az e aze
+                    aaa aaa a a a aaaaaa  a a a  a a  a a  a a  adza d az d az e aze
+                    aaa aaa a a a aaaaaa  a a a  a a  a a  a a  adza d az d az e aze </p>
+                    <Button variant="contained" classes={{root: classes.btn}}> 
+                    Learn More
+                     </Button>
+                </div>
             </div>
+           
         </div>
     )
 }
