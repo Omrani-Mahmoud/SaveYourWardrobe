@@ -170,4 +170,17 @@
 .footer2{
     background-color: white;
     min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.footer2 > p{
+    margin-left:8%;
+    margin-right:8%;
+    font-family: 'Lato';
+}
+#ic{
+    margin: 0 15px 0 15px;
 }

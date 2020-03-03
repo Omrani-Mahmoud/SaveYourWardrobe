@@ -17,9 +17,9 @@ import EmailIcon from '@material-ui/icons/Email';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-
-
-
+import InstagramIcon from '@material-ui/icons/Instagram';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import YouTubeIcon from '@material-ui/icons/YouTube';
 
 const useStyles = makeStyles(({
   
@@ -175,7 +175,14 @@ function Home (){
                     </div>
                 </div>
                 <div className="footer2">
+        
+                       <p>Copyright © SaveYourWardrobe</p>
+                       <p><FacebookIcon fontSize="large" id="ic"/>
+                       <YouTubeIcon fontSize="large" id="ic"/>
+                       <InstagramIcon fontSize="large" id="ic" /></p>
+                       <p><span style={{marginRight:"30px"}}>Privacy Policy</span><span>Terms of Use</span> </p>
 
+              
                 </div>
             </div>
         
