@@ -1,0 +1,51 @@
+.loginMainContainer{
+    min-height: 100vh;
+    background-color: white;
+    display: flex;
+    
+}
+
+.part1{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 3%;
+    margin-top: 1%;
+}
+
+.part1 form{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top:5%;
+
+}
+.connectBtn{
+    align-self: flex-end;
+}
+
+.part2{
+    width: 73%;
+}
+
+.signIn{
+
+        text-align: left;
+        font-family: 'Lato'; 
+        margin-top: 30% !important;
+        font-size: 1.3em!important;
+        color: black;
+        font-weight: 900 !important;
+
+}
+
+
+.loginFoot{
+    margin-top:80%;
+}
+
+.loginFooterInfo{
+    color: #A8A8A8;
+    font-family: "Lato";
+ 
+}

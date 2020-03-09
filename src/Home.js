@@ -20,6 +20,7 @@ import TextField from '@material-ui/core/TextField';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import YouTubeIcon from '@material-ui/icons/YouTube';
+import Pulse from 'react-reveal/Pulse';
 
 const useStyles = makeStyles(({
   
@@ -127,7 +128,7 @@ function Home (){
                 <OurFunctionalities startAnimation={startIt.func2} image={sellingImage} titleColor={'rgb(75, 75, 75)'} btnColor={'rgb(102,49,31)'} position={'right'} title={"Selling"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
                 <OurFunctionalities startAnimation={startIt.func3} image={wardrobeImage} titleColor={'rgb(75, 75, 75)'} btnColor={'rgb(193,139,65)'} position={'left'} title={"Online wardrobe"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
                 <OurFunctionalities startAnimation={startIt.func4} image={outfitImage} titleColor={'rgb(75, 75, 75)'} btnColor={'rgb(102,49,31)'} position={'right'} title={"Outfit Suggetion"} description={"Your donation help us deliver a world every needed person is wanted , every one could wear new clothes "}/>
-               
+                  
                 <div className="imageWardrobe">
                 <ThemeProvider theme={theme}>
                     <Typography variant="h3" className="trySmth2" > WHAT DO WE HAVE IN OUR WARDROBE ?</Typography>
