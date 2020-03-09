@@ -47,5 +47,6 @@
 .loginFooterInfo{
     color: #A8A8A8;
     font-family: "Lato";
+    cursor: pointer;
  
 }
