@@ -15,17 +15,18 @@ import Steps from './Steps';
 import logo from '../../Assets/images/logoBlack.png'
 import donation from '../../Assets/images/donate1.png'
 import ff from '../../Assets/images/stan.jpg'
-import imgFooter from '../../Assets/images/donationFooter.png'
+import alertBG from '../../Assets/images/alertBG.png'
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/NotInterested';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import Zoom from '@material-ui/core/Zoom';
+import fff from "../../Assets/images/donationFooter.png";
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import GrainIcon from '@material-ui/icons/Grain';
+import Skeleton from '@material-ui/lab/Skeleton';
+import Swal from 'sweetalert2'
+
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -77,9 +78,9 @@ function Donations() {
 
     const [selectedItemIndex,setSelectedItemIndex] = useState(0)
     const [items,setItems] = useState([
-      {_id:"1",name:"stan Smith",description:"sneaker", size:"41",  color:"green",brand:"Addidas",image:"../../Assets/images/stan.jpg",state:"0"},
-      {_id:"2",name:"super star",description:"sneaker", size:"41",  color:"white",brand:"Addidas",image:"../../Assets/images/stan.jpg",state:"0"},
-      {_id:"3",name:"vans old school",description:"sneaker", size:"41",  color:"red",brand:"Vans",image:"../../Assets/images/stan.jpg",state:"0"}
+     // {_id:"1",name:"stan Smith",description:"sneaker", size:"41",  color:"green",brand:"Addidas",image:"../../Assets/images/stan.jpg",state:"0",reactions:[],itemsCombinations:[]},
+      //{_id:"2",name:"super star",description:"sneaker", size:"41",  color:"white",brand:"Addidas",image:"../../Assets/images/stan.jpg",state:"0",reactions:[],itemsCombinations:[]},
+      //{_id:"3",name:"vans old school",description:"sneaker", size:"41",  color:"red",brand:"Vans",image:"../../Assets/images/stan.jpg",state:"0",reactions:[],itemsCombinations:[]}
 
     ])
     const [disableItems,setDisableItems] = useState(false);
@@ -94,6 +95,14 @@ function Donations() {
       setSelectedItemIndex(selectedItemIndex<=0 ?0:selectedItemIndex-1) 
   }
 
+
+  const fetchIt =async ()=>{
+    const datatFromDataBase = await fetch("http://localhost:4000/item");
+    const data = await datatFromDataBase.json();
+    console.log(data)
+    setItems(data)
+
+}
   const removeItem = (id)=>{
     for( var i = 0; i < donItems.length; i++){ 
       if ( donItems[i]._id ===id) {
@@ -102,30 +111,28 @@ function Donations() {
       }
    }
   }
+
+  React.useEffect(() => {
+    fetchIt()
+    Swal.fire({
+      title: 'Giving is not just about making a donations, It is about making a difference',
+      width: 600,
+      showCancelButton: false,
+      showConfirmButton: false,
+      imageUrl: alertBG,
+      imageWidth: 250,
+      imageHeight: 250,
+      backdrop: `
+        rgba(231,171,247,0.4)
+      `
+    })
+},[])
+
     return (
+    
         <div className="aa" style={{ minHeight:"100vh"}}>
-           <div className="inside">
-            <div className="logoContainer">
-                    <img src={logo} width="200px" />
-                </div>
-                <div className="info">
-                <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
-                        <Button>Home</Button>
-                    </Tooltip>
-                    <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
-                        <Button>Our story</Button>
-                    </Tooltip>
-                    <Tooltip TransitionComponent={Zoom} title="FAQ description">
-                        <Button >FAQ</Button>
-                    </Tooltip>
-                    <Tooltip TransitionComponent={Zoom} title="our parnters">
-                        <Button>Partnership</Button>
-                    </Tooltip>
-                </div>
-             
-            </div>
   
-            <Breadcrumbs aria-label="breadcrumb" style={{marginTop:"3%",marginBottom:"-2%"}}>
+            <Breadcrumbs aria-label="breadcrumb" style={{marginBottom:"2%"}}>
                   <Link color="inherit" href="/" className={classes.link}>
                     <HomeIcon className={classes.icon} />
                       Home
@@ -137,13 +144,14 @@ function Donations() {
               </Breadcrumbs>
 
         <div className={classes.root} style={{marginTop:"5%"}} >
-        <img src={donation} width="350px" style={{position:"absolute",zIndex:"-99999"}} />
+        <img src={donation} width="300px" style={{position:"absolute",zIndex:"-99999",marginLeft:"-24px"}} />
 
              <Grid container spacing={0} direction="column" justify="center" alignItems="center" >
     
                <Grid item xs={12} sm={6} container>
                 
-           
+              {items.length?
+              
                 <Card className={classes.cardRoot} style={{width:"100%"}}>       
                       <div className={classes.details} >
                         <CardContent className={classes.content}>
@@ -181,7 +189,12 @@ function Donations() {
                       />
                  
                   
-    </Card>
+    </Card>:
+     <div className={classes.root}>
+     <Skeleton />
+     <Skeleton animation={false} />
+     <Skeleton animation="wave" />
+   </div>}
   
 
           <div hidden={!disableItems} >
@@ -197,12 +210,13 @@ function Donations() {
 
                 <Grid container item xs={12} sm={6} >
                 <Paper className={classes.paper} style={{width:"100%",marginTop:"7%"}} >
-                  <Steps data={donItems} disableItems={setDisableItems} removeItem={removeItem}/>
+                  <Steps data={donItems} disableItems={setDisableItems} removeItem={removeItem} resetDonItems={setDonItems}/>
                 </Paper>
                 </Grid>
 
             </Grid>
         </div>
+
         </div>
     )
 

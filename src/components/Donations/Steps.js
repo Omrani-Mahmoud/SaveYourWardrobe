@@ -24,6 +24,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
 import MuiAlert from '@material-ui/lab/Alert';
+import axios from "axios";
 
 
 const QontoConnector = withStyles({
@@ -187,9 +188,10 @@ function Alert(props) {
 export default function Steps(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [charity, setCharity] = React.useState();
+  const [charity, setCharity] = React.useState(null);
+  const [charityList, setCharityList] = React.useState([]);
   const [reload, setReload] = React.useState(false);
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const steps = getSteps();
   const handleNext = () => {
@@ -198,6 +200,8 @@ export default function Steps(props) {
     if(activeStep===2){
       console.log("charity : ",charity)
       console.log("items : ", props.data)
+      createDonation()
+      setOpen(true)
     }
 
   };
@@ -210,6 +214,10 @@ export default function Steps(props) {
 
   const handleReset = () => {
     setActiveStep(0);
+    setOpen(false);
+    props.disableItems(false)
+    props.resetDonItems([])
+    
   };
 
   const handleNotifClose = (event, reason) => {
@@ -219,6 +227,33 @@ export default function Steps(props) {
 
     setOpen(false);
   };
+
+  const createDonation =()=>{
+    var donObject = {dateDonation:new Date(),items:props.data,charity:charity}
+    axios.post("http://localhost:4000/donation",donObject)
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
+}
+
+
+
+const fetchIt =async ()=>{
+  const datatFromDataBase = await fetch("http://localhost:4000/association");
+  const data = await datatFromDataBase.json();
+  setCharityList(data)
+}
+
+React.useEffect(() => {
+  fetchIt()
+},[])
+
+
+console.log(charity)
   return (
     <div className={classes.root} style={{width:"100%"}}>
       
@@ -244,7 +279,7 @@ export default function Steps(props) {
         activeStep === 0?(
           <div>
               <List className={classes.rootList} subheader={<li />}>
-              {props.data.map(item => (
+              {props.data ?props.data.map(item => (
               <ListItem key={`${item}`}>
                 <ListItemText primary={`${item.brand} || ${item.name}`} />
                 <ListItemSecondaryAction>
@@ -257,7 +292,7 @@ export default function Steps(props) {
                     />
                 </ListItemSecondaryAction>
               </ListItem>
-            ))}
+            )):null}
               </List>
             <div>
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
@@ -281,10 +316,10 @@ export default function Steps(props) {
         <InputLabel htmlFor="grouped-native-select" >Charity name</InputLabel>
         <Select native defaultValue="" input={<Input id="grouped-native-select" />} onChange={(e)=>setCharity(e.target.value)}>
           <option aria-label="None" value="null" />
-            <option value={1}>Charity 1</option>
-            <option value={2}>Charity 2</option>
-            <option value={3}>Charity 3</option>
-            <option value={4}>Charity 4</option>
+            {charityList.map(elem =>
+            <option value={elem._id}>{elem.name}</option>
+              )}
+      
         </Select>
       </FormControl>
         <div>
@@ -296,6 +331,7 @@ export default function Steps(props) {
           color="primary"
           onClick={handleNext}
           className={classes.button}
+          disabled={charity===null?true:false}
         >
           {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
         </Button>
@@ -303,7 +339,7 @@ export default function Steps(props) {
     </div>):
     <div>
     <Typography variant="subtitle1" color="textSecondary" style={{marginBottom:'4%'}}>
-        are you sure , that you will donnate to {charity} ?
+        are you sure , that you will donnate to {charity.name} ?
     </Typography>
 <div>
 <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
