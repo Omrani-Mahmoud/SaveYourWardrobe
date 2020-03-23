@@ -29,6 +29,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import SpeedDialC from './components/SpeedDial';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import Trades from './components/Trades/Trades';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -176,6 +177,7 @@ export default function HomeAfterLogin(props) {
               <ListItemText primary={"Donation"} />
             </ListItem>
             </Link>
+            
             <ListItem button >
               <ListItemIcon> <EuroIcon /></ListItemIcon>
               <ListItemText primary={"Sell"} />
@@ -203,6 +205,7 @@ export default function HomeAfterLogin(props) {
                 <Switch>
                     <Route path={`${props.match.path}/`} exact component={HomeAfterLogin} />
                     <Route path={`/home/donation`} exact component={Donations} />
+                    <Route path={`/home/trades`} exact component={Trades} />
                 </Switch>
       </main>
 

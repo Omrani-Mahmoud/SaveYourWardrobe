@@ -1,5 +1,31 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
+import TextField from '@material-ui/core/TextField';
+import '../../Assets/Css/LoginPage.css';
+import { makeStyles, createMuiTheme, ThemeProvider, rgbToHex} from '@material-ui/core/styles';
+import { Typography} from '@material-ui/core';
+
+
+
+const useStyles = makeStyles(({
+  
+
+    input:{
+
+        '& label': {
+            color: 'black !important',
+          },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: 'black',
+          },
+    },
+
+   
+     
+  }));
+
+
+
 
 function AddNewTrade(){
 
@@ -7,6 +33,8 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
 const [dataFromDB,setNewDataFromDB] = useState([]);
 const [refresh,setRefresh] = useState(false);
 const [wantToUpdate,setWantToUpdate] = useState(false);
+const classes = useStyles();
+const theme = createMuiTheme();
 
 
     const addTrade =()=>{
@@ -67,36 +95,22 @@ const updateTrade = (element) =>{
 
     return(
         <div>
-                <form onSubmit={wantToUpdate?persistUpdate:addTrade}>
-                    location
-                    <input type="text" name="location" onChange={(e)=>newTrade.location=e.target.value} defaultValue={newTrade.location} />
-                        <br />
-                    status
-                    <input type="text" name="status" onChange={(e)=>newTrade.status=e.target.value} defaultValue={newTrade.status}/>
-                    <br />
-                    datePost
-                    <input type="date" onChange={(e)=>newTrade.datePost=e.target.value} defaultValue={newTrade.datePost}/>
-                    <br />
-                    dateTrade
-                    <input type="date" onChange={(e)=>newTrade.dateTrade=e.target.value} defaultValue={newTrade.dateTrade}/>
-                    <br />
-                    Items
-                    <input type="text" onChange={(e)=>newTrade.items=e.target.value} defaultValue={newTrade.items} />
-
+                <form onSubmit={addTrade}>
+                <TextField classes={{root: classes.input}} id="standard-basic" label="location" name="location" onChange={(e)=>newTrade.location=e.target.value} defaultValue={newTrade.location} />
+                  <br />
+                 
+                <TextField classes={{root: classes.input}} id="standard-basic" label="status" name="status" onChange={(e)=>newTrade.status=e.target.value} defaultValue={newTrade.status} />
+                <br />
+                <TextField classes={{root: classes.input}} id="standard-basic" label="Date Post" name="datePost" onChange={(e)=>newTrade.datePost=e.target.value} defaultValue={newTrade.datePost} />
+                <br />
+                <TextField classes={{root: classes.input}} id="standard-basic" label="Date Trade" name="dateTrade" onChange={(e)=>newTrade.dateTrade=e.target.value} defaultValue={newTrade.dateTrade} />
+                <br />
                     <button type="submit"> add</button>
                     
                 </form>
                
 
-                <div>
-                    {dataFromDB.map(element=>
-                        <div key={element._id}>
-                            <li>{element.name}</li>
-                            <button onClick={()=>deleteTrade(element._id)}>delete</button>
-                            <button onClick={()=>updateTrade(element)}>update</button>    
-                        </div>
-                    )}
-                </div>
+              
         </div>
     )
 }

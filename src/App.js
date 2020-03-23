@@ -18,7 +18,6 @@ function App() {
      <Route path="/login" exact component={LoginPage} />
      <Route path="/addItem" exact component={AddNewItem} />
      <Route path="/addTrade" exact component={AddNewTrade} />
-     
      <Route path="/home" component={HomeAfterLogin} />
    </Router>
   );
