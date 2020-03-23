@@ -238,13 +238,14 @@ export default function Steps(props) {
     setOpen(false);
   };
 
-  const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateTrade:"",items:props.data})
+  const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateTrade:""})
 
 
   const createDonation =()=>{
    // var newTrade = {datePost:new Date(),dateTrade:new Date(),items:props.data,status:status,location:location}
   
    newTrade.datePost=new Date();
+   newTrade.items=props.data;
     axios.post("http://localhost:4000/trade",newTrade)
         .then(res=>{
             console.log(res)
