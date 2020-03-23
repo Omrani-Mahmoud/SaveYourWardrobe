@@ -26,6 +26,13 @@ import WhatshotIcon from '@material-ui/icons/Whatshot';
 import GrainIcon from '@material-ui/icons/Grain';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Swal from 'sweetalert2'
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import FolderIcon from '@material-ui/icons/Folder';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import DonationList from './DonationList';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -71,20 +78,22 @@ const useStyles = makeStyles(theme => ({
         height: 38,
         width: 38,
       },
+      botNav:{
+        marginTop:"2%",
+        width:"100%",
+        backgroundColor:"transparent"
+      }
   }));
 
   
 function Donations() {
 
     const [selectedItemIndex,setSelectedItemIndex] = useState(0)
-    const [items,setItems] = useState([
-     // {_id:"1",name:"stan Smith",description:"sneaker", size:"41",  color:"green",brand:"Addidas",image:"../../Assets/images/stan.jpg",state:"0",reactions:[],itemsCombinations:[]},
-      //{_id:"2",name:"super star",description:"sneaker", size:"41",  color:"white",brand:"Addidas",image:"../../Assets/images/stan.jpg",state:"0",reactions:[],itemsCombinations:[]},
-      //{_id:"3",name:"vans old school",description:"sneaker", size:"41",  color:"red",brand:"Vans",image:"../../Assets/images/stan.jpg",state:"0",reactions:[],itemsCombinations:[]}
-
-    ])
+    const [items,setItems] = useState([])
+    const [value, setValue] = React.useState('interface');
     const [disableItems,setDisableItems] = useState(false);
     const [donItems,setDonItems] = useState([]);
+    const [hide,setHide] = useState({interface:false,donList:true});
     const classes = useStyles();
     const theme = useTheme();
 
@@ -111,6 +120,14 @@ function Donations() {
       }
    }
   }
+
+
+  const handleChangeBottomNav = (event, newValue) => {
+    console.log(newValue)
+    setValue(newValue);
+
+
+  };
 
   React.useEffect(() => {
     fetchIt()
@@ -142,12 +159,16 @@ function Donations() {
                     Donations
                   </Typography>
               </Breadcrumbs>
-
-        <div className={classes.root} style={{marginTop:"5%"}} >
+              <BottomNavigation value={value} onChange={handleChangeBottomNav} className={classes.botNav}>
+                <BottomNavigationAction label="Donation Interface" value="interface" icon={<FavoriteIcon />}/>
+                <BottomNavigationAction label="Don List" value="listDon" icon={<LocationOnIcon />} />
+                <BottomNavigationAction label="Folder" value="cc" icon={<FolderIcon />} />
+              </BottomNavigation>
+        <div className={classes.root} style={{marginTop:"5%"}} hidden={value==="interface"?false:true}>
+        
         <img src={donation} width="300px" style={{position:"absolute",zIndex:"-99999",marginLeft:"-24px"}} />
 
              <Grid container spacing={0} direction="column" justify="center" alignItems="center" >
-    
                <Grid item xs={12} sm={6} container>
                 
               {items.length?
@@ -213,10 +234,14 @@ function Donations() {
                   <Steps data={donItems} disableItems={setDisableItems} removeItem={removeItem} resetDonItems={setDonItems}/>
                 </Paper>
                 </Grid>
-
             </Grid>
+      
         </div>
+        <div hidden={value==="listDon"?false:true}>
+ 
+        <DonationList />
 
+        </div>
         </div>
     )
 

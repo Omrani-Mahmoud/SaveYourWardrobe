@@ -177,16 +177,14 @@ export default function HomeAfterLogin(props) {
               <ListItemText primary={"Donation"} />
             </ListItem>
             </Link>
+
+            
             <Link to="/home/trades" ><ListItem button>
-              <ListItemIcon> <FavoriteBorderIcon /></ListItemIcon>
+              <ListItemIcon> <EuroIcon /></ListItemIcon>
               <ListItemText primary={"Trades"} />
             </ListItem>
             </Link>
-            
-            <ListItem button >
-              <ListItemIcon> <EuroIcon /></ListItemIcon>
-              <ListItemText primary={"Sell"} />
-            </ListItem>
+          
 
             <ListItem button >
               <ListItemIcon> <ContactSupportIcon /></ListItemIcon>
