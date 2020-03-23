@@ -13,7 +13,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import img from "../../Assets/images/stan.jpg"
 import Steps from './Steps';
 import logo from '../../Assets/images/logoBlack.png'
-import donation from '../../Assets/images/donate1.png'
+import exchange from '../../Assets/images/exchange.png'
 import ff from '../../Assets/images/stan.jpg'
 import alertBG from '../../Assets/images/alertBG.png'
 import Chip from '@material-ui/core/Chip';
@@ -143,12 +143,12 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
                   </Link>
                   <Typography color="textPrimary" className={classes.link}>
                     <GrainIcon className={classes.icon} />
-                    Donations
+                    Trades
                   </Typography>
               </Breadcrumbs>
 
         <div className={classes.root} style={{marginTop:"5%"}} >
-        <img src={donation} width="300px" style={{position:"absolute",zIndex:"-99999",marginLeft:"-24px"}} />
+        <img src={exchange} width="300px" style={{position:"absolute",zIndex:"-99999",marginLeft:"-24px"}} />
 
              <Grid container spacing={0} direction="column" justify="center" alignItems="center" >
     

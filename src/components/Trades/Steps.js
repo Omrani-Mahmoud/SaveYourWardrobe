@@ -27,6 +27,9 @@ import MuiAlert from '@material-ui/lab/Alert';
 import axios from "axios";
 import TextField from '@material-ui/core/TextField';
 
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -187,6 +190,14 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 export default function Steps(props) {
+
+  const [state, setState] = React.useState({
+    checkedA: true,
+    checkedB: true,
+    checkedF: true,
+    checkedG: true,
+  });
+ 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [location,status,datePost,dateTrade] = React.useState(null);
@@ -233,6 +244,7 @@ export default function Steps(props) {
   const createDonation =()=>{
    // var newTrade = {datePost:new Date(),dateTrade:new Date(),items:props.data,status:status,location:location}
   
+   newTrade.datePost=new Date();
     axios.post("http://localhost:4000/trade",newTrade)
         .then(res=>{
             console.log(res)
@@ -307,13 +319,11 @@ export default function Steps(props) {
         <FormControl style={{width:'220px' , marginBottom:'4%'}}>
                 <TextField classes={{root: classes.input}} id="standard-basic" label="location" name="location" onChange={(e)=>newTrade.location=e.target.value} defaultValue={newTrade.location} />
                   <br />
-                 
-                <TextField classes={{root: classes.input}} id="standard-basic" label="status" name="status" onChange={(e)=>newTrade.status=e.target.value} defaultValue={newTrade.status} />
-                <br />
-                <TextField classes={{root: classes.input}} id="standard-basic" label="Date Post" name="datePost" onChange={(e)=>newTrade.datePost=e.target.value} defaultValue={newTrade.datePost} />
-                <br />
-                <TextField classes={{root: classes.input}} id="standard-basic" label="Date Trade" name="dateTrade" onChange={(e)=>newTrade.dateTrade=e.target.value} defaultValue={newTrade.dateTrade} />
-                <br />                    
+                 <label>Status</label>
+                  <FormControlLabel
+        control={<Checkbox  onChange={(e)=>newTrade.status="pending"} name="status" />}
+        label="Pending"
+      />
             
       </FormControl>
         <div>
