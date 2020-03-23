@@ -13,7 +13,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import img from "../../Assets/images/stan.jpg"
 import Steps from './Steps';
 import logo from '../../Assets/images/logoBlack.png'
-import exchange from '../../Assets/images/exchange.png'
+import exchange from '../../Assets/images/exchange.jpg'
 import ff from '../../Assets/images/stan.jpg'
 import alertBG from '../../Assets/images/alertBG.png'
 import Chip from '@material-ui/core/Chip';
