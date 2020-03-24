@@ -19,13 +19,13 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function DonationList() {
+function DonationList(props) {
     const classes = useStyles();
     return (
         <div>
             <Grid item xs={12}>
           <Paper className={classes.paper}>
-                <List/>
+                <List reload={props.reload}/>
           </Paper>
       
         </Grid>

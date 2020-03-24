@@ -21,8 +21,8 @@ import EuroIcon from '@material-ui/icons/Euro';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AmpStoriesIcon from '@material-ui/icons/AmpStories';
 import logo from '../src/Assets/images/logoBlack.png';
-
-import {Route,BrowserRouter as Router,Switch,Link} from 'react-router-dom'
+import LoginPage from './components/Login/LoginPage'
+import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom'
 import Donations from './components/Donations/Donations';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -30,6 +30,7 @@ import Zoom from '@material-ui/core/Zoom';
 import SpeedDialC from './components/SpeedDial';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import Trades from './components/Trades/Trades';
+import MainPage from './components/InsideHome/MainPage';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -94,10 +95,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function HomeAfterLogin(props) {
+  const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const [verif, setVerif] = React.useState(true);
+  const [user, setUser] = React.useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -106,7 +109,24 @@ export default function HomeAfterLogin(props) {
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    if(window.localStorage.getItem("tokenWardrobe")){
+      setVerif(true);
+      setUser(window.localStorage.getItem("tokenWardrobe"));
+     
+    }
+    else
+    setVerif(false)
+  }, [])
+
+
+  console.log(user)
+
+  if (user!==""){
+  //var user = jwt.decode(window.localStorage.getItem("token"));
+  
   return (
+    
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
@@ -129,7 +149,7 @@ export default function HomeAfterLogin(props) {
             <MenuIcon />
             
           </IconButton>
-          <img src={logo} width="200px" />
+         <Link to="/home" ><img src={logo} width="200px" /> </Link>
             <div style={{marginLeft:"50%"}}>
                 <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
                         <Button>Home</Button>
@@ -206,7 +226,7 @@ export default function HomeAfterLogin(props) {
         <div className={classes.toolbar} />
  
                 <Switch>
-                    <Route path={`${props.match.path}/`} exact component={HomeAfterLogin} />
+                    <Route path={`${props.match.path}/`} exact component={MainPage} />
                     <Route path={`/home/donation`} exact component={Donations} />
                     <Route path={`/home/trades`} exact component={Trades} />
                 </Switch>
@@ -214,4 +234,12 @@ export default function HomeAfterLogin(props) {
 
     </div>
   );
+}
+else{
+  history.push('/login')
+  return(
+    <LoginPage />
+  )
+}
+
 }
