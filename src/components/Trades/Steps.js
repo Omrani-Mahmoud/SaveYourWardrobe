@@ -226,7 +226,7 @@ export default function Steps(props) {
     setActiveStep(0);
     setOpen(false);
     props.disableItems(false)
-    props.resetDonItems([])
+    props.resettradeItems([])
     
   };
 
