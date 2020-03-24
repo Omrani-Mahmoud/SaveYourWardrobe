@@ -5,7 +5,6 @@ import Home from './Home';
 import HomeAfterLogin from './HomeAfterLogin';
 import LoginPage from './components/Login/LoginPage';
 import AddNewItem from './components/Items/AddNewItem';
-import AddNewTrade from './components/Trades/AddNewTrade';
 import Donations from './components/Donations/Donations';
 function App() {
   
@@ -17,7 +16,6 @@ function App() {
      <Route path="/" exact component={Home} />
      <Route path="/login" exact component={LoginPage} />
      <Route path="/addItem" exact component={AddNewItem} />
-     <Route path="/addTrade" exact component={AddNewTrade} />
      <Route path="/home" component={HomeAfterLogin} />
    </Router>
   );

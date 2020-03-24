@@ -30,6 +30,16 @@ import Swal from 'sweetalert2'
 import axios from "axios";
 import TextField from '@material-ui/core/TextField';
 
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import FolderIcon from '@material-ui/icons/Folder';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+
+import TradeList from './TradeList';
+
+
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -78,6 +88,8 @@ const useStyles = makeStyles(theme => ({
 
   
 function Trades() {
+  const [value, setValue] = React.useState('interface');
+
 const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateTrade:"",items:[]})
 
     const [selectedItemIndex,setSelectedItemIndex] = useState(0)
@@ -108,7 +120,7 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
             console.log(err)
         })
 
-}
+    }
 
 
   const fetchIt =async ()=>{
@@ -126,6 +138,14 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
       }
    }
   }
+
+  const handleChangeBottomNav = (event, newValue) => {
+    console.log(newValue)
+    setValue(newValue);
+
+
+  };
+
 
   React.useEffect(() => {
     fetchIt()
@@ -146,8 +166,13 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
                     Trades
                   </Typography>
               </Breadcrumbs>
+              <BottomNavigation value={value} onChange={handleChangeBottomNav} className={classes.botNav}>
+                <BottomNavigationAction label="Trades" value="interface" icon={<FavoriteIcon />}/>
+                <BottomNavigationAction label="Trades List" value="listTrade" icon={<LocationOnIcon />} />
+               
+              </BottomNavigation>
 
-        <div className={classes.root} style={{marginTop:"5%"}} >
+              <div className={classes.root} style={{marginTop:"5%"}} hidden={value==="interface"?false:true}>
         <img src={exchange} width="300px" style={{position:"absolute",zIndex:"-99999",marginLeft:"-24px"}} />
 
              <Grid container spacing={0} direction="column" justify="center" alignItems="center" >
@@ -231,6 +256,11 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
 
             </Grid>
         </div>
+        <div hidden={value==="listTrade"?false:true}>
+          
+          <TradeList />
+
+          </div>
 
         </div>
     )
