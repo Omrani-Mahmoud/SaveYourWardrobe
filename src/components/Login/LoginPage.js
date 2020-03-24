@@ -24,17 +24,18 @@ const useStyles = makeStyles(({
    
      
   }));
-function LoginPage() {
+function LoginPage(props) {
+
     const classes = useStyles();
     const theme = createMuiTheme();
-   const history = useHistory();
-  
     const login = (info)=>{
         window.localStorage.setItem("tokenWardrobe","mahtoken")
-        history.push('/home')
-        console.log("aaa")
+        window.location.replace(window.location.pathname)
+       
     }
    
+
+
     return (
         <div className="loginMainContainer">
                

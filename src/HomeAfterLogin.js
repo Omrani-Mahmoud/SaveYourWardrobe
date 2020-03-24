@@ -99,7 +99,7 @@ export default function HomeAfterLogin(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [verif, setVerif] = React.useState(true);
+  const [verif, setVerif] = React.useState(false);
   const [user, setUser] = React.useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -110,10 +110,11 @@ export default function HomeAfterLogin(props) {
   };
 
   React.useEffect(() => {
-    if(window.localStorage.getItem("tokenWardrobe")){
+    if(window.localStorage.getItem("tokenWardrobe")==="mahtoken"){
       setVerif(true);
       setUser(window.localStorage.getItem("tokenWardrobe"));
-     
+      console.log("inside")
+      console.log(user)
     }
     else
     setVerif(false)
@@ -121,8 +122,8 @@ export default function HomeAfterLogin(props) {
 
 
   console.log(user)
-
-  if (user!==""){
+  console.log(verif)
+  if (user && window.localStorage.getItem("tokenWardrobe")){
   //var user = jwt.decode(window.localStorage.getItem("token"));
   
   return (
@@ -223,12 +224,13 @@ export default function HomeAfterLogin(props) {
       </Drawer>
       
       <main className={classes.content}>
+        <h1>{user}</h1>
         <div className={classes.toolbar} />
  
                 <Switch>
                     <Route path={`${props.match.path}/`} exact component={MainPage} />
-                    <Route path={`/home/donation`} exact component={Donations} />
-                    <Route path={`/home/trades`} exact component={Trades} />
+                    <Route path={`${props.match.path}/donation`} exact component={Donations} />
+                    <Route path={`${props.match.path}/trades`} exact component={Trades} />
                 </Switch>
       </main>
 
@@ -236,9 +238,9 @@ export default function HomeAfterLogin(props) {
   );
 }
 else{
-  history.push('/login')
+
   return(
-    <LoginPage />
+    (<LoginPage />)
   )
 }
 
