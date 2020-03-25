@@ -35,7 +35,8 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import FolderIcon from '@material-ui/icons/Folder';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import NewIcon from '@material-ui/icons/FiberNew';
+import SwapIcon from '@material-ui/icons/SwapHoriz';
 
 import TradeList from './TradeList';
 
@@ -168,8 +169,8 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
               </Breadcrumbs>
               <BottomNavigation value={value} onChange={handleChangeBottomNav} className={classes.botNav}>
                 <BottomNavigationAction label="Trades" value="interface" icon={<FavoriteIcon />}/>
-                <BottomNavigationAction label="Trades List" value="listTrade" icon={<LocationOnIcon />} />
-               
+                <BottomNavigationAction label="Your Trades" value="listTrade" icon={<SwapIcon />} />
+                <BottomNavigationAction label="All Current Trades" value="" icon={<NewIcon />} />
               </BottomNavigation>
 
               <div className={classes.root} style={{marginTop:"5%"}} hidden={value==="interface"?false:true}>
