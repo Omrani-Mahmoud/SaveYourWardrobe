@@ -15,7 +15,15 @@ import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import CardInsideList from './CardInsideList';
-import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import Help from '@material-ui/icons/Help';
+
+import Receive from "@material-ui/icons/CallReceived";
+import Out from "@material-ui/icons/CallMade";
+
+
+import axios from "axios";
+import Swal from 'sweetalert2'
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 const useStyles = makeStyles(theme => ({
     root: {
       width: '100%',
@@ -107,14 +115,56 @@ function SingleTrade(props) {
     setAnchorEl(event.currentTarget);
   };
 
+
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
+
+
+  
+
+
   const open = Boolean(anchorEl);
+  const [isEit, setIsEdit] = React.useState(false);
+  const [deletedList, setDeletedList] = React.useState([]);
+  const [disableIt, setdisableIt] = React.useState(false);
   const classes = useStyles();
 
 
+  const handleDelete = (itemId) =>{
+    deletedList.push(itemId)
+}
 
+  const deleteTrade = (idTrade)=>{
+    axios.delete(`http://localhost:4000/trade/${idTrade}`)
+    .then(res=>{
+        console.log(res)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+
+}
+  const fireAlert =() =>{
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        deleteTrade(props.data._id)
+        Swal.fire(
+          'Deleted!',
+          'Your trade has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
   
     return (
         <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -126,15 +176,30 @@ function SingleTrade(props) {
                         <Badge  badgeContent={props.data.items.length} color="primary" style={{marginLeft:"10%"}}>
                             <SaveAltIcon />
                         </Badge>
-                        <LocalShippingIcon style={{marginLeft:"20%", color:"red"}} />
-                        <Typography >{`: ${props.data.status}`}</Typography>
+                        
+                        <Help style={{marginLeft:"10%", color:"red"}} />
+                        <Typography>{`Status: ${props.data.status}`}</Typography>
+                        <Out style={{marginLeft:"10%"}} />
+                        <Typography>
+                        {
+                          props.data.TradeFrom.map(elem =>
+                            <div className={clsx(classes.column)} key={elem._id}>
+                                        <Chip variant="outlined" color="primary" size="small"  label={elem.email} style={{marginLeft:"5%"}}/>
+                              </div>
+                            )
+                        }
+
+                        </Typography>
+
+
+
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
                             {
                                 props.data.items.map(elem =>
                                     <React.Fragment>
                                     <div className={clsx(classes.column)} key={elem._id} onClick={handlePopoverOpen} >
-                                        <Chip variant="outlined" color="primary" size="small"  label={elem.name} style={{marginLeft:"5%"}}/>
+                                        <Chip variant="outlined" color="primary" size="small"  label={elem.name} style={{marginLeft:"5%"}} disabled={disableIt} onDelete={isEit?()=>{handleDelete(elem._id);setdisableIt(true)}:null} />
                                     </div>
                                         <Popover
                                             id="mouse-over-popover"
@@ -161,9 +226,15 @@ function SingleTrade(props) {
                                 )
                             }
                         </ExpansionPanelDetails>
+                            
+                        
+                          
+
                         <ExpansionPanelActions>
-                                <Button size="small" color="primary" onClick={()=>console.log(props.data)}>Remove this trade</Button>
-                                <Button size="small" color="primary" onClick={()=>console.log(props.data)}>Edit this trade</Button>
+                        <div hidden={isEit || props.data.shiped}>
+
+                                <Button size="small" color="primary" onClick={()=>fireAlert()}>Remove this trade</Button>
+                            </div>
                         </ExpansionPanelActions>
                 </ExpansionPanel>
     )
