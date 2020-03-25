@@ -128,6 +128,7 @@ function SingleTrade(props) {
                         </Badge>
                         <LocalShippingIcon style={{marginLeft:"20%", color:"red"}} />
                         <Typography >{`: ${props.data.status}`}</Typography>
+                        
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
                             {
