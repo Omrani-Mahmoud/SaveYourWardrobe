@@ -12,28 +12,22 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import img from "../../Assets/images/stan.jpg"
 import Steps from './Steps';
-import logo from '../../Assets/images/logoBlack.png'
 import donation from '../../Assets/images/donate1.png'
-import ff from '../../Assets/images/stan.jpg'
 import alertBG from '../../Assets/images/alertBG.png'
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/NotInterested';
-import fff from "../../Assets/images/donationFooter.png";
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
-import WhatshotIcon from '@material-ui/icons/Whatshot';
 import GrainIcon from '@material-ui/icons/Grain';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Swal from 'sweetalert2'
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import FolderIcon from '@material-ui/icons/Folder';
-import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DonationList from './DonationList';
-
+import ListIcon from '@material-ui/icons/FormatListBulleted';
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -92,6 +86,7 @@ function Donations() {
     const [items,setItems] = useState([])
     const [value, setValue] = React.useState('interface');
     const [disableItems,setDisableItems] = useState(false);
+    const [reload,setReload] = useState(false);
     const [donItems,setDonItems] = useState([]);
     const [hide,setHide] = useState({interface:false,donList:true});
     const classes = useStyles();
@@ -125,6 +120,7 @@ function Donations() {
   const handleChangeBottomNav = (event, newValue) => {
     console.log(newValue)
     setValue(newValue);
+    setReload(!reload)
 
 
   };
@@ -161,8 +157,8 @@ function Donations() {
               </Breadcrumbs>
               <BottomNavigation value={value} onChange={handleChangeBottomNav} className={classes.botNav}>
                 <BottomNavigationAction label="Donation Interface" value="interface" icon={<FavoriteIcon />}/>
-                <BottomNavigationAction label="Don List" value="listDon" icon={<LocationOnIcon />} />
-                <BottomNavigationAction label="Folder" value="cc" icon={<FolderIcon />} />
+                <BottomNavigationAction label="Don List" value="listDon" icon={<ListIcon />} />
+                
               </BottomNavigation>
         <div className={classes.root} style={{marginTop:"5%"}} hidden={value==="interface"?false:true}>
         
@@ -239,7 +235,7 @@ function Donations() {
         </div>
         <div hidden={value==="listDon"?false:true}>
  
-        <DonationList />
+        <DonationList  reload={reload}/>
 
         </div>
         </div>

@@ -4,7 +4,7 @@ import SingleDonation from './SingleDonation';
 
 
 
-export default function List() {
+export default function List(props) {
 
   const [donationList,setDonationList] = React.useState([]);
 
@@ -19,7 +19,7 @@ export default function List() {
 
 React.useEffect(() => {
     fetchIt()
-},[])
+},[props.reload])
 
   return (
     <div>

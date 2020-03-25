@@ -16,6 +16,10 @@ import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import CardInsideList from './CardInsideList';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import axios from "axios";
+import Swal from 'sweetalert2'
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+
 const useStyles = makeStyles(theme => ({
     root: {
       width: '100%',
@@ -97,6 +101,10 @@ const ExpansionPanel = withStyles({
 function SingleDonation(props) {
     const [expanded, setExpanded] = React.useState('');
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [isEit, setIsEdit] = React.useState(false);
+    const [deletedList, setDeletedList] = React.useState([]);
+    const [disableIt, setdisableIt] = React.useState(false);
+
 
   const handleChange = panel => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -109,6 +117,69 @@ function SingleDonation(props) {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
+
+  const handleDelete = (itemId) =>{
+      deletedList.push(itemId)
+  }
+
+  const deleteIt = (idDonation)=>{
+      axios.post(`http://localhost:4000/donation/${idDonation}`,deletedList)
+      .then(res=>{
+          console.log(res)
+      })
+      .catch(err=>{
+          console.log(err)
+      })
+  
+  }
+  const deleteDonation = (idDonation)=>{
+    axios.delete(`http://localhost:4000/donation/${idDonation}`)
+    .then(res=>{
+        console.log(res)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+
+}
+
+
+const fireAlert =() =>{
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      deleteDonation(props.data._id)
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    }
+  })
+}
+
+const showIt = ()=>{
+  Swal.fire({
+    text: 'This donation is already shiped to the Association , you cant update it or edit it',
+    width: 600,
+    icon: 'info',
+    padding: '3em',
+    backdrop: `
+      rgba(0,0,0,0.4)
+     
+    `
+   
+
+  })
+}
+
   const open = Boolean(anchorEl);
   const classes = useStyles();
 
@@ -122,20 +193,22 @@ function SingleDonation(props) {
                         <Typography >{`: ${props.data.charity_name?props.data.charity_name:"no name"}`}</Typography>
                         <EventNoteIcon style={{marginLeft:"10%"}} />
                         <Typography>{`: ${props.data.dateDonation?new Date(props.data.dateDonation).toDateString():"no date"}`}</Typography>
-                        <Badge  badgeContent={props.data.items.length} color="primary" style={{marginLeft:"10%"}}>
+                        <Badge  badgeContent={props.data && props.data.items && props.data.items.length!==0?props.data.items.length:0} color={props.data.items.length!==0?"primary":"secondary"} style={{marginLeft:"10%"}} showZero>
                             <SaveAltIcon />
                         </Badge>
-                        <LocalShippingIcon style={{marginLeft:"20%", color:"red"}} />
-                        <Typography>Shiped or Not Shiped</Typography>
+                        <LocalShippingIcon style={{marginLeft:"20%"}} color={props.data.shiped?"primary":"error"}/>
+                       
+                        <Typography>{props.data.shiped?" Shiped":" Pending"}</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
                             {
                                 props.data.items.map(elem =>
                                     <React.Fragment>
                                     <div className={clsx(classes.column)} key={elem._id} onClick={handlePopoverOpen} >
-                                        <Chip variant="outlined" color="primary" size="small"  label={elem.name} style={{marginLeft:"5%"}}/>
+                                        <Chip variant="outlined" color="primary" size="small"  label={elem.name} style={{marginLeft:"5%"}} disabled={disableIt} onDelete={isEit?()=>{handleDelete(elem._id);setdisableIt(true)}:null} />
                                     </div>
                                         <Popover
+                                          
                                             id="mouse-over-popover"
                                             className={classes.popover}
                                             classes={{
@@ -156,14 +229,25 @@ function SingleDonation(props) {
                                         >
                                             <CardInsideList data={elem} />
                                     </Popover>
+                                    
                                   </React.Fragment>
                                 )
                             }
                         </ExpansionPanelDetails>
                         <ExpansionPanelActions>
-                                <Button size="small" color="primary" onClick={()=>console.log(props.data)}>Remove this don</Button>
-                                <Button size="small" color="primary" onClick={()=>console.log(props.data)}>Edit this don</Button>
+                          <div hidden={isEit || props.data.shiped}>
+                                <Button style={{fontWeight:"bold"}}size="small" color="primary" onClick={()=>fireAlert()}>Remove this donation</Button>
+                                <Button style={{fontWeight:"bold"}} size="small" color="primary" onClick={()=>setIsEdit(true)}>Edit items</Button>
+                          </div>
+                          <div hidden={!isEit || props.data.shiped}>
+                                <Button style={{fontWeight:"bold"}} size="small" color="primary" onClick={()=>{setIsEdit(false);setdisableIt(false)}}>Cancel edit</Button>
+                                <Button style={{fontWeight:"bold"}} size="small" color="primary" onClick={()=>{deleteIt(props.data._id);setIsEdit(false)}}>Save it</Button>
+                          </div>
+                          <div hidden={props.data.shiped?false:true}>
+                          <HelpOutlineIcon onClick={showIt}  />
+                          </div>
                         </ExpansionPanelActions>
+                        
                 </ExpansionPanel>
     )
 }
