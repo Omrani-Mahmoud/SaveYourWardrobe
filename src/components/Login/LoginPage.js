@@ -7,7 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { makeStyles, createMuiTheme, ThemeProvider, rgbToHex} from '@material-ui/core/styles';
 import { Typography} from '@material-ui/core';
-import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom'
+import axios from "axios";
+import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom';
+import Swal from 'sweetalert2'
+
 const useStyles = makeStyles(({
   
 
@@ -28,9 +31,33 @@ function LoginPage(props) {
 
     const classes = useStyles();
     const theme = createMuiTheme();
-    const login = (info)=>{
-        window.localStorage.setItem("tokenWardrobe","mahtoken")
-        window.location.replace(window.location.pathname)
+    const [info,setInfo] = React.useState({email:"",password:""})
+
+    const login = ()=>{
+
+        axios.post("http://localhost:4000/login",info)
+            .then(res=>{
+                if(res.data && res.data.accessToken){
+                    window.localStorage.setItem("tokenWardrobe",res.data.accessToken)
+                    window.location.replace(window.location.pathname)
+                }
+                else {
+                    console.log(res)
+                Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                      })
+                    }
+            })
+            .catch(err=>{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                  })
+            })
+
        
     }
    
@@ -45,9 +72,9 @@ function LoginPage(props) {
                     <Typography variant="h3" className="signIn" > SIGN IN</Typography>
                 </ThemeProvider>
             <form noValidate autoComplete="on" >
-                <TextField classes={{root: classes.input}} id="standard-basic" label="Your email"/>
-                <TextField classes={{root: classes.input}} id="standard-basic" label="Your password" type="password"/>
-                <IconButton aria-label="delete" className="connectBtn" onClick={()=>login("ff")}>
+                <TextField classes={{root: classes.input}} id="standard-basic" label="Your email" onChange={(e)=>info.email=e.target.value}/>
+                <TextField classes={{root: classes.input}} id="standard-basic" label="Your password" type="password" onChange={(e)=>info.password=e.target.value}/>
+                <IconButton aria-label="delete" className="connectBtn" onClick={()=>login()}>
                     <ArrowForwardIcon fontSize="large" />
                 </IconButton>
             </form>

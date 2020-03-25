@@ -229,7 +229,7 @@ export default function Steps(props) {
   };
 
   const createDonation =()=>{
-    var donObject = {dateDonation:new Date(),items:props.data,charity:charity}
+    var donObject = {dateDonation:new Date(),items:props.data,charity:charity,userId:window.localStorage.getItem("connectedUserID")}
     axios.post("http://localhost:4000/donation",donObject)
         .then(res=>{
             console.log(res)

@@ -31,6 +31,8 @@ import SpeedDialC from './components/SpeedDial';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import Trades from './components/Trades/Trades';
 import MainPage from './components/InsideHome/MainPage';
+import axios from "axios";
+
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -110,19 +112,27 @@ export default function HomeAfterLogin(props) {
   };
 
   React.useEffect(() => {
-    if(window.localStorage.getItem("tokenWardrobe")==="mahtoken"){
-      setVerif(true);
-      setUser(window.localStorage.getItem("tokenWardrobe"));
-      console.log("inside")
-      console.log(user)
-    }
-    else
-    setVerif(false)
+    axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+    .then(res=>{
+      console.log(res)
+        if(res){
+            window.localStorage.setItem("connectedUserID",res.data.user.user._id)
+            setVerif(true);
+            setUser(res.data.user.user);
+        }
+        else {
+          window.localStorage.removeItem("connectedUser");
+          window.localStorage.removeItem("tokenWardrobe");
+          window.location.replace(window.location.pathname)
+          setVerif(false)
+
+            }
+    })
+    .catch(err=>{
+        console.log(err)
+    })
   }, [])
 
-
-  console.log(user)
-  console.log(verif)
   if (user && window.localStorage.getItem("tokenWardrobe")){
   //var user = jwt.decode(window.localStorage.getItem("token"));
   
@@ -224,7 +234,7 @@ export default function HomeAfterLogin(props) {
       </Drawer>
       
       <main className={classes.content}>
-        <h1>{user}</h1>
+        <h1>{user.email}</h1>
         <div className={classes.toolbar} />
  
                 <Switch>
