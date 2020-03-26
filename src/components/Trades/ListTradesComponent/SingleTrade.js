@@ -129,6 +129,8 @@ function SingleTrade(props) {
   const [deletedList, setDeletedList] = React.useState([]);
   const [disableIt, setdisableIt] = React.useState(false);
   const classes = useStyles();
+  
+
 
 
   const handleDelete = (itemId) =>{
@@ -180,7 +182,7 @@ function SingleTrade(props) {
                         <Help style={{marginLeft:"10%", color:"red"}} />
                         <Typography>{`Status: ${props.data.status}`}</Typography>
                         <Out style={{marginLeft:"10%"}} />
-                        <Typography>
+                        
                         {
                           props.data.TradeFrom.map(elem =>
                             <div className={clsx(classes.column)} key={elem._id}>
@@ -189,11 +191,13 @@ function SingleTrade(props) {
                             )
                         }
 
-                        </Typography>
+                       
 
 
 
                         </ExpansionPanelSummary>
+
+                       
                         <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
                             {
                                 props.data.items.map(elem =>
@@ -234,6 +238,7 @@ function SingleTrade(props) {
                         <div hidden={isEit || props.data.shiped}>
 
                                 <Button size="small" color="primary" onClick={()=>fireAlert()}>Remove this trade</Button>
+                                <Button size="small" color="primary" >Accept Trade</Button>
                             </div>
                         </ExpansionPanelActions>
                 </ExpansionPanel>
