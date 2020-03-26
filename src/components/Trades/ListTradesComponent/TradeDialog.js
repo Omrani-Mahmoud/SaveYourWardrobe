@@ -13,6 +13,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 import axios from 'axios'
+import PropTypes from 'prop-types';
+
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles({
@@ -24,21 +26,22 @@ const useStyles = makeStyles({
 
 export default function TradeDialog(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, opens } = props;
+  const { onClose, selectedValue, open } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
   const handleListItemClick = value => {
-    onClose(value);
+   // onClose(value);
   };
 
+  console.log("hahahahah");
   return (
-    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" opens={opens}>
+    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
       <List>
-        {emails.map(email => (
+        {props.data.map(email => (
           <ListItem button onClick={() => handleListItemClick(email)} key={email}>
             <ListItemAvatar>
               <Avatar className={classes.avatar}>
@@ -54,5 +57,4 @@ export default function TradeDialog(props) {
     </Dialog>
   );
 }
-
 

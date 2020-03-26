@@ -210,7 +210,7 @@ export default function Steps(props) {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
     if(activeStep===2){
       console.log("items : ", props.data)
-      createDonation()
+      createTrade()
       setOpen(true)
     }
 
@@ -238,13 +238,15 @@ export default function Steps(props) {
     setOpen(false);
   };
 
-  const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateTrade:""})
+  const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateTrade:"",userId:window.localStorage.getItem("connectedUserID")})
+console.log("iddddddd"+props.userId);
 
-
-  const createDonation =()=>{
+  const createTrade =()=>{
    // var newTrade = {datePost:new Date(),dateTrade:new Date(),items:props.data,status:status,location:location}
   
    newTrade.datePost=new Date();
+   newTrade.TradeFrom=props.userId;
+   
    newTrade.items=props.data;
     axios.post("http://localhost:4000/trade",newTrade)
         .then(res=>{
@@ -274,7 +276,7 @@ export default function Steps(props) {
         {activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
+              All steps completed - you are finished
             </Typography>
             <Button onClick={handleReset} className={classes.button}>
               Reset
