@@ -25,6 +25,8 @@ import axios from "axios";
 import Swal from 'sweetalert2'
 
 import TradeDialog from './TradeDialog';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -136,6 +138,9 @@ function SingleTrade(props) {
   
   const [selectedValue, setSelectedValue] = React.useState(false);
 
+
+  const [itemTrade, setItemTrade] = React.useState([]);
+
  
   const handleClose = value => {
     setTradeState(false);
@@ -157,6 +162,24 @@ function SingleTrade(props) {
     })
 
 }
+
+
+
+const UserWardrobeItems=() =>{
+    
+    axios.get(`http://localhost:4000/user/${window.localStorage.getItem("connectedUserID")}`)
+    .then(res=>{
+        console.log(res)
+        setItemTrade(res);
+        
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+
+}
+
+
   const fireAlert =() =>{
     Swal.fire({
       title: 'Are you sure?',
@@ -177,7 +200,23 @@ function SingleTrade(props) {
       }
     })
   }
+
+  const showIt = ()=>{
+    Swal.fire({
+      text: 'This trade is confirmed',
+      width: 600,
+      icon: 'info',
+      padding: '3em',
+      backdrop: `
+        rgba(0,0,0,0.4)
+       
+      `
+     
   
+    })
+  }
+
+
     return (
         <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <ExpansionPanelSummary  aria-controls="panel1d-content" id="panel1d-header">
@@ -188,8 +227,7 @@ function SingleTrade(props) {
                         <Badge  badgeContent={props.data.items.length} color="primary" style={{marginLeft:"10%"}}>
                             <SaveAltIcon />
                         </Badge>
-                        
-                        <Help style={{marginLeft:"10%", color:"red"}} />
+                        <Help style={{marginLeft:"10%", color:"red"  }} />
                         <Typography>{`Status: ${props.data.status}`}</Typography>
                         <Out style={{marginLeft:"10%"}} />
                         
@@ -207,7 +245,7 @@ function SingleTrade(props) {
 
                         </ExpansionPanelSummary>
 
-                        <TradeDialog  selectedValue={selectedValue} onClose={handleClose} open={TradeState} data={["vans","adibas"]} />
+                        <TradeDialog  selectedValue={selectedValue} onClose={handleClose} open={TradeState} data={itemTrade} trade={props.data} />
                         <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
                             {
                                 props.data.items.map(elem =>
@@ -245,11 +283,15 @@ function SingleTrade(props) {
                           
 
                         <ExpansionPanelActions>
-                        <div hidden={isEit || props.data.shiped}>
+                        <div hidden={props.data.status==="Confirmed"}>
 
                                 <Button size="small" color="primary" onClick={()=>fireAlert()}>Remove this trade</Button>
-                                <Button size="small" color="primary" onClick={()=>setTradeState(true)}>Accept Trade</Button>
-                            </div>
+                                <Button size="small" color="primary" onClick={()=>{setTradeState(true);UserWardrobeItems()}}>Accept Trade</Button>
+                        </div>
+
+                            <div hidden={props.data.status==="pending"}>
+                          <HelpOutlineIcon onClick={showIt}  />
+                          </div>
                         </ExpansionPanelActions>
                 </ExpansionPanel>
     )
