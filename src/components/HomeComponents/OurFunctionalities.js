@@ -4,6 +4,8 @@ import donationImage from "../../Assets/images/donation.jpg"
 import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
 import NavigateBeforeRoundedIcon from '@material-ui/icons/NavigateBeforeRounded';
 import Anime, {anime} from 'react-anime';
+import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom';
+
 
 
 function OurFunctionalities(props) {
@@ -43,9 +45,9 @@ function OurFunctionalities(props) {
                             
                             <div className='btnInsideDesc' style={{ backgroundColor:props.btnColor}}>
                             {props.position==='left'?
-                            <NavigateNextRoundedIcon fontSize="large" />
+                            <Link to="/home"><NavigateNextRoundedIcon fontSize="large" /></Link>
                             :
-                            <NavigateBeforeRoundedIcon fontSize="large" />}
+                            <Link><NavigateBeforeRoundedIcon fontSize="large" /></Link>}
 
                             </div>
                            

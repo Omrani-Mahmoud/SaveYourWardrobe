@@ -134,7 +134,7 @@ export default function HomeAfterLogin(props) {
   }, [])
 
   if (user && window.localStorage.getItem("tokenWardrobe")){
-  //var user = jwt.decode(window.localStorage.getItem("token"));
+  
   
   return (
     

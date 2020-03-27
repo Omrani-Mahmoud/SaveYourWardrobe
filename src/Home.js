@@ -21,6 +21,7 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import Pulse from 'react-reveal/Pulse';
+import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles(({
   
@@ -93,7 +94,7 @@ function Home (){
                 </div>
                 <div className="info">
                 <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
-                        <Button className="navBtn">Home</Button>
+                        <Link to="/home"><Button className="navBtn">Home</Button></Link>
                     </Tooltip>
                     <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
                         <Button className="navBtn">Our story</Button>

@@ -34,11 +34,13 @@ function LoginPage(props) {
     const [info,setInfo] = React.useState({email:"",password:""})
 
     const login = ()=>{
-
+        console.log("clicked")
         axios.post("http://localhost:4000/login",info)
             .then(res=>{
                 if(res.data && res.data.accessToken){
                     window.localStorage.setItem("tokenWardrobe",res.data.accessToken)
+                    window.location.pathname==='/login'?
+                    window.location.replace('/home'):
                     window.location.replace(window.location.pathname)
                 }
                 else {
@@ -80,9 +82,9 @@ function LoginPage(props) {
             </form>
             
             <div className="loginFoot">
-                <Typography variant="body2"  display="block" className="loginFooterInfo" gutterBottom>
+                <Link to='/signup'><Typography variant="body2"  display="block" className="loginFooterInfo" gutterBottom>
                     Create account
-                </Typography>
+                </Typography></Link>
                 <Typography variant="body2"  display="block" className="loginFooterInfo" gutterBottom>
                     Cant sign in?
                 </Typography>
