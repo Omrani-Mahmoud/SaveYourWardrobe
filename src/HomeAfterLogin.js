@@ -116,7 +116,9 @@ export default function HomeAfterLogin(props) {
     .then(res=>{
       console.log(res)
         if(res){
-            window.localStorage.setItem("connectedUserID",res.data.user.user._id)
+            window.localStorage.setItem("connectedUserID",res.data.user.user._id);
+            //window.localStorage.setItem("connectedUserItems",res.data.user.user.items);
+            window.localStorage.setItem("connectedUserEmail",res.data.user.user.email);
             setVerif(true);
             setUser(res.data.user.user);
         }

@@ -39,7 +39,7 @@ import NewIcon from '@material-ui/icons/FiberNew';
 import SwapIcon from '@material-ui/icons/SwapHoriz';
 
 import TradeList from './TradeList';
-
+import AllTradesList from './AllTradesList';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -170,7 +170,7 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
               <BottomNavigation value={value} onChange={handleChangeBottomNav} className={classes.botNav}>
                 <BottomNavigationAction label="Trades" value="interface" icon={<FavoriteIcon />}/>
                 <BottomNavigationAction label="Your Trades" value="listTrade" icon={<SwapIcon />} />
-                <BottomNavigationAction label="All Current Trades" value="" icon={<NewIcon />} />
+                <BottomNavigationAction label="All Current Trades" value="AllTrades" icon={<NewIcon />} />
               </BottomNavigation>
 
               <div className={classes.root} style={{marginTop:"5%"}} hidden={value==="interface"?false:true}>
@@ -260,6 +260,12 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
         <div hidden={value==="listTrade"?false:true}>
           
           <TradeList />
+
+          </div>
+
+          <div hidden={value==="AllTrades"?false:true}>
+          
+          <AllTradesList />
 
           </div>
 

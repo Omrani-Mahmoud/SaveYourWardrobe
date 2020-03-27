@@ -128,6 +128,7 @@ function SingleTrade(props) {
 
   const open = Boolean(anchorEl);
   const [isEit, setIsEdit] = React.useState(false);
+  const [TradeState, setTradeState] = React.useState(false);
 
   const [deletedList, setDeletedList] = React.useState([]);
   const [disableIt, setdisableIt] = React.useState(false);
@@ -136,6 +137,11 @@ function SingleTrade(props) {
   const [selectedValue, setSelectedValue] = React.useState(false);
 
  
+  const handleClose = value => {
+    setTradeState(false);
+    setSelectedValue(value);
+  };
+
 
   const handleDelete = (itemId) =>{
     deletedList.push(itemId)
@@ -188,11 +194,11 @@ function SingleTrade(props) {
                         <Out style={{marginLeft:"10%"}} />
                         
                         {
-                         
+                         props.data.TradeFrom.map(elem =>
                             <div className={clsx(classes.column)}>
-                                        <Chip variant="outlined" color="primary" size="small"  label={window.localStorage.getItem("connectedUserEmail")} style={{marginLeft:"5%"}}/>
+                                        <Chip variant="outlined" color="primary" size="small"  label={elem.email} style={{marginLeft:"5%"}}/>
                               </div>
-                            
+                         )
                         }
 
                        
@@ -201,6 +207,7 @@ function SingleTrade(props) {
 
                         </ExpansionPanelSummary>
 
+                        <TradeDialog  selectedValue={selectedValue} onClose={handleClose} open={TradeState} data={["vans","adibas"]} />
                         <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
                             {
                                 props.data.items.map(elem =>
@@ -241,6 +248,7 @@ function SingleTrade(props) {
                         <div hidden={isEit || props.data.shiped}>
 
                                 <Button size="small" color="primary" onClick={()=>fireAlert()}>Remove this trade</Button>
+                                <Button size="small" color="primary" onClick={()=>setTradeState(true)}>Accept Trade</Button>
                             </div>
                         </ExpansionPanelActions>
                 </ExpansionPanel>

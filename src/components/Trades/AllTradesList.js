@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SingleTrade from './SingleTrade';
+import AllTrades from './ListTradesComponent/AllTrades';
 
 
 
@@ -9,7 +9,7 @@ export default function List() {
   const [tradeList,setTradeList] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/userTrade/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`http://localhost:4000/trade`);
     const data = await datatFromDataBase.json();
     console.log(""+data)
     setTradeList(data);
@@ -26,7 +26,7 @@ React.useEffect(() => {
         {
             tradeList.map(element =>(
 
-                <SingleTrade  data={element} key={element._id} />
+                <AllTrades  data={element} key={element._id} />
                 
             ))
         }
