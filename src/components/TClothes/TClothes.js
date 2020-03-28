@@ -69,21 +69,28 @@ export default function TClothes() {
 }
 React.useEffect(() => {
   fetchSubscribedStoreItems()
-})
+},[])
   
 console.log("fou9 return", subscribtionStoreItems)
   return (
     
     <div className="card-list">
-      <TClothesCard data={subscribtionStoreItems} key="1"></TClothesCard>
-      <TClothesCard key="2"></TClothesCard>
+      {subscribtionStoreItems.map(store =>(
+        <TClothesCard data={store} key="1"></TClothesCard>
+      ))}
+      
+      
+    </div>
+  );
+}
+
+
+/*
+<TClothesCard key="2"></TClothesCard>
       <TClothesCard key="3"></TClothesCard>
       <TClothesCard key="4"></TClothesCard>
       <TClothesCard key="5"></TClothesCard>
       <TClothesCard key="6"></TClothesCard>
       <TClothesCard key="7"></TClothesCard>
       <TClothesCard key="8"></TClothesCard>
-      <TClothesCard key="9"></TClothesCard>
-    </div>
-  );
-}
+      <TClothesCard key="9"></TClothesCard>*/
