@@ -367,7 +367,7 @@ console.log("iddddddd"+props.userId);
       
       <Snackbar open={open} autoHideDuration={2000} onClose={handleNotifClose}>
         <Alert  onClose={handleNotifClose} severity="success">
-          Thank you for your donation!
+          Trade added successfully!
         </Alert>
       </Snackbar>
     </div>
