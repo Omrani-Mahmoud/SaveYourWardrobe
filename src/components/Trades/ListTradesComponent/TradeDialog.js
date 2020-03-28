@@ -28,7 +28,6 @@ export default function TradeDialog(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open,trade } = props;
 
-
   const handleClose = () => {
     onClose(selectedValue);
   };
@@ -53,6 +52,29 @@ export default function TradeDialog(props) {
 }
 
 
+const fireAlert =(e) =>{
+  handleClose()
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You Accept this trade!",
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Confirm it!'
+  }).then((result) => {
+    if (result.value) {
+      UpdateTrade(e)
+      Swal.fire(
+        'Trade Done!',
+        'Your trade has been confirmed.',
+        'success'
+      )
+    }
+  })
+}
+
+
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
@@ -60,7 +82,7 @@ export default function TradeDialog(props) {
       <List>
         { props.data.data ? props.data.data.wardrobe.items.map(e => (
           
-          <ListItem button onClick={() => UpdateTrade(e)} key={e.name}>
+          <ListItem button onClick={() => fireAlert(e)} key={e._id}>
             <ListItemAvatar>
               <Avatar className={classes.avatar}>
                 <PersonIcon />

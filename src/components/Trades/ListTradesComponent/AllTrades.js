@@ -6,7 +6,7 @@ import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import LocationCityIcon from '@material-ui/icons/LocationCity';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import Clothes from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
@@ -225,7 +225,7 @@ const UserWardrobeItems=() =>{
                         <EventNoteIcon style={{marginLeft:"10%"}} />
                         <Typography>{`: ${props.data.datePost?new Date(props.data.datePost).toDateString():"no date"}`}</Typography>
                         <Badge  badgeContent={props.data.items.length} color="primary" style={{marginLeft:"10%"}}>
-                            <SaveAltIcon />
+                            <Clothes />
                         </Badge>
                         <Help style={{marginLeft:"10%", color:"red"  }} />
                         <Typography>{`Status: ${props.data.status}`}</Typography>
