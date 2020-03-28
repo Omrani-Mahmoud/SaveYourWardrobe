@@ -14,9 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 import axios from 'axios'
 import PropTypes from 'prop-types';
+import Swal from 'sweetalert2'
 
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
@@ -26,31 +26,50 @@ const useStyles = makeStyles({
 
 export default function TradeDialog(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, open } = props;
+  const { onClose, selectedValue, open,trade } = props;
+
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = value => {
-   // onClose(value);
-  };
 
-  console.log("hahahahah");
+
+  const UpdateTrade=(e) =>{
+    trade.TradeTo=window.localStorage.getItem("connectedUserID");
+    trade.status="Confirmed";
+    trade.items.push(e);
+    axios.patch(`http://localhost:4000/trade/${trade._id}`,trade)
+    .then(res=>{
+
+        console.log(res)
+        onClose(true);
+        
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+
+}
+
+
+
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
+      <DialogTitle id="simple-dialog-title">Choose item to trade with </DialogTitle>
       <List>
-        {props.data.map(email => (
-          <ListItem button onClick={() => handleListItemClick(email)} key={email}>
+        { props.data.data ? props.data.data.wardrobe.items.map(e => (
+          
+          <ListItem button onClick={() => UpdateTrade(e)} key={e.name}>
             <ListItemAvatar>
               <Avatar className={classes.avatar}>
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={email} />
+            <ListItemText primary={e.name} />
           </ListItem>
-        ))}
+        )):null
+      }
 
     
       </List>
