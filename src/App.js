@@ -7,6 +7,7 @@ import LoginPage from './components/Login/LoginPage';
 import AddNewItem from './components/Items/AddNewItem';
 import Donations from './components/Donations/Donations';
 import HomeAdmin from './AdminPanel/HomeAdmin';
+import HomeAssociation from './AssociationPanel/HomeAssociation';
 import SignUp from './components/SignUp/SignUp';
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
      <Route path="/login" exact component={LoginPage} />
      <Route path="/home" component={HomeAfterLogin} />
      <Route path="/admin" component={HomeAdmin} />
+     <Route path="/association" component={HomeAssociation} />
      <Route path="/signup" component={SignUp} />
    </Router>
   );

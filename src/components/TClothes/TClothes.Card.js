@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export default function TClothesCard(props) {
-  console.log("Debug props Data",props)
+  console.log("Debug props Data",props.data)
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -58,7 +58,9 @@ export default function TClothesCard(props) {
 
   return (
     
+
     <Card className={classes.root}>
+         <h1> {props.data.name}</h1>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
