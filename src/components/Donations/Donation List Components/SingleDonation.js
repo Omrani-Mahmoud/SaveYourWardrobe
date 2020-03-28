@@ -19,6 +19,7 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import axios from "axios";
 import Swal from 'sweetalert2'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import SingleItem from './SingleItem';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -103,7 +104,8 @@ function SingleDonation(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [isEit, setIsEdit] = React.useState(false);
     const [deletedList, setDeletedList] = React.useState([]);
-    const [disableIt, setdisableIt] = React.useState(false);
+
+    const [cancled, setCancled] = React.useState(false);
 
 
   const handleChange = panel => (event, newExpanded) => {
@@ -203,10 +205,9 @@ const showIt = ()=>{
                         <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
                             {
                                 props.data.items.map(elem =>
-                                    <React.Fragment>
+                                    <React.Fragment key={elem._id}>
                                     <div className={clsx(classes.column)} key={elem._id} onClick={handlePopoverOpen} >
-                                        <Chip variant="outlined" color="primary" size="small"  label={elem.name} style={{marginLeft:"5%"}} disabled={disableIt} onDelete={isEit?()=>{handleDelete(elem._id);setdisableIt(true)}:null} />
-                                    </div>
+                                        <SingleItem elem={elem} isEit={isEit} handleDelete={handleDelete} cancled={cancled} />
                                         <Popover
                                           
                                             id="mouse-over-popover"
@@ -229,7 +230,7 @@ const showIt = ()=>{
                                         >
                                             <CardInsideList data={elem} />
                                     </Popover>
-                                    
+                                    </div>
                                   </React.Fragment>
                                 )
                             }
@@ -237,11 +238,11 @@ const showIt = ()=>{
                         <ExpansionPanelActions>
                           <div hidden={isEit || props.data.shiped}>
                                 <Button style={{fontWeight:"bold"}}size="small" color="primary" onClick={()=>fireAlert()}>Remove this donation</Button>
-                                <Button style={{fontWeight:"bold"}} size="small" color="primary" onClick={()=>setIsEdit(true)}>Edit items</Button>
+                                <Button style={{fontWeight:"bold"}} size="small" color="primary" onClick={()=>{setIsEdit(true);setCancled(false)}}>Edit items</Button>
                           </div>
                           <div hidden={!isEit || props.data.shiped}>
-                                <Button style={{fontWeight:"bold"}} size="small" color="primary" onClick={()=>{setIsEdit(false);setdisableIt(false)}}>Cancel edit</Button>
-                                <Button style={{fontWeight:"bold"}} size="small" color="primary" onClick={()=>{deleteIt(props.data._id);setIsEdit(false)}}>Save it</Button>
+                                <Button style={{fontWeight:"bold"}} size="small" color="primary" onClick={()=>{setIsEdit(false);setCancled(true)}}>Cancel edit</Button>
+                                <Button style={{fontWeight:"bold"}} size="small" color="primary" onClick={()=>{deleteIt(props.data._id);setIsEdit(false);}}>Save it</Button>
                           </div>
                           <div hidden={props.data.shiped?false:true}>
                           <HelpOutlineIcon onClick={showIt}  />
