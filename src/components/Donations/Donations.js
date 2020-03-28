@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
         flex: '1 0 auto',
       },
       cover: {
-        width: "100%",
+        width: "100%"
       },
       controls: {
         display: 'flex',

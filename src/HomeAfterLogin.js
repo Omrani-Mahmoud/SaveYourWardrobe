@@ -30,6 +30,7 @@ import Zoom from '@material-ui/core/Zoom';
 import SpeedDialC from './components/SpeedDial';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import Trades from './components/Trades/Trades';
+import TClothes from './components/TClothes/TClothes';
 import MainPage from './components/InsideHome/MainPage';
 import axios from "axios";
 
@@ -217,6 +218,11 @@ export default function HomeAfterLogin(props) {
               <ListItemText primary={"Trades"} />
             </ListItem>
             </Link>
+            <Link to="/home/tclothes" ><ListItem button>
+              <ListItemIcon> <FavoriteBorderIcon /></ListItemIcon>
+              <ListItemText primary={"TClothes"} />
+            </ListItem>
+            </Link>
           
 
             <ListItem button >
@@ -243,6 +249,7 @@ export default function HomeAfterLogin(props) {
                     <Route path={`${props.match.path}/`} exact component={MainPage} />
                     <Route path={`${props.match.path}/donation`} exact component={Donations} />
                     <Route path={`${props.match.path}/trades`} exact component={Trades} />
+                    <Route path={`${props.match.path}/tclothes`} exact component={TClothes} />
                 </Switch>
       </main>
 
