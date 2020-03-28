@@ -20,20 +20,17 @@ import MailIcon from '@material-ui/icons/Mail';
 import EuroIcon from '@material-ui/icons/Euro';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AmpStoriesIcon from '@material-ui/icons/AmpStories';
-import logo from '../src/Assets/images/logoBlack.png';
-import LoginPage from './components/Login/LoginPage'
+import logo from '../../src/Assets/images/logoBlack.png';
+import LoginPage from '../components/Login/LoginPage'
 import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom'
-import Donations from './components/Donations/Donations';
+
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
-import SpeedDialC from './components/SpeedDial';
-import ContactSupportIcon from '@material-ui/icons/ContactSupport';
-import Trades from './components/Trades/Trades';
-import TClothes from './components/TClothes/TClothes';
-import MainPage from './components/InsideHome/MainPage';
+
 import axios from "axios";
-import HomeAdmin from "./AdminPanel/HomeAdmin";
+import BubbleChartIcon from '@material-ui/icons/BubbleChart';
+import AssociationMain from './InsideHome/AssociationMain';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -97,7 +94,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function HomeAfterLogin(props) {
+export default function HomeAssociation(props) {
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
@@ -112,14 +109,12 @@ export default function HomeAfterLogin(props) {
     setOpen(false);
   };
 
-  React.useEffect(async () => {
-   await axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+  React.useEffect(() => {
+    axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){
-            window.localStorage.setItem("connectedUserID",res.data.user.user._id);
-            //window.localStorage.setItem("connectedUserItems",res.data.user.user.items);
-            window.localStorage.setItem("connectedUserEmail",res.data.user.user.email);
+            window.localStorage.setItem("connectedUserID",res.data.user.user._id)
             setVerif(true);
             setUser(res.data.user.user);
         }
@@ -136,9 +131,8 @@ export default function HomeAfterLogin(props) {
     })
   }, [])
 
-
-  if (user && user.role==="user" && window.localStorage.getItem("tokenWardrobe")){
-  
+  if (user && user.role==="admin"  && window.localStorage.getItem("tokenWardrobe")){
+  //var user = jwt.decode(window.localStorage.getItem("token"));
   
   return (
     
@@ -164,21 +158,9 @@ export default function HomeAfterLogin(props) {
             <MenuIcon />
             
           </IconButton>
-         <Link to="/home" ><img src={logo} width="200px" /> </Link>
-            <div style={{marginLeft:"50%"}}>
-                <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
-                        <Button>Home</Button>
-                    </Tooltip>
-                    <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
-                        <Button >Our story</Button>
-                    </Tooltip>
-                    <Tooltip TransitionComponent={Zoom} title="FAQ description">
-                        <Button >FAQ</Button>
-                    </Tooltip>
-                    <Tooltip TransitionComponent={Zoom} title="our parnters">
-                        <Button >Partnership</Button>
-                    </Tooltip>
-            </div>
+         <Link to={`${props.match.path}/`}  ><img src={logo} width="200px" /> </Link>
+          <h2 style={{marginTop:"1.8%",marginLeft:"2%"}}>Admin Panel</h2>
+                
         </Toolbar>
       
       </AppBar>
@@ -202,34 +184,12 @@ export default function HomeAfterLogin(props) {
         </div>
         <Divider />
         <List>
-        <ListItem button>
-              <ListItemIcon><AmpStoriesIcon /></ListItemIcon>
-              <ListItemText primary={"Your wardrobe"} />
-            </ListItem>
+        <Link to={`${props.match.path}/`}  > <ListItem button>
+             <ListItemIcon><BubbleChartIcon /></ListItemIcon>
+              <ListItemText primary={"Associations"} />
+            </ListItem></Link>
 
-            <Link to="/home/donation" ><ListItem button>
-              <ListItemIcon> <FavoriteBorderIcon /></ListItemIcon>
-              <ListItemText primary={"Donation"} />
-            </ListItem>
-            </Link>
-
-            
-            <Link to="/home/trades" ><ListItem button>
-              <ListItemIcon> <EuroIcon /></ListItemIcon>
-              <ListItemText primary={"Trades"} />
-            </ListItem>
-            </Link>
-            <Link to="/home/tclothes" ><ListItem button>
-              <ListItemIcon> <FavoriteBorderIcon /></ListItemIcon>
-              <ListItemText primary={"TClothes"} />
-            </ListItem>
-            </Link>
-          
-
-            <ListItem button >
-              <ListItemIcon> <ContactSupportIcon /></ListItemIcon>
-              <ListItemText primary={"OutFit Suggetion"} />
-            </ListItem>
+           
         </List>
        {/* <Divider />
         <List>
@@ -243,14 +203,11 @@ export default function HomeAfterLogin(props) {
       </Drawer>
       
       <main className={classes.content}>
-        <h1>{user.email}</h1>
         <div className={classes.toolbar} />
  
                 <Switch>
-                    <Route path={`${props.match.path}/`} exact component={MainPage} />
-                    <Route path={`${props.match.path}/donation`} exact component={Donations} />
-                    <Route path={`${props.match.path}/trades`} exact component={Trades} />
-                    <Route path={`${props.match.path}/tclothes`} exact component={TClothes} />
+                    <Route path={`${props.match.path}/`} exact component={AssociationMain} />
+                   
                 </Switch>
       </main>
 
@@ -258,8 +215,7 @@ export default function HomeAfterLogin(props) {
   );
 }
 else{
-if(user && user.role==="admin" && window.localStorage.getItem("tokenWardrobe"))
-  return (<HomeAdmin />)
+
   return(
     (<LoginPage />)
   )

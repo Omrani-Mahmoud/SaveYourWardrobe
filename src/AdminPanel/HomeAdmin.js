@@ -131,7 +131,7 @@ export default function HomeAdmin(props) {
     })
   }, [])
 
-  if (user && window.localStorage.getItem("tokenWardrobe")){
+  if (user && user.role==="admin"  && window.localStorage.getItem("tokenWardrobe")){
   //var user = jwt.decode(window.localStorage.getItem("token"));
   
   return (
