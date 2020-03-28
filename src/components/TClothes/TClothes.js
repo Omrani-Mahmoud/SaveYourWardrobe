@@ -69,7 +69,7 @@ export default function TClothes() {
 }
 React.useEffect(() => {
   fetchSubscribedStoreItems()
-})
+},[])
   
 console.log("fou9 return", subscribtionStoreItems)
   return (
