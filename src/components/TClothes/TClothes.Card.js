@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export default function TClothesCard(props) {
-  console.log("Debug props Data",props.data)
+  console.log("Debug props Data",props.storeName)
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -57,10 +57,9 @@ export default function TClothesCard(props) {
   };
 
   return (
-    
-
+    <div>
     <Card className={classes.root}>
-         <h1> {props.data.name}</h1>
+        
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -72,8 +71,8 @@ export default function TClothesCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader=/*{props.data[0]}*/"10/01/2020"
+        title={props.item.name}
+        subheader={props.storeName}
       />
       
       <CardMedia
@@ -83,8 +82,7 @@ export default function TClothesCard(props) {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+        {props.item.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -136,6 +134,6 @@ export default function TClothesCard(props) {
         </CardContent>
       </Collapse>
     </Card>
-    
+    </div>
   );
 }
