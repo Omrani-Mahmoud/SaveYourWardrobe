@@ -19,7 +19,7 @@ import Help from '@material-ui/icons/Help';
 
 import Receive from "@material-ui/icons/CallReceived";
 import Out from "@material-ui/icons/CallMade";
-
+import In from "@material-ui/icons/TransitEnterexit";
 
 import axios from "axios";
 import Swal from 'sweetalert2'
@@ -229,7 +229,7 @@ const UserWardrobeItems=() =>{
                         </Badge>
                         <Help style={{marginLeft:"10%", color:"red"  }} />
                         <Typography>{`Status: ${props.data.status}`}</Typography>
-                        <Out style={{marginLeft:"10%"}} />
+                        <Out style={{marginLeft:"3%"}} />
                         
                         {
                          props.data.TradeFrom.map(elem =>
@@ -238,6 +238,16 @@ const UserWardrobeItems=() =>{
                               </div>
                          )
                         }
+                        <In style={{marginLeft:"3%"}} />
+                        {
+                           props.data.TradeTo.map(elem =>
+                            <div className={clsx(classes.column)} hidden={props.data.TradeTo.length ==0 }>
+                                        <Chip variant="outlined" color="primary" size="small"  label={elem.email} style={{marginLeft:"5%"}}/>
+                              </div>
+                         ) 
+                        }
+                       
+                       
 
                        
                          
