@@ -103,7 +103,7 @@ function Donations() {
   const fetchIt =async ()=>{
     const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
-    console.log("tatat ",data)
+    
     setItems(data.wardrobe.items)
 
 }
