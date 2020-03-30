@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -51,39 +51,44 @@ const useStyles = makeStyles(theme => ({
 export default function TClothes() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [subscribtionStoreItems,setSubscribtionStoreItems] = useState([]);
-
+  const [subscribtionStoreItems, setSubscribtionStoreItems] = useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const  fetchSubscribedStoreItems =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/subscribedStores`);
+  const fetchSubscribedStoreItems = async () => {
+    const datatFromDataBase = await fetch(
+      `http://localhost:4000/subscribedStores`
+    );
     const data = await datatFromDataBase.json();
     //console.log("Debug fetchSubscribedStoreItems", data[0].name)
-    setSubscribtionStoreItems(data)
-    console.log("Debug subscribtionStoreItems", subscribtionStoreItems)
+    setSubscribtionStoreItems(data);
+    console.log("Debug subscribtionStoreItems", subscribtionStoreItems);
     //console.log("subscribedStoreItems", subscribedStoreItems)
+  };
+  React.useEffect(() => {
+    fetchSubscribedStoreItems();
+  }, []);
 
-}
-React.useEffect(() => {
-  fetchSubscribedStoreItems()
-},[])
-  
-console.log("fou9 return", subscribtionStoreItems)
+  console.log("fou9 return", subscribtionStoreItems);
   return (
-    
     <div className="card-list">
-      {subscribtionStoreItems.map(store =>(
-        <TClothesCard data={store} key="1"></TClothesCard>
+      {subscribtionStoreItems.map((store) => (
+        store.items.map((item,j) => {
+          console.log(item);
+          let props = {
+            storeName: store.name,
+            item: item
+            }
+          return (
+            <TClothesCard key={j} {...props}></TClothesCard>
+          );
+        })
       ))}
-      
-      
     </div>
   );
 }
-
 
 /*
 <TClothesCard key="2"></TClothesCard>
@@ -94,3 +99,39 @@ console.log("fou9 return", subscribtionStoreItems)
       <TClothesCard key="7"></TClothesCard>
       <TClothesCard key="8"></TClothesCard>
       <TClothesCard key="9"></TClothesCard>*/
+/*
+return (
+    <div className="card-list">
+      {subscribtionStoreItems.map(store => {
+        store.items.map(item => {
+          console.log("Debug I",item)
+          console.log("Debug Store", store)
+          return (
+            <div key="1">
+              <h1>{store.name}</h1>
+              <TClothesCard data={store} item={item} key="1"></TClothesCard>
+            </div>
+          );
+        });
+        
+      })}
+    </div>
+  );
+*/
+
+/*
+return (
+    <div className="card-list">
+      {subscribtionStoreItems.map(store => {
+        return (
+          <div key="1">
+            <h1>{store.name}</h1>
+            <TClothesCard data={store} key="1"></TClothesCard>
+          </div>
+        );
+        
+      })}
+    </div>
+  );
+
+*/
