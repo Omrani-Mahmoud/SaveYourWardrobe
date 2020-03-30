@@ -228,11 +228,29 @@ export default function Steps(props) {
     setOpen(false);
   };
 
+  const sendEmail =(charityID)=>{
+    charityList.map(x =>{
+      if(x._id===charityID){
+        axios.post("http://localhost:4000/send-email",{email:x.email})
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+      }
+    })
+    
+  
+  }
+
+
   const createDonation =()=>{
     var donObject = {dateDonation:new Date(),items:props.data,charity:charity,userId:window.localStorage.getItem("connectedUserID")}
     axios.post("http://localhost:4000/donation",donObject)
         .then(res=>{
             console.log(res)
+            sendEmail(charity)
         })
         .catch(err=>{
             console.log(err)
@@ -242,10 +260,14 @@ export default function Steps(props) {
 
 
 
+
+
+
 const fetchIt =async ()=>{
   const datatFromDataBase = await fetch("http://localhost:4000/association");
   const data = await datatFromDataBase.json();
   setCharityList(data)
+  console.log("list of charity",data)
 }
 
 React.useEffect(() => {

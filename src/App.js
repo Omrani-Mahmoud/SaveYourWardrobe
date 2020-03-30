@@ -22,6 +22,8 @@ function App() {
      <Route path="/admin" component={HomeAdmin} />
      <Route path="/association" component={HomeAssociation} />
      <Route path="/signup" component={SignUp} />
+     
+
    </Router>
   );
 }

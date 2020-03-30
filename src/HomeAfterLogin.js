@@ -34,6 +34,7 @@ import TClothes from './components/TClothes/TClothes';
 import MainPage from './components/InsideHome/MainPage';
 import axios from "axios";
 import HomeAdmin from "./AdminPanel/HomeAdmin";
+import AddNewItem from './components/Items/AddNewItem';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -136,6 +137,8 @@ export default function HomeAfterLogin(props) {
     })
   }, [])
 
+
+  console.log("user :",user)
 
   if (user && user.role==="user" && window.localStorage.getItem("tokenWardrobe")){
   
@@ -251,6 +254,7 @@ export default function HomeAfterLogin(props) {
                     <Route path={`${props.match.path}/donation`} exact component={Donations} />
                     <Route path={`${props.match.path}/trades`} exact component={Trades} />
                     <Route path={`${props.match.path}/tclothes`} exact component={TClothes} />
+                    <Route path={`${props.match.path}/items`} exact component={AddNewItem} />
                 </Switch>
       </main>
 
