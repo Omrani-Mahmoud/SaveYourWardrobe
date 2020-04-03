@@ -13,8 +13,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Button from '@material-ui/core/Button';
-import Popover from '@material-ui/core/Popover';
-import CardInsideList from './CardInsideList';
+
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import axios from "axios";
 import Swal from 'sweetalert2'
@@ -101,7 +100,7 @@ const ExpansionPanel = withStyles({
 
 function SingleDonation(props) {
     const [expanded, setExpanded] = React.useState('');
-    const [anchorEl, setAnchorEl] = React.useState(null);
+  
     const [isEit, setIsEdit] = React.useState(false);
     const [deletedList, setDeletedList] = React.useState([]);
 
@@ -112,13 +111,7 @@ function SingleDonation(props) {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const handlePopoverOpen = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
+ 
 
   const handleDelete = (itemId) =>{
       deletedList.push(itemId)
@@ -182,7 +175,7 @@ const showIt = ()=>{
   })
 }
 
-  const open = Boolean(anchorEl);
+
   const classes = useStyles();
 
 
@@ -191,46 +184,35 @@ const showIt = ()=>{
     return (
         <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-                        <LocationCityIcon fontSize="small"/>
-                        <Typography >{`: ${props.data.charity_name?props.data.charity_name:"no name"}`}</Typography>
+                          <div style={{display:"flex",width:"100%"}}>
+                          <div  style={{display:"flex" , width:"25%"}}>
+                        <LocationCityIcon fontSize="small"  />
+                        <Typography>{`: ${props.data.charity_name?props.data.charity_name:"no name"}`}</Typography>
+                        </div>
+                        <div  style={{display:"flex", width:"25%"}} >
                         <EventNoteIcon style={{marginLeft:"10%"}} />
                         <Typography>{`: ${props.data.dateDonation?new Date(props.data.dateDonation).toDateString():"no date"}`}</Typography>
+                        </div>
+                        <div  style={{display:"flex", width:"25%"}}>
                         <Badge  badgeContent={props.data && props.data.items && props.data.items.length!==0?props.data.items.length:0} color={props.data.items.length!==0?"primary":"secondary"} style={{marginLeft:"10%"}} showZero>
-                            <SaveAltIcon />
+                            <SaveAltIcon style={{marginLeft:"10%"}} />
                         </Badge>
+                        </div>
+                        <div  style={{display:"flex", width:"25%"}}>
                         <LocalShippingIcon style={{marginLeft:"20%"}} color={props.data.shiped?"primary":"error"}/>
                        
                         <Typography>{props.data.shiped?" Shiped":" Pending"}</Typography>
+                        </div>
+                        </div>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
                             {
                                 props.data.items.map(elem =>
                                     <React.Fragment key={elem._id}>
-                                    <div className={clsx(classes.column)} key={elem._id} onClick={handlePopoverOpen} >
+                                   
                                         <SingleItem elem={elem} isEit={isEit} handleDelete={handleDelete} cancled={cancled} />
-                                        <Popover
-                                          
-                                            id="mouse-over-popover"
-                                            className={classes.popover}
-                                            classes={{
-                                            paper: classes.paper,
-                                            }}
-                                            open={open}
-                                            anchorEl={anchorEl}
-                                            anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'left',
-                                            }}
-                                            transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'left',
-                                            }}
-                                            onClose={handlePopoverClose}
-                                            
-                                        >
-                                            <CardInsideList data={elem} />
-                                    </Popover>
-                                    </div>
+                                       
+                                
                                   </React.Fragment>
                                 )
                             }

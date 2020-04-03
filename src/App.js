@@ -9,6 +9,7 @@ import Donations from './components/Donations/Donations';
 import HomeAdmin from './AdminPanel/HomeAdmin';
 import HomeAssociation from './AssociationPanel/HomeAssociation';
 import SignUp from './components/SignUp/SignUp';
+import EmailItemView from './Email items View/EmailItemView';
 function App() {
   
 
@@ -22,6 +23,8 @@ function App() {
      <Route path="/admin" component={HomeAdmin} />
      <Route path="/association" component={HomeAssociation} />
      <Route path="/signup" component={SignUp} />
+
+ 
      
 
    </Router>

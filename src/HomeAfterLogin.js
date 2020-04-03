@@ -35,6 +35,7 @@ import MainPage from './components/InsideHome/MainPage';
 import axios from "axios";
 import HomeAdmin from "./AdminPanel/HomeAdmin";
 import AddNewItem from './components/Items/AddNewItem';
+import EmailItemView from './Email items View/EmailItemView';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -255,6 +256,7 @@ export default function HomeAfterLogin(props) {
                     <Route path={`${props.match.path}/trades`} exact component={Trades} />
                     <Route path={`${props.match.path}/tclothes`} exact component={TClothes} />
                     <Route path={`${props.match.path}/items`} exact component={AddNewItem} />
+                    <Route path={`${props.match.path}/v`} exact component={EmailItemView} />
                 </Switch>
       </main>
 

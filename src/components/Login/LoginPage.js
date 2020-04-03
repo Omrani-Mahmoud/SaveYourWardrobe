@@ -39,9 +39,9 @@ function LoginPage(props) {
             .then(res=>{
                 if(res.data && res.data.accessToken){
                     window.localStorage.setItem("tokenWardrobe",res.data.accessToken)
-                    window.location.pathname==='/login'?
-                    window.location.replace('/home'):
-                    window.location.replace(window.location.pathname)
+                    //window.location.pathname==='/login'?
+                    window.location.replace('/home') //:
+                    //window.location.replace(window.location.pathname)
                 }
                 else {
                     console.log(res)
