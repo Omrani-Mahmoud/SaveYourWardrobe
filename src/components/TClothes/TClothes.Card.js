@@ -47,14 +47,35 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function TClothesCard(props) {
-  console.log("Debug props Data",props.storeName)
+export default function TClothesCard({data,onFavoriteClick}) {
+  
+  //console.log("Debug props Data",data.storeName)
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [itemRemoved, setItemRemoved] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  function handleFavoriteClick() {
+    console.log('handle favorite click')
+    onFavoriteClick({
+      isClicked: true,
+      action: 1,
+      item_id: data.item._id
+    })
+  }
+
+  function handleCloseClick() {
+    console.log('handle Close click')
+    onFavoriteClick({
+      isClicked: true,
+      action: -1,
+      item_id: data.item._id
+    })
+
+  }
 
   return (
     <div>
@@ -71,28 +92,28 @@ export default function TClothesCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.item.name}
-        subheader={props.storeName}
+        title={data.item.name}
+        subheader='something'
       />
       
       <CardMedia
         style={{height: 0, paddingTop: '56.25%',backgroundSize: 'contain'}}
         image={img}
-        title="SWEAT HOMME"
+        title={data.item.name}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-        {props.item.description}
+        {data.item.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" name={data.item._id} onClick= {handleCloseClick}>
           <CloseIcon style={{ color: 'grey' }} fontSize="large"/>
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon color="primary"  fontSize="large" />
         </IconButton>
-        <IconButton aria-label="share">
+        <IconButton aria-label="share" onClick = {handleFavoriteClick} >
           <FavoriteIcon color="secondary" fontSize="large"/>
         </IconButton>
         <IconButton
@@ -120,16 +141,6 @@ export default function TClothesCard(props) {
             and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
             pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
             saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-            without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-            medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-            again without stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don’t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
           </Typography>
         </CardContent>
       </Collapse>

@@ -24,6 +24,7 @@ import img from "../../Assets/images/sweat-homme.jpg";
 
 import TClothesCard from "./TClothes.Card";
 import "./TClothes.Card-List.styles.css";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,38 +52,49 @@ const useStyles = makeStyles(theme => ({
 export default function TClothes() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [subscribtionStoreItems, setSubscribtionStoreItems] = useState([]);
+  const [favorite, setFavorite] = React.useState(false);
+  const [reload,setReload] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const [subscribtionStoreItems, setSubscribtionStoreItems] = useState([]);
+  const [cardRemoved, setCardRemoved] = React.useState(false);
+
+
 
   const fetchSubscribedStoreItems = async () => {
     const datatFromDataBase = await fetch(
-      `http://localhost:4000/subscribedStores`
+      `http://localhost:4000/userStoreItemsToReact/`+window.localStorage.getItem("connectedUserID")
     );
     const data = await datatFromDataBase.json();
-    //console.log("Debug fetchSubscribedStoreItems", data[0].name)
     setSubscribtionStoreItems(data);
-    console.log("Debug subscribtionStoreItems", subscribtionStoreItems);
-    //console.log("subscribedStoreItems", subscribedStoreItems)
+    //console.log("Debug subscribtionStoreItems", subscribtionStoreItems);
   };
   React.useEffect(() => {
     fetchSubscribedStoreItems();
-  }, []);
+  }, [reload]);
+
+  async function handleChildClick(favorite) {
+    await axios.patch("http://localhost:4000/updateUserStoreItemsToReact/"+window.localStorage.getItem("connectedUserID")+"/"+favorite.action+"/"+favorite.item_id)
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+        setReload(!reload)
+      }
 
   console.log("fou9 return", subscribtionStoreItems);
   return (
     <div className="card-list">
-      {subscribtionStoreItems.map((store) => (
-        store.items.map((item,j) => {
+      {subscribtionStoreItems.map((store,i) => (
+        store.userStoreItemsReaction.items.map((item,j) => {
           console.log(item);
-          let props = {
-            storeName: store.name,
+          console.log(j);
+          let data = {
             item: item
             }
           return (
-            <TClothesCard key={j} {...props}></TClothesCard>
+            <TClothesCard key={j} data={data} onFavoriteClick={handleChildClick}></TClothesCard>
           );
         })
       ))}
@@ -90,48 +102,25 @@ export default function TClothes() {
   );
 }
 
-/*
-<TClothesCard key="2"></TClothesCard>
-      <TClothesCard key="3"></TClothesCard>
-      <TClothesCard key="4"></TClothesCard>
-      <TClothesCard key="5"></TClothesCard>
-      <TClothesCard key="6"></TClothesCard>
-      <TClothesCard key="7"></TClothesCard>
-      <TClothesCard key="8"></TClothesCard>
-      <TClothesCard key="9"></TClothesCard>*/
-/*
-return (
-    <div className="card-list">
-      {subscribtionStoreItems.map(store => {
-        store.items.map(item => {
-          console.log("Debug I",item)
-          console.log("Debug Store", store)
-          return (
-            <div key="1">
-              <h1>{store.name}</h1>
-              <TClothesCard data={store} item={item} key="1"></TClothesCard>
-            </div>
-          );
-        });
-        
-      })}
-    </div>
-  );
-*/
 
-/*
-return (
-    <div className="card-list">
-      {subscribtionStoreItems.map(store => {
-        return (
-          <div key="1">
-            <h1>{store.name}</h1>
-            <TClothesCard data={store} key="1"></TClothesCard>
-          </div>
-        );
-        
-      })}
-    </div>
-  );
-
-*/
+// return (
+//   <div className="card-list">
+//     {subscribtionStoreItems.map((store,i) => (
+//       store.items.map((item,j) => {
+//         console.log(item);
+//         console.log(j);
+//         let data = {
+//           storeName: store.name,
+//           item: item,
+//           position: {
+//             x: i,
+//             y: j
+//           }
+//           }
+//         return (
+//           <TClothesCard key={j} data={data} onFavoriteClick={handleChildClick}></TClothesCard>
+//         );
+//       })
+//     ))}
+//   </div>
+// );
