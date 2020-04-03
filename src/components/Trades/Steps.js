@@ -30,7 +30,6 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
-
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
@@ -215,6 +214,9 @@ export default function Steps(props) {
     }
 
   };
+
+  const locationList=['Ariana','Béja','Ben Arous','Bizerte','Gabès','Gafsa','Jendouba','Kairouan','Kasserine','Kebili',' Le Kef','Mahdia','Manouba','Medenin','Monastir','Nabeul','Sfax','Sidi Bouzid','Siliana','Sousse','Tataouine','Tozeur','Tunis','Zaghouen']; 
+
 
   const handleBack = () => {
     if(activeStep===1)
