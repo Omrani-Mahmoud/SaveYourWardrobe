@@ -42,18 +42,12 @@ export default function StickyHeadTable() {
 
 
 
-  const fetchIt =async ()=>{
-    const datatFromDataBase = await fetch("http://localhost:4000/item");
+   const fetchIt =async ()=>{
+    const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
-   
-  
-    setItems(data);
-
-   
-
-
-  
-  }
+    console.log(data)
+    setItems(data.wardrobe.items)
+}
 
  
   if (sessionStorage.getItem("test")){
