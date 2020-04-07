@@ -1,0 +1,48 @@
+
+.title{
+
+text-align: center;
+
+
+}
+
+.link{
+    text-decoration: none;
+    color: rgb(158, 90, 0);
+}
+
+.legen{
+    
+    text-align: left;
+    
+}
+
+.oldp{
+    text-align: right;
+    text-decoration: underline;
+  
+
+}
+
+.dateauj{
+    text-align: left;
+   
+}
+
+.MyError{
+    float: left;
+    font-size: small;
+    color: crimson;
+    font-family: 'Times New Roman', Times, serif;
+ 
+   
+}
+
+.head1{
+    display: flex;
+   
+}
+
+.older{
+    text-decoration: line-through;
+}
