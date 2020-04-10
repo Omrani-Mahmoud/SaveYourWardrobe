@@ -36,7 +36,12 @@ import axios from "axios";
 import HomeAdmin from "./AdminPanel/HomeAdmin";
 import AddNewItem from './components/Items/AddNewItem';
 import EmailItemView from './Email items View/EmailItemView';
+<<<<<<< HEAD
 import PerEmail from './Email items View/PerEmail';
+=======
+import Selling from './components/Selling/Selling'
+import ItemSell from './components/Selling/ItemSell'
+>>>>>>> 895ba1fa2fc8d921751367355de6b7fbfb933cf6
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -224,6 +229,15 @@ export default function HomeAfterLogin(props) {
               <ListItemText primary={"Trades"} />
             </ListItem>
             </Link>
+
+
+               <Link to="/home/selling" ><ListItem button>
+              <ListItemIcon> <EuroIcon  /></ListItemIcon>
+              <ListItemText primary={"Selling"} />
+            </ListItem>
+            </Link>
+
+
             <Link to="/home/tclothes" ><ListItem button>
               <ListItemIcon> <FavoriteBorderIcon /></ListItemIcon>
               <ListItemText primary={"TClothes"} />
@@ -260,6 +274,9 @@ export default function HomeAfterLogin(props) {
                     <Route path={`${props.match.path}/viewEmailItems`} exact component={EmailItemView} />
                     <Route path={`${props.match.path}/perEmails`} exact component={PerEmail} />
                     
+                    <Route path={`${props.match.path}/v`} exact component={EmailItemView} />
+                    <Route path={`/home/selling`} exact component={Selling} />
+                    <Route path="/home/selling/itemSell/:itemId" exact  component={ItemSell}    />
                 </Switch>
       </main>
 
