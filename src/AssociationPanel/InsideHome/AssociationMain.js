@@ -100,16 +100,19 @@ export default function AssociationMain() {
   const [donList, setDonList] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`$http://localhost:4000/associationDon/${window.localStorage.getItem('connectedUserID')}`);
-    const data = await datatFromDataBase.json();
-    console.log("don list asso ",data)
-    setDonList(data.donations);
+    console.log("don list asso ")
+    const datatFromDataBase = await fetch(`http://localhost:4000/associationDon/${window.localStorage.getItem('connectedUserID')}`);
+    console.log("don list asso ",datatFromDataBase)
+    //const data = await datatFromDataBase.json();
+    //console.log("don list asso ",data)
+    //setDonList(data.donations);
 
 }
 React.useEffect(() => {
+  console.log("aa")
   fetchIt()
 
-},[])
+})
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 

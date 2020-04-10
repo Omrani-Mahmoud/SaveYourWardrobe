@@ -6,6 +6,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import SingleDonation from './SingleDonation';
 function AssociationList(props) {
   const [loading,setLoading] = React.useState(true);
+
+  console.log(props)
   return (
     <div>
 
