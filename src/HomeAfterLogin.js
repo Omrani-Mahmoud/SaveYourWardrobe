@@ -38,6 +38,7 @@ import AddNewItem from './components/Items/AddNewItem';
 import EmailItemView from './Email items View/EmailItemView';
 import Selling from './components/Selling/Selling'
 import ItemSell from './components/Selling/ItemSell'
+import PerEmail from './Email items View/PerEmail';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {

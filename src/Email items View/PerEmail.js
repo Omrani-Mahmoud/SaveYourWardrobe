@@ -60,7 +60,7 @@ function PerEmail() {
       {name:"First-email", value:2},
       {name:"Second-email", value:3},
       {name:"Third-email", value:4},
-      {name:"Forth-email", value:5}
+      {name:"Forth-email", value:6}
     ];
 
     const fetchIt = (idDonation)=>{
@@ -82,7 +82,7 @@ function PerEmail() {
 
   console.log("json :",data)
     return (
-        <Grid container >
+        <Grid container spacing={3} >
         <Container maxWidth="lg">
                    <FormControl style={{width:'220px', marginBottom:"1%"}} >
         <InputLabel htmlFor="grouped-native-select" >Choose an Email :</InputLabel>
@@ -126,7 +126,7 @@ function PerEmail() {
         </Container>
         <Grid item xs={6} style={{marginTop:"2%"}}>
           <Paper className={classes.paper}>
-            <Container maxWidth="sm" style={{ backgroundColor: '#cfe8fc'}} >
+            <Container maxWidth="sm" >
               <div hidden={beforeloading}>
               {
                    !showBtn?<h2>Nothing is displayed</h2>:
@@ -144,12 +144,12 @@ function PerEmail() {
                   <CircularProgress color="inherit" />
                   </div>
             </Container>
-            <div style={{display:"flex", flexDirection:"column" , justifyContent:"flex-start", alignContent:"flex-start"}} hidden={loading}>
+            <div style={{display:"flex", flexDirection:"column" ,backgroundColor: '#f9f9f9', justifyContent:"flex-start", alignContent:"flex-start"}} hidden={loading}>
             <h2 hidden={ data.length>0?false:true}>Purchased Items</h2>
                     
             {            
                          data.map((elem,index)=>(
-                         <Paper style={{marginBottom:"1%"}}>
+                         <Paper style={{marginBottom:"2%"}}>
                            <h4>Item {index+1} </h4>
                             <h5 style={{color:"grey"}}><b>Category</b> : {elem.Category} </h5>
                               <h5 style={{color:"grey"}}><b>Item Name </b>: {elem.Name} </h5>
@@ -163,10 +163,13 @@ function PerEmail() {
         </Grid>
         <Grid item xs={6} style={{marginTop:"2%"}}>
           <Paper className={classes.paper}>
-            <Container maxWidth="sm" style={{ backgroundColor: '#cfe8fc'}}>
+            <Container maxWidth="sm" style={{ backgroundColor: '#fffaee'}}>
               <div hidden={loading} style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                    <h3>JSON OUTPUT </h3><DeveloperModeIcon />
               </div>
+              <div hidden={!loading}>
+                  <CircularProgress color="inherit" />
+                  </div>
               <div hidden={loadingJson} style={{display:"flex", justifyContent:"flex-start", alignItems:"flex-start",flexDirection:"column"}}>
                       <span style={{fontWeight:"bolder",color:"black"}}hidden={loadingJson}>{' { ['}</span>
                       {            
