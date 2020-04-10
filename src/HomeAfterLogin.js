@@ -36,12 +36,8 @@ import axios from "axios";
 import HomeAdmin from "./AdminPanel/HomeAdmin";
 import AddNewItem from './components/Items/AddNewItem';
 import EmailItemView from './Email items View/EmailItemView';
-<<<<<<< HEAD
-import PerEmail from './Email items View/PerEmail';
-=======
 import Selling from './components/Selling/Selling'
 import ItemSell from './components/Selling/ItemSell'
->>>>>>> 895ba1fa2fc8d921751367355de6b7fbfb933cf6
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
