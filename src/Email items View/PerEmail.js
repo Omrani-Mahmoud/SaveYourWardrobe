@@ -32,6 +32,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import axios from'axios';
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -55,6 +56,10 @@ function PerEmail() {
     const [loading, setLoading] = React.useState(false)
     const [beforeloading, setBeforeLoading] = React.useState(false);
     const [loadingJson, setLoadingJson] = React.useState(true);
+    const [selectedFile, setSelectedFile] = React.useState({selectedFile:null});
+    const [openUpload, setOpenUpload] = React.useState(false);
+
+
 
     const charityList = [
       {name:"First-email", value:2},
@@ -79,10 +84,26 @@ function PerEmail() {
   
   }
 
+  const onChangeHandler=event=>{
 
-  console.log("json :",data)
+    setSelectedFile({selectedFile:event.target.files[0]})
+
+}
+
+const onClickHandler = () => {
+  const data = new FormData() 
+  data.append('file', selectedFile.selectedFile)
+  axios.post("http://localhost:4000/upload", data)
+      .then(res => { 
+        console.log(res.statusText)
+        setOpenUpload(true)
+      })
+}
+
+
     return (
         <Grid container spacing={3} >
+          
         <Container maxWidth="lg">
                    <FormControl style={{width:'220px', marginBottom:"1%"}} >
         <InputLabel htmlFor="grouped-native-select" >Choose an Email :</InputLabel>
@@ -93,11 +114,15 @@ function PerEmail() {
               )}
       
         </Select>
-     
+        <br></br>
+        <Input type="file" onChange={onChangeHandler} />
       </FormControl>
       <Grid item xs={3} >
         <Button variant="contained" color="primary" href="#contained-buttons" disabled={!showBtn} onClick={()=>fetchIt()}>
                     Show results
+        </Button>
+        <Button variant="contained" color="primary" href="#contained-buttons" disabled={selectedFile.selectedFile===null?true:false}onClick={onClickHandler}>
+                    Upload
         </Button>
         </Grid>
       <Collapse in={open} style={{width:"30%"}}>
@@ -117,6 +142,25 @@ function PerEmail() {
           }
         >
           Your choice has been saved , Click on the appeared button
+        </Alert>
+      </Collapse>
+      <Collapse in={openUpload} style={{width:"30%"}}>
+     
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+               setOpen(false); 
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          Your file has been uploaded
         </Alert>
       </Collapse>
       <Grid item xs={12} direction="row">
