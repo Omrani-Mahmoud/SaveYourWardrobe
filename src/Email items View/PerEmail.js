@@ -68,25 +68,27 @@ function PerEmail() {
       {name:"Forth-email", value:6}
     ];
 
-    const fetchIt = (idDonation)=>{
-      setLoading(true)
-      setBeforeLoading(true)
-      axios.post(`http://localhost:4000/extractProductsFromMail`,{filePath:`./mails/${selectedEmail}-text.txt`})
-      .then(res=>{
-          setData(res.data)
-          setLoading(false)
-          setLoadingJson(false)
-         
-      })
-      .catch(err=>{
-          console.log(err)
-      })
-  
-  }
+   
 
   const onChangeHandler=event=>{
 
     setSelectedFile({selectedFile:event.target.files[0]})
+
+}
+
+const fetchIt = ()=>{
+  setLoading(true)
+  setBeforeLoading(true)
+  axios.post(`http://localhost:4000/extractProductsFromMailTest`,{filePath:`./uploads/mails/2.eml`})
+  .then(res=>{
+      setData(res.data)
+      setLoading(false)
+      setLoadingJson(false)
+     
+  })
+  .catch(err=>{
+      console.log(err)
+  })
 
 }
 
@@ -95,10 +97,14 @@ const onClickHandler = () => {
   data.append('file', selectedFile.selectedFile)
   axios.post("http://localhost:4000/upload", data)
       .then(res => { 
-        console.log(res.statusText)
+        console.log(res.status)
+        if(res.status===200){
         setOpenUpload(true)
+        setShowBtn(true)
+      }
       })
 }
+
 
 
     return (
@@ -106,24 +112,20 @@ const onClickHandler = () => {
           
         <Container maxWidth="lg">
                    <FormControl style={{width:'220px', marginBottom:"1%"}} >
-        <InputLabel htmlFor="grouped-native-select" >Choose an Email :</InputLabel>
-        <Select native defaultValue="" input={<Input id="grouped-native-select" />} onChange={(e)=>{setSelectedEmail(e.target.value);setOpen(true);setShowBtn(true)}}>
-          <option aria-label="None" value="null" />
-            {charityList.map(elem =>
-            <option value={elem.value}>{elem.name}</option>
-              )}
-      
-        </Select>
-        <br></br>
+       
         <Input type="file" onChange={onChangeHandler} />
       </FormControl>
       <Grid item xs={3} >
+      <div hidden={!showBtn}>
         <Button variant="contained" color="primary" href="#contained-buttons" disabled={!showBtn} onClick={()=>fetchIt()}>
                     Show results
         </Button>
+      </div>
+        <div hidden={showBtn}>
         <Button variant="contained" color="primary" href="#contained-buttons" disabled={selectedFile.selectedFile===null?true:false}onClick={onClickHandler}>
                     Upload
         </Button>
+        </div>
         </Grid>
       <Collapse in={open} style={{width:"30%"}}>
      
