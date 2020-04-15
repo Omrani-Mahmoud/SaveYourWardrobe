@@ -79,7 +79,7 @@ function PerEmail() {
 const fetchIt = ()=>{
   setLoading(true)
   setBeforeLoading(true)
-  axios.post(`http://localhost:4000/extractProductsFromMailTest`,{filePath:`./uploads/mails/2.eml`})
+  axios.post(`http://localhost:4000/extractProductsFromMailTest`,{filePath:`./uploads/mails/${selectedFile.selectedFile.name}`})
   .then(res=>{
       setData(res.data)
       setLoading(false)
