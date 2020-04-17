@@ -9,6 +9,11 @@ import Deposits from './Deposits.js';
 import Orders from './Orders';
 import Button from '@material-ui/core/Button';
 import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom'
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+
+import Emails from '@material-ui/icons/Drafts';
+import Froms from '@material-ui/icons/Description';
 
 const drawerWidth = 240;
 
@@ -92,13 +97,10 @@ const useStyles = makeStyles(theme => ({
   },
   rootBtnAdd: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'white',
-    height: 48,
-    padding: '0 30px',
-    float:"right",
+
+
+
   },
 }));
 
@@ -116,9 +118,27 @@ export default function MainPage() {
   return (
     <div className={classes.root}>
       <main className={classes.content}>
+        <div style={{display:'flex',float:'right',flexDirection:"row"}}>
+        <Link to="/home/perEmails" style={{marginRight:"20px"}}> 
+        <Tooltip title="Import items from emails">
+        <IconButton  aria-label="upload picture" component="span" className={classes.rootBtnAdd}>
+          <Emails /> 
+        </IconButton>
+        </Tooltip>
+        </Link>
+          <Link to="/home/items" style={{marginRight:"30px"}}>
+          <Tooltip title="Add items manually">
+            <IconButton aria-label="upload picture" component="span" className={classes.rootBtnAdd}>
+              <Froms />
+            </IconButton>
+            </Tooltip>
+          </Link>
+        </div>
         <div className={classes.appBarSpacer} />
+          
+     
         <Container maxWidth="lg" className={classes.container}>
-        <Link to="/home/items"> <Button className={classes.rootBtnAdd}>Add new item</Button></Link>
+    
           <Grid container spacing={3}>
             {/* Chart */}
   
