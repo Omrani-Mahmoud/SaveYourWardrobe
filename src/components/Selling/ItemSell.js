@@ -19,11 +19,14 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
-
+import axios from "axios";
 import othercl from '../../Assets/images/saleee.jpg'
+import Snackbar from '@material-ui/core/Snackbar';
 
+import MuiAlert from '@material-ui/lab/Alert';
 
 import TextField from '@material-ui/core/TextField';
+import {UserData} from '../../HomeAfterLogin' ;
 
 
 
@@ -96,10 +99,33 @@ const useStyles = makeStyles((theme) => ({
         return 'Unknown stepIndex';
     }
   }
+  
 
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 // FoR Steps
 
 const ItemSell=()=>{
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleNotifClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+
+
+
+
+  const userData = React.useContext(UserData);
+
+
 
     const classes = useStyles();
   const theme = useTheme();
@@ -115,16 +141,10 @@ const ItemSell=()=>{
 
   const steps = getSteps();
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const [value,setValue] = useState({price:"",location:"",buyer:"",seller:"",datePost:"",dateSold:"",items:""})
 
-    if(activeStep===2){
-
-      alert(prix);
-
-    }
-  };
-
+  const [trouve,settrouve]=useState('');
+  
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -133,6 +153,102 @@ const ItemSell=()=>{
     setActiveStep(0);
     setdisable(true);
   };
+
+  const [sellexist,setsellexist] = useState([{}]);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+   
+    if(activeStep===2){
+
+      var b=true;
+      
+
+      sells.map(m=>{
+
+
+        if (m.items[0]==itemId&&m.buyer==window.localStorage.getItem("connectedUserID")){
+          b=false;
+          setsellexist(m);
+         
+        }
+
+      })
+
+
+
+
+
+
+if (b==true){
+
+    setValue(value.price=prix);
+    setValue(value.buyer=window.localStorage.getItem("connectedUserID"));
+    setValue(value.datePost=ladate);
+    setValue(value.items=itemId);
+    setValue(value.location=userData.address);
+      addItemToSell(value);
+      setOpen(true);
+}else{
+  settrouve('The Item that you want to sell is already in sell , do you want to change the price as you set');
+ 
+}
+      
+    }
+ 
+  };
+
+  const [show, setshow] = React.useState(false);
+ const YesHandle=()=>{
+ 
+    SellUpdate(sellexist._id,sellexist);
+    setshow(true);
+
+  }
+  const NoHandle=()=>{
+    setshow(true);
+  }
+
+
+
+  const addItemToSell =(aa)=>{
+
+
+    axios.post("http://localhost:4000/sell",aa)
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
+  }
+
+
+  const SellUpdate = (id_sel,val)=>{
+      val.price=prix;
+    axios.patch(`http://localhost:4000/sell/${id_sel}`,val)
+        .then(res =>{
+            console.log(res)
+        })
+    
+         .catch(err=>{
+        console.log(err)
+    })
+}
+
+
+  const [sells,setsells] = useState([{}]);
+  const fetchForSells =async ()=>{
+    const datatFromDataBase = await fetch("http://localhost:4000/sell");
+    const data = await datatFromDataBase.json();
+   
+  
+    setsells(data);
+
+  
+  }
 
 
   
@@ -150,6 +266,7 @@ const ItemSell=()=>{
     
     React.useEffect(() => {
       fetchIt1()
+      fetchForSells()
      
   },[])
   
@@ -254,8 +371,18 @@ const ChangeHandler=event=>{
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>All steps completed</Typography>
-            <Button onClick={handleReset}>Reset</Button>
+              <Snackbar open={open} autoHideDuration={2000} onClose={handleNotifClose}>
+        <Alert  onClose={handleNotifClose} severity="success">
+        Thank you,Your sell have been added!
+        </Alert>
+      </Snackbar>
+      <Typography className={classes.instructions}>All steps completed</Typography>
+     
+
+      <h2 className="MyError"> {trouve} </h2>
+   <h2 hidden={show}> <Button variant="contained" color="default" onClick={YesHandle} > Yes </Button> / <Button  variant="contained" color="inherit" onClick={NoHandle} > No</Button> </h2>
+        
+            <Link to={'/home/selling'} className="link">  <Button variant="outlined" color="secondary" > Return to Sell page </Button> </Link>
           </div>
         
         
@@ -306,7 +433,7 @@ const ChangeHandler=event=>{
 
             <form className={classes.root} noValidate autoComplete="on">
 
-                <TextField id="standard-basic" label="New Price" type="number" fullWidth={true}  helperText={"For some help we suggest: "+suggest+" DT"} inputProps={inputProps} required autoFocus onChange={ChangeHandler}/>
+                <TextField id="standard-basic" label="New Price" type="number" fullWidth={true}   helperText={"For some help we suggest: "+suggest+" DT"} inputProps={inputProps} required autoFocus onChange={ChangeHandler}/>
                <label className="MyError"> {Error} </label>
             </form>
 
@@ -373,6 +500,8 @@ const ChangeHandler=event=>{
         </CardContent>
        
       </div>
+
+    
       
     </Card>
 

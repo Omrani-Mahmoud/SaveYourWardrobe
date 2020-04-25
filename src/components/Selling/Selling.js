@@ -36,6 +36,10 @@ export default function StickyHeadTable() {
 
   const [items,setItems] = useState([{}]);
 
+  const [sells,setsells] = useState([{}]);
+
+  const [users,setusers] = useState([{}]);
+
   const classes = useStyles();
 
  
@@ -45,29 +49,32 @@ export default function StickyHeadTable() {
    const fetchIt =async ()=>{
     const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
-    console.log(data)
     setItems(data.wardrobe.items)
 }
 
+const fetchIt1 =async ()=>{
+  const datatFromDataBase = await fetch(`http://localhost:4000/sell`);
+  const data = await datatFromDataBase.json();
+  setsells(data)
+
+}
+
  
-  if (sessionStorage.getItem("test")){
-    if (sessionStorage.getItem("test")==1){
-
-      sessionStorage.setItem("test",1);
-    }
-    
-
-  }else{
-    sessionStorage.setItem("test",0);
-  }
+const fetchIt2 =async ()=>{
+  const datatFromDataBase = await fetch(`http://localhost:4000/user`);
+  const data = await datatFromDataBase.json();
+  setusers(data)
+}
 
 
   
   
   
   React.useEffect(() => {
-    fetchIt()
-   
+    fetchIt();
+    fetchIt1();
+    fetchIt2();
+
 },[])
 
 
@@ -134,7 +141,133 @@ export default function StickyHeadTable() {
 
 
           </Paper>
+
+        
         </Grid>
+        
+
+        );
+
+
+
+      })}
+
+       
+        
+     
+      </React.Fragment>
+    );
+  }
+
+  function FormRow1() {
+    return (
+     
+      <React.Fragment>
+
+       
+
+      {sells.map(i=>{
+
+
+        var datee=""+i.datePost;
+        var dateee=datee.substr(0,10);
+        
+        return(
+          <Grid item xs={3}>
+          <Paper className={classes.paper}>
+
+          <Card className={classes.root}>
+
+            <Link to={'/home/selling/itemSell/'+i._id} className="link">
+            <Typography variant="subtitle1" color="secondary" component="p" align="justify">
+             Date posted :{dateee}
+           </Typography>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={exchange}
+          title={i.name}
+        />
+        <CardContent>
+        {i.items && i.items.length>0?i.items.map(x=>(
+          <React.Fragment> 
+          <Typography gutterBottom variant="h5" component="h2"> 
+               {x.name} 
+          </Typography>
+            <Typography variant="subtitle1" color="textPrimary" component="p">
+            {x.description}
+           </Typography>
+           <Typography variant="subtitle2" color="textSecondary" component="p" align="justify">
+            Size: {x.size}
+          </Typography>
+          <Typography variant="subtitle2" color="textSecondary" component="p" align="justify">
+            Color: {x.color}
+          </Typography>
+          </React.Fragment>
+         ) ):null}
+        
+        
+         
+
+        <Typography variant="subtitle2" color="textPrimary" component="h2"  align="justify"> 
+               Seller Informations :
+          </Typography>
+
+          <Typography variant="subtitle2" color="textSecondary" component="p" align="justify">
+            Address: {i.location} 
+          </Typography>
+
+         
+          {users.map(m=>{
+
+            if (m._id==i.buyer){
+
+              return (
+                <React.Fragment> 
+                <Typography variant="subtitle2" color="textSecondary" component="p" align="justify">
+                Seller-Name: {m.login}
+                </Typography>
+
+                <Typography variant="subtitle2" color="textSecondary" component="p" align="justify">
+                Phone_Number: {m.phoneNumber}
+                </Typography>
+                </React.Fragment>
+              )
+             
+
+            }
+
+
+          })}
+
+         
+         
+
+          <Typography variant="subtitle2" color="textSecondary" component="p" align="right">
+            Price: {i.price} DT
+            
+          </Typography>
+        
+
+        </CardContent>
+      </CardActionArea>
+      </Link>
+      <CardActions>
+        <Button size="small" color="primary">
+          More Info
+        </Button>
+        <Button size="small" color="primary">
+          Sell
+        </Button>
+      </CardActions>
+    </Card>
+
+
+          </Paper>
+
+        
+        </Grid>
+        
 
         );
 
@@ -159,13 +292,37 @@ export default function StickyHeadTable() {
 
        
       <Grid container spacing={1}>
+        
      
         <Grid container item xs={12} spacing={3}>
+          
           <FormRow />
+         
         </Grid>
-    
+
+
      
       </Grid>
+
+      <div className="title">
+      <h1> Items for sell </h1>
+      <h5> Please choose an item , you want to buy! </h5>
+       </div>
+
+      <Grid container spacing={1}>
+        
+        
+     
+        <Grid container item xs={12} spacing={3}>
+          
+         
+          <FormRow1 />
+        </Grid>
+
+
+     
+      </Grid>
+     
     </div>
   );
 
