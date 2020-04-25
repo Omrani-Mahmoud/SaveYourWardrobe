@@ -107,7 +107,7 @@ const ExpansionPanel = withStyles({
 
 
 
-function SingleTrade(props) {
+function AllTrades(props) {
     const [expanded, setExpanded] = React.useState('');
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -247,12 +247,6 @@ const UserWardrobeItems=() =>{
                          ) 
                         }
                        
-                       
-
-                       
-                         
-
-
                         </ExpansionPanelSummary>
 
                         <TradeDialog  selectedValue={selectedValue} onClose={handleClose} open={TradeState} data={itemTrade} trade={props.data} />
@@ -294,9 +288,7 @@ const UserWardrobeItems=() =>{
 
                         <ExpansionPanelActions>
                         <div hidden={props.data.status==="Confirmed"}>
-
-                                <Button size="small" color="primary" onClick={()=>fireAlert()}>Remove this trade</Button>
-                                <Button size="small" color="primary" onClick={()=>{setTradeState(true);UserWardrobeItems()}}>Accept Trade</Button>
+                         <Button size="small" color="primary" onClick={()=>{setTradeState(true);UserWardrobeItems()}}>Accept Trade</Button>
                         </div>
 
                             <div hidden={props.data.status==="pending"}>
@@ -307,4 +299,4 @@ const UserWardrobeItems=() =>{
     )
 }
 
-export default SingleTrade
+export default AllTrades

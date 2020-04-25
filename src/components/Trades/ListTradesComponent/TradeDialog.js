@@ -36,6 +36,7 @@ export default function TradeDialog(props) {
 
   const UpdateTrade=(e) =>{
     trade.TradeTo=window.localStorage.getItem("connectedUserID");
+    
     trade.status="Confirmed";
     trade.items.push(e);
     axios.patch(`http://localhost:4000/trade/${trade._id}`,trade)
