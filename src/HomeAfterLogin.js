@@ -101,7 +101,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
 }));
-
+export const UserData = React.createContext();
 export default function HomeAfterLogin(props) {
   const history = useHistory();
   const classes = useStyles();
@@ -148,6 +148,7 @@ export default function HomeAfterLogin(props) {
   
   
   return (
+    <UserData.Provider value={user}> 
     
     <div className={classes.root}>
       <CssBaseline />
@@ -278,6 +279,7 @@ export default function HomeAfterLogin(props) {
       </main>
 
     </div>
+    </UserData.Provider>
   );
 }
 else{
