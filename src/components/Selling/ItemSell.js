@@ -167,12 +167,17 @@ const ItemSell=()=>{
 
       sells.map(m=>{
 
+       m.items.map(x=>{
+       
+        
 
-        if (m.items[0]==itemId&&m.buyer==window.localStorage.getItem("connectedUserID")){
+        if (x._id==itemId&&m.buyer==window.localStorage.getItem("connectedUserID")){
           b=false;
           setsellexist(m);
          
         }
+
+      })
 
       })
 
