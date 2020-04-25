@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function StickyHeadTable() {
 
-  const [items,setItems] = useState([{}]);
+  
 
   const [sells,setsells] = useState([{}]);
 
@@ -46,11 +46,7 @@ export default function StickyHeadTable() {
 
 
 
-   const fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
-    const data = await datatFromDataBase.json();
-    setItems(data.wardrobe.items)
-}
+
 
 const fetchIt1 =async ()=>{
   const datatFromDataBase = await fetch(`http://localhost:4000/sell`);
@@ -71,7 +67,7 @@ const fetchIt2 =async ()=>{
   
   
   React.useEffect(() => {
-    fetchIt();
+ 
     fetchIt1();
     fetchIt2();
 
@@ -79,85 +75,6 @@ const fetchIt2 =async ()=>{
 
 
 
-
-
- 
-
-  
-
-  function FormRow() {
-    return (
-     
-      <React.Fragment>
-
-       
-
-      {items.map(i=>{
-
-        return(
-          <Grid item xs={3}>
-          <Paper className={classes.paper}>
-
-          <Card className={classes.root}>
-
-            <Link to={'/home/selling/itemSell/'+i._id} className="link">
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={exchange}
-          title={i.name}
-        />
-        <CardContent>
-       
-          <Typography gutterBottom variant="h5" component="h2">
-            {i.name}
-          </Typography>
-          <Typography variant="subtitle1" color="textPrimary" component="p">
-            {i.description}
-           
-          </Typography>
-          <Typography variant="subtitle2" color="textSecondary" component="p" align="justify">
-            Size: {i.size}
-          </Typography>
-          <Typography variant="subtitle2" color="textSecondary" component="p" align="justify">
-            Color: {i.color}
-          </Typography>
-          <Typography variant="subtitle2" color="textSecondary" component="p" align="justify">
-            Price: {i.price} DT
-          </Typography>
-
-        </CardContent>
-      </CardActionArea>
-      </Link>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
-
-
-          </Paper>
-
-        
-        </Grid>
-        
-
-        );
-
-
-
-      })}
-
-       
-        
-     
-      </React.Fragment>
-    );
-  }
 
   function FormRow1() {
     return (
@@ -285,24 +202,7 @@ const fetchIt2 =async ()=>{
   return (
     <div className={classes.root}>
 
-         <div className="title">
-      <h1> My Wardrobe</h1>
-      <h5> Please choose an item , you want to sell! </h5>
-       </div>
-
-       
-      <Grid container spacing={1}>
-        
-     
-        <Grid container item xs={12} spacing={3}>
-          
-          <FormRow />
-         
-        </Grid>
-
-
-     
-      </Grid>
+      
 
       <div className="title">
       <h1> Items for sell </h1>

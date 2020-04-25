@@ -24,6 +24,7 @@ import logo from '../src/Assets/images/logoBlack.png';
 import LoginPage from './components/Login/LoginPage'
 import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom'
 import Donations from './components/Donations/Donations';
+import MyWardrobe from './components/MyWardrobe/MyWardrobe';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
@@ -213,10 +214,13 @@ export default function HomeAfterLogin(props) {
         </div>
         <Divider />
         <List>
+
+        <Link to="/home/mywardrobe" >
         <ListItem button>
               <ListItemIcon><AmpStoriesIcon /></ListItemIcon>
               <ListItemText primary={"Your wardrobe"} />
             </ListItem>
+            </Link>
 
             <Link to="/home/donation" ><ListItem button>
               <ListItemIcon> <FavoriteBorderIcon /></ListItemIcon>
@@ -269,6 +273,7 @@ export default function HomeAfterLogin(props) {
  
                 <Switch>
                     <Route path={`${props.match.path}/`} exact component={MainPage} />
+                    <Route path={`${props.match.path}/mywardrobe`} exact component={MyWardrobe} />
                     <Route path={`${props.match.path}/donation`} exact component={Donations} />
                     <Route path={`${props.match.path}/trades`} exact component={Trades} />
                     <Route path={`${props.match.path}/tclothes`} exact component={TClothes} />
