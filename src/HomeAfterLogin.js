@@ -39,6 +39,9 @@ import EmailItemView from './Email items View/EmailItemView';
 import Selling from './components/Selling/Selling'
 import ItemSell from './components/Selling/ItemSell'
 import PerEmail from './Email items View/PerEmail';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import FiberManualRecordRoundedIcon from '@material-ui/icons/FiberManualRecordRounded';
+import { green } from '@material-ui/core/colors';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -183,8 +186,8 @@ export default function HomeAfterLogin(props) {
                     <Tooltip TransitionComponent={Zoom} title="FAQ description">
                         <Button >FAQ</Button>
                     </Tooltip>
-                    <Tooltip TransitionComponent={Zoom} title="our parnters">
-                        <Button >Partnership</Button>
+                    <Tooltip TransitionComponent={Zoom} title="My Profile">
+                        <Button ><AccountCircleIcon/>  {user.login} <FiberManualRecordRoundedIcon style={{ color: green[500] ,fontSize: 13}} /> </Button>
                     </Tooltip>
             </div>
         </Toolbar>
@@ -260,8 +263,9 @@ export default function HomeAfterLogin(props) {
       </Drawer>
       
       <main className={classes.content}>
-        <h1>{user.email}</h1>
+      
         <div className={classes.toolbar} />
+ 
  
                 <Switch>
                     <Route path={`${props.match.path}/`} exact component={MainPage} />
