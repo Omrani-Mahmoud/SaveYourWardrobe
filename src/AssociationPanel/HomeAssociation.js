@@ -131,7 +131,7 @@ export default function HomeAssociation(props) {
     })
   }, [])
 
-  if (user && user.role==="admin"  && window.localStorage.getItem("tokenWardrobe")){
+  if (user && user.role==="Association"  && window.localStorage.getItem("tokenWardrobe")){
   //var user = jwt.decode(window.localStorage.getItem("token"));
   
   return (
@@ -158,8 +158,8 @@ export default function HomeAssociation(props) {
             <MenuIcon />
             
           </IconButton>
-         <Link to={`${props.match.path}/`}  ><img src={logo} width="200px" /> </Link>
-          <h2 style={{marginTop:"1.8%",marginLeft:"2%"}}>Admin Panel</h2>
+         <Link to={`/`}  ><img src={logo} width="200px" /> </Link>
+          
                 
         </Toolbar>
       
@@ -184,7 +184,7 @@ export default function HomeAssociation(props) {
         </div>
         <Divider />
         <List>
-        <Link to={`${props.match.path}/`}  > <ListItem button>
+        <Link to={`/home`}  > <ListItem button>
              <ListItemIcon><BubbleChartIcon /></ListItemIcon>
               <ListItemText primary={"Associations"} />
             </ListItem></Link>
@@ -206,7 +206,7 @@ export default function HomeAssociation(props) {
         <div className={classes.toolbar} />
  
                 <Switch>
-                    <Route path={`${props.match.path}/`} exact component={AssociationMain} />
+                    <Route path={`/home`} exact component={AssociationMain} />
                    
                 </Switch>
       </main>

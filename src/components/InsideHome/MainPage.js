@@ -116,7 +116,7 @@ export default function MainPage() {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{marginTop:'5%'}}>
       <main className={classes.content}>
         <div style={{display:'flex',float:'right',flexDirection:"row"}}>
         <Link to="/home/perEmails" style={{marginRight:"20px"}}> 

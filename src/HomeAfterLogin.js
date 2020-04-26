@@ -43,6 +43,7 @@ import PerEmail from './Email items View/PerEmail';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FiberManualRecordRoundedIcon from '@material-ui/icons/FiberManualRecordRounded';
 import { green } from '@material-ui/core/colors';
+import HomeAssociation from './AssociationPanel/HomeAssociation';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -294,6 +295,8 @@ export default function HomeAfterLogin(props) {
 else{
 if(user && user.role==="admin" && window.localStorage.getItem("tokenWardrobe"))
   return (<HomeAdmin />)
+  if(user && user.role==="Association" && window.localStorage.getItem("tokenWardrobe"))
+  return (<HomeAssociation />)  
   return(
     (<LoginPage />)
   )
