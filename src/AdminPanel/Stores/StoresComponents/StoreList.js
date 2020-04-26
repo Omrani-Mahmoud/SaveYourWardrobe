@@ -22,12 +22,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function AssociationList() {
+export default function StoreList() {
   const classes = useStyles();
   const [dataFromDB,setNewDataFromDB] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch("http://localhost:4000/association");
+    const datatFromDataBase = await fetch("http://localhost:4000/store");
     const data = await datatFromDataBase.json();
     setNewDataFromDB(data);
 
@@ -37,15 +37,15 @@ export default function AssociationList() {
 },[])
   return (
     <React.Fragment>
-      <Title>Associations List</Title>
+      <Title>Store List</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
+            <TableCell>Join Date</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Location</TableCell>
-            <TableCell>Category</TableCell>
-            <TableCell align="right">Donations</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell align="right">End date</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,15 +54,15 @@ export default function AssociationList() {
               <TableCell>{new Date(row.joinDate).toLocaleDateString()}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.location}</TableCell>
-              <TableCell>{row.category}</TableCell>
-              <TableCell  align="right">{row.donations.length}</TableCell>
+              <TableCell>{row.email}</TableCell>
+              <TableCell  align="right">{row.endDate}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={preventDefault}>
-          See more associations
+          See more Stores
         </Link>
       </div>
     </React.Fragment>

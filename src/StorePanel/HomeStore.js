@@ -20,31 +20,17 @@ import MailIcon from '@material-ui/icons/Mail';
 import EuroIcon from '@material-ui/icons/Euro';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AmpStoriesIcon from '@material-ui/icons/AmpStories';
-import logo from '../src/Assets/images/logoBlack.png';
-import LoginPage from './components/Login/LoginPage'
+import logo from '../../src/Assets/images/logoBlack.png';
+import LoginPage from '../components/Login/LoginPage'
 import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom'
-import Donations from './components/Donations/Donations';
-import MyWardrobe from './components/MyWardrobe/MyWardrobe';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
-import SpeedDialC from './components/SpeedDial';
-import ContactSupportIcon from '@material-ui/icons/ContactSupport';
-import Trades from './components/Trades/Trades';
-import TClothes from './components/TClothes/TClothes';
-import MainPage from './components/InsideHome/MainPage';
+
 import axios from "axios";
-import HomeAdmin from "./AdminPanel/HomeAdmin";
-import AddNewItem from './components/Items/AddNewItem';
-import EmailItemView from './Email items View/EmailItemView';
-import Selling from './components/Selling/Selling'
-import ItemSell from './components/Selling/ItemSell'
-import PerEmail from './Email items View/PerEmail';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import FiberManualRecordRoundedIcon from '@material-ui/icons/FiberManualRecordRounded';
-import { green } from '@material-ui/core/colors';
-import HomeAssociation from './AssociationPanel/HomeAssociation';
-import HomeStore from './StorePanel/HomeStore';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import StoreMain from './StoreMain';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -107,8 +93,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
 }));
-export const UserData = React.createContext();
-export default function HomeAfterLogin(props) {
+
+export default function HomeStore(props) {
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
@@ -123,14 +109,12 @@ export default function HomeAfterLogin(props) {
     setOpen(false);
   };
 
-  React.useEffect(async () => {
-   await axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+  React.useEffect(() => {
+    axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){
-            window.localStorage.setItem("connectedUserID",res.data.user.user._id);
-            //window.localStorage.setItem("connectedUserItems",res.data.user.user.items);
-            window.localStorage.setItem("connectedUserEmail",res.data.user.user.email);
+            window.localStorage.setItem("connectedUserID",res.data.user.user._id)
             setVerif(true);
             setUser(res.data.user.user);
         }
@@ -147,14 +131,10 @@ export default function HomeAfterLogin(props) {
     })
   }, [])
 
-
-  console.log("user :",user)
-
-  if (user && user.role==="user" && window.localStorage.getItem("tokenWardrobe")){
-  
+  if (user && user.role==="Store"  && window.localStorage.getItem("tokenWardrobe")){
+  //var user = jwt.decode(window.localStorage.getItem("token"));
   
   return (
-    <UserData.Provider value={user}> 
     
     <div className={classes.root}>
       <CssBaseline />
@@ -178,21 +158,9 @@ export default function HomeAfterLogin(props) {
             <MenuIcon />
             
           </IconButton>
-         <Link to="/home" ><img src={logo} width="200px" /> </Link>
-            <div style={{marginLeft:"50%"}}>
-                <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
-                        <Button>Home</Button>
-                    </Tooltip>
-                    <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
-                        <Button >Our story</Button>
-                    </Tooltip>
-                    <Tooltip TransitionComponent={Zoom} title="FAQ description">
-                        <Button >FAQ</Button>
-                    </Tooltip>
-                    <Tooltip TransitionComponent={Zoom} title="My Profile">
-                        <Button ><AccountCircleIcon/>  {user.login} <FiberManualRecordRoundedIcon style={{ color: green[500] ,fontSize: 13}} /> </Button>
-                    </Tooltip>
-            </div>
+         <Link to={`/`}  ><img src={logo} width="200px" /> </Link>
+          
+                
         </Toolbar>
       
       </AppBar>
@@ -216,46 +184,12 @@ export default function HomeAfterLogin(props) {
         </div>
         <Divider />
         <List>
+        <Link to={`/home`}  > <ListItem button>
+             <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
+              <ListItemText primary={"Associations"} />
+            </ListItem></Link>
 
-        <Link to="/home/mywardrobe" >
-        <ListItem button>
-              <ListItemIcon><AmpStoriesIcon /></ListItemIcon>
-              <ListItemText primary={"Your wardrobe"} />
-            </ListItem>
-            </Link>
-
-            <Link to="/home/donation" ><ListItem button>
-              <ListItemIcon> <FavoriteBorderIcon /></ListItemIcon>
-              <ListItemText primary={"Donation"} />
-            </ListItem>
-            </Link>
-
-            
-            <Link to="/home/trades" ><ListItem button>
-              <ListItemIcon> <EuroIcon /></ListItemIcon>
-              <ListItemText primary={"Trades"} />
-            </ListItem>
-            </Link>
-
-
-               <Link to="/home/selling" ><ListItem button>
-              <ListItemIcon> <EuroIcon  /></ListItemIcon>
-              <ListItemText primary={"Selling"} />
-            </ListItem>
-            </Link>
-
-
-            <Link to="/home/tclothes" ><ListItem button>
-              <ListItemIcon> <FavoriteBorderIcon /></ListItemIcon>
-              <ListItemText primary={"TClothes"} />
-            </ListItem>
-            </Link>
-          
-
-            <ListItem button >
-              <ListItemIcon> <ContactSupportIcon /></ListItemIcon>
-              <ListItemText primary={"OutFit Suggetion"} />
-            </ListItem>
+           
         </List>
        {/* <Divider />
         <List>
@@ -269,37 +203,27 @@ export default function HomeAfterLogin(props) {
       </Drawer>
       
       <main className={classes.content}>
-      
         <div className={classes.toolbar} />
- 
- 
+        <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        startIcon={<AddCircleOutlineIcon />}
+        style={{float:"right"}}
+      >
+        add item
+      </Button>
                 <Switch>
-                    <Route path={`${props.match.path}/`} exact component={MainPage} />
-                    <Route path={`${props.match.path}/mywardrobe`} exact component={MyWardrobe} />
-                    <Route path={`${props.match.path}/donation`} exact component={Donations} />
-                    <Route path={`${props.match.path}/trades`} exact component={Trades} />
-                    <Route path={`${props.match.path}/tclothes`} exact component={TClothes} />
-                    <Route path={`${props.match.path}/items`} exact component={AddNewItem} />
-                    <Route path={`${props.match.path}/viewEmailItems`} exact component={EmailItemView} />
-                    <Route path={`${props.match.path}/perEmails`} exact component={PerEmail} />
-                    
-                    <Route path={`${props.match.path}/v`} exact component={EmailItemView} />
-                    <Route path={`/home/selling`} exact component={Selling} />
-                    <Route path="/home/selling/itemSell/:itemId" exact  component={ItemSell}    />
+                    <Route path={`/home`} exact component={StoreMain} />
+                   
                 </Switch>
       </main>
 
     </div>
-    </UserData.Provider>
   );
 }
 else{
-if(user && user.role==="admin" && window.localStorage.getItem("tokenWardrobe"))
-  return (<HomeAdmin />)
-  if(user && user.role==="Association" && window.localStorage.getItem("tokenWardrobe"))
-  return (<HomeAssociation />)  
-  if(user && user.role==="Store" && window.localStorage.getItem("tokenWardrobe"))
-  return (<HomeStore />)  
+
   return(
     (<LoginPage />)
   )

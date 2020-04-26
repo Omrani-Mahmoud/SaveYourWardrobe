@@ -18,7 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import EuroIcon from '@material-ui/icons/Euro';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import Store from '@material-ui/icons/StopOutlined';
 import AmpStoriesIcon from '@material-ui/icons/AmpStories';
 import logo from '../../src/Assets/images/logoBlack.png';
 import LoginPage from '../components/Login/LoginPage'
@@ -31,6 +31,7 @@ import Zoom from '@material-ui/core/Zoom';
 import axios from "axios";
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import AdminMain from './InsideHome/AdminMain';
+import StoresMain from './Stores/StoresMain';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -189,6 +190,10 @@ export default function HomeAdmin(props) {
               <ListItemText primary={"Associations"} />
             </ListItem></Link>
 
+            <Link to={`${props.match.path}/stores`}  > <ListItem button>
+             <ListItemIcon><Store /></ListItemIcon>
+              <ListItemText primary={"Store"} />
+            </ListItem></Link>
            
         </List>
        {/* <Divider />
@@ -207,7 +212,7 @@ export default function HomeAdmin(props) {
  
                 <Switch>
                     <Route path={`${props.match.path}/`} exact component={AdminMain} />
-                   
+                    <Route path={`${props.match.path}/stores`} exact component={StoresMain} />
                 </Switch>
       </main>
 

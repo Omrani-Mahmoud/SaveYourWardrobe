@@ -10,6 +10,7 @@ import HomeAdmin from './AdminPanel/HomeAdmin';
 import HomeAssociation from './AssociationPanel/HomeAssociation';
 import SignUp from './components/SignUp/SignUp';
 import EmailItemView from './Email items View/EmailItemView';
+import HomeStore from './StorePanel/HomeStore';
 function App() {
   
 
@@ -22,6 +23,7 @@ function App() {
      <Route path="/home" component={HomeAfterLogin} />
      <Route path="/admin" component={HomeAdmin} />
      <Route path="/association" component={HomeAssociation} />
+     <Route path="/store" component={HomeStore} />
      <Route path="/signup" component={SignUp} />
 
  
