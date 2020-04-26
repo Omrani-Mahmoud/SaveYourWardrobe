@@ -101,10 +101,14 @@ function Donations() {
 
 
   const fetchIt =async ()=>{
+    const filtredItems = [];
     const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
-    
-    setItems(data.wardrobe.items)
+    data.wardrobe.items.map(elem=>{
+      if(!elem.state)
+      filtredItems.push(elem)
+    })
+    setItems(filtredItems)
 
 }
   const removeItem = (id)=>{

@@ -12,6 +12,17 @@ const useStyles = makeStyles(theme => ({
     },
   },
 }));
+const sendEmail =(email)=>{
+        axios.post("http://localhost:4000/send-email-information",{email:email})
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+      
+    }
+    
 function AddAssociation() {
     const [newAsso,setNewAsso] = React.useState({name:"",location:"",email:"",telephone:"",category:"",joinDate:"",donations:[]})
     const [dataFromDB,setNewDataFromDB] = React.useState([]);
@@ -20,7 +31,8 @@ function AddAssociation() {
         newAsso.joinDate=new Date();
         axios.post("http://localhost:4000/association",newAsso)
             .then(res=>{
-                console.log(res)
+                if(res.status===200)
+                sendEmail(newAsso.email)
             })
             .catch(err=>{
                 console.log(err)
