@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles , useTheme} from '@material-ui/core/styles';
 import clsx from 'clsx';
+import img from "../Assets/images/stan.jpg"
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -32,7 +37,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import axios from'axios';
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
-
+import SaveIcon from '@material-ui/icons/Save';
+import DoneIcon from '@material-ui/icons/Done';
+import SingleItem from './SingleItem';
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -57,7 +64,12 @@ function PerEmail() {
     const [beforeloading, setBeforeLoading] = React.useState(false);
     const [loadingJson, setLoadingJson] = React.useState(true);
     const [selectedFile, setSelectedFile] = React.useState({selectedFile:null});
+    const [selectedFileT, setSelectedFileT] = React.useState({selectedFile:null});
+
     const [openUpload, setOpenUpload] = React.useState(false);
+    const [searchMode, setSearchMode] = React.useState("");
+
+    const theme = useTheme();
 
 
 
@@ -76,10 +88,21 @@ function PerEmail() {
 
 }
 
+const onChangeHandlerT=event=>{
+
+  setSelectedFileT({selectedFile:event.target.files[0]})
+
+}
+
+
 const fetchIt = ()=>{
   setLoading(true)
   setBeforeLoading(true)
-  axios.post(`http://localhost:4000/extractProductsFromMailTest`,{filePath:`./uploads/mails/${selectedFile.selectedFile.name}`})
+  axios.post(`http://localhost:4000/extractProductsFromMailTest`,{
+   filePathText:`./uploads/mails/${selectedFile.selectedFile.name}`,
+   filePathHTML:`./uploads/mails/${selectedFileT.selectedFile.name}`,
+   searchMode: searchMode
+  })
   .then(res=>{
       setData(res.data)
       setLoading(false)
@@ -99,21 +122,54 @@ const onClickHandler = () => {
       .then(res => { 
         console.log(res.status)
         if(res.status===200){
+        //setOpenUpload(true)
+        //setShowBtn(true)
+        console.log(res)
+      }
+      })
+}
+
+const onClickHandlerT = () => {
+  const data = new FormData() 
+  data.append('file', selectedFileT.selectedFile)
+  axios.post("http://localhost:4000/upload", data)
+      .then(res => { 
+        console.log(res.status)
+        if(res.status===200){
         setOpenUpload(true)
         setShowBtn(true)
       }
       })
 }
 
-
+const handleChange = (event) => {
+  setSearchMode(event.target.value)
+};
 
     return (
         <Grid container spacing={3} >
           
         <Container maxWidth="lg">
                    <FormControl style={{width:'220px', marginBottom:"1%"}} >
-       
+                   <InputLabel htmlFor="search">Search methode</InputLabel>
+        <Select
+
+            style={{marginBottom:"10%"}}
+          native
+          value={searchMode}
+          onChange={handleChange}
+          inputProps={{
+            name: 'search',
+            id: 'search',
+          }}
+        >
+          <option aria-label="None" value="" />
+          <option value="">-</option>
+          <option value="image">image</option>
+          <option value="text">text</option>
+        </Select>
         <Input type="file" onChange={onChangeHandler} />
+        <Input type="file" onChange={onChangeHandlerT} />
       </FormControl>
       <Grid item xs={3} >
       <div hidden={!showBtn}>
@@ -122,7 +178,7 @@ const onClickHandler = () => {
         </Button>
       </div>
         <div hidden={showBtn}>
-        <Button variant="contained" color="primary" href="#contained-buttons" disabled={selectedFile.selectedFile===null?true:false}onClick={onClickHandler}>
+        <Button variant="contained" color="primary" href="#contained-buttons" disabled={selectedFile.selectedFile===null?true:false}onClick={()=>{onClickHandler();onClickHandlerT()}}>
                     Upload
         </Button>
         </div>
@@ -195,11 +251,10 @@ const onClickHandler = () => {
                     
             {            
                          data.map((elem,index)=>(
-                         <Paper style={{marginBottom:"2%"}}>
-                           <h4>Item {index+1} </h4>
-                            <h5 style={{color:"grey"}}><b>Category</b> : {elem.Category} </h5>
-                              <h5 style={{color:"grey"}}><b>Item Name </b>: {elem.Name} </h5>
-                          </Paper>)
+                          
+                        <SingleItem elem={elem} index={index}/>
+                         
+                     )
                        )
                        }
    
@@ -224,6 +279,10 @@ const onClickHandler = () => {
                                
                               <span style={{marginLeft:"2%"}}> <span style={{fontWeight:"bolder", color:"black"}}>{' { '}</span><span style={{color:"black"}}>"Category" : </span><span style={{color:"rgb(8, 143, 0)"}}>"{elem.Category}"</span></span>
                               <span style={{marginLeft:"4%"}}><span style={{color:"black"}}>"Name" : </span><span style={{color:"rgb(8, 143, 0)"}}>"{elem.Name}"</span></span>
+                              <span style={{marginLeft:"4%"}}><span style={{color:"black"}}>"Size" : </span><span style={{color:"rgb(8, 143, 0)"}}>"{elem.Size}"</span></span>
+                              <span style={{marginLeft:"4%"}}><span style={{color:"black"}}>"Color" : </span><span style={{color:"rgb(8, 143, 0)"}}>"{elem.Color}"</span></span>
+                              <span style={{marginLeft:"4%"}}><span style={{color:"black"}}>"Price" : </span><span style={{color:"rgb(8, 143, 0)"}}>"{elem.Price}"</span></span>
+
                               <span style={{fontWeight:"bolder",color:"black",marginLeft:"2%"}}>{' }, '}</span>
                          </React.Fragment>
                          )
