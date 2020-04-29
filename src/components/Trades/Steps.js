@@ -248,6 +248,7 @@ console.log("iddddddd"+props.userId);
   
    newTrade.datePost=new Date();
    newTrade.TradeFrom=props.userId;
+   newTrade.TradeTo=null;
    
    newTrade.items=props.data;
     axios.post("http://localhost:4000/trade",newTrade)
