@@ -231,21 +231,14 @@ const UserWardrobeItems=() =>{
                         <Typography>{`Status: ${props.data.status}`}</Typography>
                         <Out style={{marginLeft:"3%"}} />
                         
-                        {
-                         props.data.TradeFrom.map(elem =>
+                      
+                         
                             <div className={clsx(classes.column)}>
-                                        <Chip variant="outlined" color="primary" size="small"  label={elem.email} style={{marginLeft:"5%"}}/>
+                                        <Chip variant="outlined" color="primary" size="small"  label={props.data.TradeFrom.email} style={{marginLeft:"5%"}}/>
                               </div>
-                         )
-                        }
+                       
                         <In style={{marginLeft:"3%"}} />
-                        {
-                           props.data.TradeTo.map(elem =>
-                            <div className={clsx(classes.column)} hidden={props.data.TradeTo.length ==0 }>
-                                        <Chip variant="outlined" color="primary" size="small"  label={elem.email} style={{marginLeft:"5%"}}/>
-                              </div>
-                         ) 
-                        }
+                        <Typography>{`: ${props.data && props.data.TradeTo && props.data.TradeTo.email?props.data.TradeTo.email:"Not Traded"}`}</Typography>                        
                        
                         </ExpansionPanelSummary>
 

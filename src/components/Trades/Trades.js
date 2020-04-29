@@ -179,10 +179,10 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
     
                <Grid item xs={12} sm={6} container>
                 
-              {items.length?
+              {items.length ?
               
                 <Card className={classes.cardRoot} style={{width:"100%"}}>       
-                      <div className={classes.details} >
+                      <div className={classes.details}>
                         <CardContent className={classes.content}>
                           <Typography component="h5" variant="h5">
                             {items[selectedItemIndex].name}
