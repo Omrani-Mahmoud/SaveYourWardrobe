@@ -23,6 +23,7 @@ import AmpStoriesIcon from '@material-ui/icons/AmpStories';
 import logo from '../../src/Assets/images/logoBlack.png';
 import LoginPage from '../components/Login/LoginPage'
 import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom'
+import GradeIcon from '@material-ui/icons/Grade';
 
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -31,6 +32,7 @@ import Zoom from '@material-ui/core/Zoom';
 import axios from "axios";
 import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import AssociationMain from './InsideHome/AssociationMain';
+import AddEvent from './AddEvent';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -178,6 +180,7 @@ export default function HomeAssociation(props) {
         }}
       >
         <div className={classes.toolbar}>
+          
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
@@ -188,7 +191,10 @@ export default function HomeAssociation(props) {
              <ListItemIcon><BubbleChartIcon /></ListItemIcon>
               <ListItemText primary={"Associations"} />
             </ListItem></Link>
-
+            <Link to={`/home/events`}  > <ListItem button>
+             <ListItemIcon><GradeIcon /></ListItemIcon>
+              <ListItemText primary={"Events"} />
+            </ListItem></Link>
            
         </List>
        {/* <Divider />
@@ -207,6 +213,7 @@ export default function HomeAssociation(props) {
  
                 <Switch>
                     <Route path={`/home`} exact component={AssociationMain} />
+                    <Route path={`/home/events`} exact component={AddEvent} />
                    
                 </Switch>
       </main>

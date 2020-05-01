@@ -9,6 +9,9 @@ import Deposits from './Deposits.js';
 
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import AssociationList from '../Donations/AssociationList.js';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import GradeIcon from '@material-ui/icons/Grade';
 
 
 
@@ -92,6 +95,13 @@ const useStyles = makeStyles(theme => ({
   fixedHeight: {
     height: 240,
   },
+  rootBtnAdd: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    color: 'white',
+
+
+
+  },
 }));
 
 export default function AssociationMain() {
@@ -103,11 +113,11 @@ export default function AssociationMain() {
     const datatFromDataBase = await fetch(`http://localhost:4000/associationDon/${window.localStorage.getItem('connectedUserID')}`);
     const data = await datatFromDataBase.json();
     setDonList(data.donations);
-
 }
+
 React.useEffect(() => {
   fetchIt()
-})
+},[])
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -115,6 +125,7 @@ React.useEffect(() => {
     <div className={classes.root}>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
+        
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* Chart */}
