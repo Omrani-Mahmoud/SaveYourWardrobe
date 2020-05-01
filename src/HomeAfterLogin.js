@@ -24,6 +24,9 @@ import logo from '../src/Assets/images/logoBlack.png';
 import LoginPage from './components/Login/LoginPage'
 import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom'
 import Donations from './components/Donations/Donations';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+
+import DonationEvent from '../src/components/Events/Donations/Donations';
 import MyWardrobe from './components/MyWardrobe/MyWardrobe';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -45,6 +48,17 @@ import FiberManualRecordRoundedIcon from '@material-ui/icons/FiberManualRecordRo
 import { green } from '@material-ui/core/colors';
 import HomeAssociation from './AssociationPanel/HomeAssociation';
 import HomeStore from './StorePanel/HomeStore';
+import Swal from 'sweetalert2'
+import img from '../src/Assets/images/volunteer.png'
+import Paper from '@material-ui/core/Paper';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import { DialogContent } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
+import EventIcon from '@material-ui/icons/Event';
+import StarIcon from '@material-ui/icons/Star';
+
+
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -115,6 +129,11 @@ export default function HomeAfterLogin(props) {
   const [open, setOpen] = React.useState(false);
   const [verif, setVerif] = React.useState(false);
   const [user, setUser] = React.useState(null);
+
+  const [events, setEvents] = React.useState([]);
+  const [openD, setOpenD] = React.useState(false);
+
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -147,8 +166,23 @@ export default function HomeAfterLogin(props) {
     })
   }, [])
 
+  const  fetchIt =async ()=>{
+    const datatFromDataBase = await fetch(`http://localhost:4000/eventByDate`);
+    const data = await datatFromDataBase.json();
+    setEvents((data));
 
-  console.log("user :",user)
+}
+const handleClose = () => {
+  setOpenD(false)
+};
+
+const handleOpen = (value) => {
+  setOpenD(true);
+};
+
+React.useEffect(() => {
+  fetchIt()
+}, [])
 
   if (user && user.role==="user" && window.localStorage.getItem("tokenWardrobe")){
   
@@ -156,6 +190,31 @@ export default function HomeAfterLogin(props) {
   return (
     <UserData.Provider value={user}> 
     
+    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={openD}>
+      <DialogTitle id="simple-dialog-title">Current events : </DialogTitle>
+      <DialogContent >
+        <div style={{display:"flex", justifyContent:"center",alignItems:"flex-start", flexDirection:"column"}}>
+          {events.map(x=>(
+            <Link to={x.type==='Donation'?{pathname:"/home/donationEvent",id:x.association}:"/home"} style={{textDecoration:"none", color:"black"}} onClick={()=>setOpenD(false)}>
+              <div style={{display:"flex", justifyContent:"center",alignItems:"center", marginBottom:"10%"}}>
+             
+              <StarIcon style={{color:"orange"}}/>
+             
+
+          <span ><b>{x.name}</b></span>
+          {~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))<=2?
+          <Tooltip title={`event will ends in ${~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))} days ..`}>
+          <ErrorOutlineIcon color="error" style={{marginLeft:"10px"}} />
+          </Tooltip>:null}
+   
+
+          
+            </div>
+            </Link>
+          ))}
+          </div>
+      </DialogContent>
+      </Dialog>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
@@ -191,6 +250,11 @@ export default function HomeAfterLogin(props) {
                     </Tooltip>
                     <Tooltip TransitionComponent={Zoom} title="My Profile">
                         <Button ><AccountCircleIcon/>  {user.login} <FiberManualRecordRoundedIcon style={{ color: green[500] ,fontSize: 13}} /> </Button>
+                    </Tooltip>
+                    <Tooltip TransitionComponent={Zoom} title="Current events">
+                        <Button onClick={()=>handleOpen()}>
+                        <Badge badgeContent={events.length} color="secondary">
+                          <EventIcon/> Events  </Badge></Button>
                     </Tooltip>
             </div>
         </Toolbar>
@@ -282,7 +346,9 @@ export default function HomeAfterLogin(props) {
                     <Route path={`${props.match.path}/items`} exact component={AddNewItem} />
                     <Route path={`${props.match.path}/viewEmailItems`} exact component={EmailItemView} />
                     <Route path={`${props.match.path}/perEmails`} exact component={PerEmail} />
-                    
+                    <Route path={`${props.match.path}/donationEvent`} exact component={DonationEvent} />
+
+                 
                     <Route path={`${props.match.path}/v`} exact component={EmailItemView} />
                     <Route path={`/home/selling`} exact component={Selling} />
                     <Route path="/home/selling/itemSell/:itemId" exact  component={ItemSell}    />
