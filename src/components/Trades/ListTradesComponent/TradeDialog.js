@@ -41,9 +41,19 @@ export default function TradeDialog(props) {
     trade.items.push(e);
     axios.patch(`http://localhost:4000/trade/${trade._id}`,trade)
     .then(res=>{
-
+      axios.patch(`http://localhost:4000/changeitem/${trade._id}`)
+      .then(res=>{
+  
+          console.log(res)
+          onClose(true);
+          
+      })
+      .catch(err=>{
+          console.log(err)
+      })
         console.log(res)
         onClose(true);
+
         
     })
     .catch(err=>{
@@ -51,7 +61,6 @@ export default function TradeDialog(props) {
     })
 
 }
-
 
 const fireAlert =(e) =>{
   handleClose()

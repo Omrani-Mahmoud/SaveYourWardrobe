@@ -215,7 +215,6 @@ export default function Steps(props) {
 
   };
 
-  const locationList=['Ariana','Béja','Ben Arous','Bizerte','Gabès','Gafsa','Jendouba','Kairouan','Kasserine','Kebili',' Le Kef','Mahdia','Manouba','Medenin','Monastir','Nabeul','Sfax','Sidi Bouzid','Siliana','Sousse','Tataouine','Tozeur','Tunis','Zaghouen']; 
 
 
   const handleBack = () => {
@@ -241,10 +240,8 @@ export default function Steps(props) {
   };
 
   const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateTrade:"",userId:window.localStorage.getItem("connectedUserID")})
-console.log("iddddddd"+props.userId);
 
   const createTrade =()=>{
-   // var newTrade = {datePost:new Date(),dateTrade:new Date(),items:props.data,status:status,location:location}
   
    newTrade.datePost=new Date();
    newTrade.TradeFrom=props.userId;
@@ -323,7 +320,7 @@ console.log("iddddddd"+props.userId);
         :
         activeStep === 1?(<div>
         <FormControl style={{width:'220px' , marginBottom:'4%'}}>
-                <TextField classes={{root: classes.input}} id="standard-basic" label="location" name="location" onChange={(e)=>newTrade.location=e.target.value} defaultValue={newTrade.location} />
+                <TextField classes={{root: classes.input}} id="standard-basic" label="location" name="location" onChange={(e)=>newTrade.location=e.target.value} />
                   <br />
                  <label>Status</label>
                   <FormControlLabel
