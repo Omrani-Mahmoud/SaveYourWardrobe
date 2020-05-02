@@ -32,6 +32,8 @@ import {useLocation} from "react-router-dom";
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
+import imgB from '../../../Assets/images/eventDon.png'
+
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -181,12 +183,12 @@ const handleCloseNot = () => {
                 <BottomNavigationAction label="Don List" value="listDon" icon={<ListIcon />} />
                 
               </BottomNavigation>
-        <div className={classes.root} style={{marginTop:"5%"}} hidden={value==="interface"?false:true}>
+        <div className={classes.root} style={{marginTop:"5%",}} hidden={value==="interface"?false:true}>
         
-        <img src={donation} width="300px" style={{position:"absolute",zIndex:"-99999",marginLeft:"-24px"}} />
+        <img src={imgB} width="35%" style={{position:"absolute",zIndex:"-99999",marginLeft:"-24px",marginTop:'2%'}} />
 
              <Grid container spacing={0} direction="column" justify="center" alignItems="center" >
-             <span style={{marginBottom:'4%', color:"grey"}}><b>This donation will be to the charity : {charity.name} ( organizer of this event )</b></span>
+             <span style={{marginBottom:'4%', color:"grey"}}><b>This donation will be to the charity : <span style={{textDecoration:"underline",textDecorationColor:"black"}}>{charity.name}</span> ( organizer of this event )</b></span>
 
                <Grid item xs={12} sm={6} container>
               {items.length?

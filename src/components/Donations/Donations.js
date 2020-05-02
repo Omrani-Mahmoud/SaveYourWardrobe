@@ -28,6 +28,9 @@ import FolderIcon from '@material-ui/icons/Folder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DonationList from './DonationList';
 import ListIcon from '@material-ui/icons/FormatListBulleted';
+import {useLocation} from "react-router-dom";
+import SingleItem from './SingleItem';
+
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -88,8 +91,11 @@ function Donations() {
     const [disableItems,setDisableItems] = useState(false);
     const [reload,setReload] = useState(false);
     const [donItems,setDonItems] = useState([]);
+    const [removedItems,setRemovedItems] = useState([]);
+
     const [hide,setHide] = useState({interface:false,donList:true});
     const classes = useStyles();
+    const location = useLocation();
     const theme = useTheme();
 
     const nextItem = ()=>{
@@ -114,6 +120,7 @@ function Donations() {
   const removeItem = (id)=>{
     for( var i = 0; i < donItems.length; i++){ 
       if ( donItems[i]._id ===id) {
+        setRemovedItems([...removedItems,donItems[i]])
         donItems.splice(i, 1); 
         i--;
       }
@@ -145,6 +152,8 @@ function Donations() {
     })
 },[])
 
+
+console.log("from link", location.items)
     return (
     
         <div className="aa" style={{ minHeight:"100vh"}}>
@@ -167,10 +176,28 @@ function Donations() {
         <div className={classes.root} style={{marginTop:"5%"}} hidden={value==="interface"?false:true}>
         
         <img src={donation} width="300px" style={{position:"absolute",zIndex:"-99999",marginLeft:"-24px"}} />
+        <h2 style={{textAlign:"center"}}hidden={ location && location.items && location.items.length>0?false:true}>Suggested Items</h2>
 
+               <div style={{display:"flex",marginBottom:'3%', flexDirection:"row" , justifyContent:"center",flexWrap:"wrap",maxHeight:"140px",overflowY:"scroll"}}>
+           
+                    
+            {            
+                         location && location.items && location.items.length>0?
+                         location.items.map((elem,index)=>(
+                 
+                        <SingleItem elem={elem} index={index} addToList={setDonItems} list={donItems} removedList={removedItems} clearItem={setRemovedItems}/>
+           
+                     )
+                       )
+                       : null
+                       }
+   
+      
+
+        </div>
              <Grid container spacing={0} direction="column" justify="center" alignItems="center" >
+               
                <Grid item xs={12} sm={6} container>
-                
               {items.length?
               
                 <Card className={classes.cardRoot} style={{width:"100%"}}>       

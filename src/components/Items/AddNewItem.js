@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 function AddNewItem(){
     const classes = useStyles();
 const [newItem,setNewItem] = useState({name:"aa",description:"",size:"",color:"",price:"",brand:""})
-const [value,setValue] = useState({name:"",description:"",size:"",color:"",price:"",brand:""})
+const [value,setValue] = useState({name:"",description:"",size:"",color:"",price:"",brand:"",add_date:""})
 const [dataFromDB,setNewDataFromDB] = useState([]);
 const [refresh,setRefresh] = useState(false);
 const [wantToUpdate,setWantToUpdate] = useState(false);
@@ -49,7 +49,7 @@ const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
 
     const addItem =()=>{
-
+        value.add_date=new Date()
         axios.post("http://localhost:4000/item",{item:value,user:window.localStorage.getItem("connectedUserID")})
             .then(res=>{
                 console.log(res)

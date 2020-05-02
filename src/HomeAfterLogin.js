@@ -25,6 +25,8 @@ import LoginPage from './components/Login/LoginPage'
 import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom'
 import Donations from './components/Donations/Donations';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import Snackbar from '@material-ui/core/Snackbar';
+import SaveIcon from '@material-ui/icons/Save';
 
 import DonationEvent from '../src/components/Events/Donations/Donations';
 import MyWardrobe from './components/MyWardrobe/MyWardrobe';
@@ -57,8 +59,13 @@ import { DialogContent } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import EventIcon from '@material-ui/icons/Event';
 import StarIcon from '@material-ui/icons/Star';
+import Slide from '@material-ui/core/Slide';
+import Alert from '@material-ui/lab/Alert';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
-
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" />;
+}
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -129,10 +136,10 @@ export default function HomeAfterLogin(props) {
   const [open, setOpen] = React.useState(false);
   const [verif, setVerif] = React.useState(false);
   const [user, setUser] = React.useState(null);
-
+  const [items,setItems] = React.useState([])
   const [events, setEvents] = React.useState([]);
   const [openD, setOpenD] = React.useState(false);
-
+  const [openOldItems, setOpenOldItems] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -180,9 +187,28 @@ const handleOpen = (value) => {
   setOpenD(true);
 };
 
+const fetchItems =async ()=>{
+  const filtredItems = [];
+  const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
+  const data = await datatFromDataBase.json();
+  data.wardrobe.items.map(elem=>{
+    if(!elem.state){
+      if(elem.add_date)
+      if((new Date().getTime()-new Date(elem.add_date).getTime())/ (1000 * 3600 * 24)<360)
+        filtredItems.push(elem)
+    }
+  })
+  setItems(filtredItems)
+
+}
 React.useEffect(() => {
-  fetchIt()
+  fetchIt();
+  fetchItems();
 }, [])
+
+const handleCloseOpenOldItems = ()=>{
+  setOpenOldItems(false)
+}
 
   if (user && user.role==="user" && window.localStorage.getItem("tokenWardrobe")){
   
@@ -201,7 +227,8 @@ React.useEffect(() => {
               <StarIcon style={{color:"orange"}}/>
              
 
-          <span ><b>{x.name}</b></span>
+          <span ><b>{`${x.name}  `}</b><span style={{color:"grey"}}>{` event for:${x.type}`}</span></span>
+     
           {~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))<=2?
           <Tooltip title={`event will ends in ${~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))} days ..`}>
           <ErrorOutlineIcon color="error" style={{marginLeft:"10px"}} />
@@ -335,7 +362,23 @@ React.useEffect(() => {
       <main className={classes.content}>
       
         <div className={classes.toolbar} />
- 
+        <Snackbar
+        open={openOldItems}
+        onClose={handleCloseOpenOldItems}
+        TransitionComponent={SlideTransition}
+        >
+          <Alert onClose={handleCloseOpenOldItems} severity="info">You have some old items , why you don't donate it !
+           <Link to={{pathname:`${props.match.path}/donation`,items:items}}><Button
+        variant="text"
+          style={{color:"#fa52e6"}}
+        size="small"
+        className={classes.button}
+        startIcon={<FavoriteIcon />}
+        onClick={handleCloseOpenOldItems}
+      >
+        donate
+      </Button></Link> </Alert>
+          </Snackbar>
  
                 <Switch>
                     <Route path={`${props.match.path}/`} exact component={MainPage} />

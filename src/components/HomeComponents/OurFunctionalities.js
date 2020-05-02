@@ -45,9 +45,9 @@ function OurFunctionalities(props) {
                             
                             <div className='btnInsideDesc' style={{ backgroundColor:props.btnColor}}>
                             {props.position==='left'?
-                            <Link to="/home"><NavigateNextRoundedIcon fontSize="large" /></Link>
+                            <Link to="/login" style={{textDecoration:"none",color:"black"}}><NavigateNextRoundedIcon fontSize="large" /></Link>
                             :
-                            <Link><NavigateBeforeRoundedIcon fontSize="large" /></Link>}
+                            <Link to="/login" style={{textDecoration:"none",color:"black"}}><NavigateBeforeRoundedIcon fontSize="large" /></Link>}
 
                             </div>
                            
