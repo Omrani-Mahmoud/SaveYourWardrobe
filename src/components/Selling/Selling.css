@@ -46,3 +46,27 @@ text-align: center;
 .older{
     text-decoration: line-through;
 }
+
+.marga{
+    width: 600px;
+}
+
+.newic{
+    height: 30px;
+}
+.forsell{
+
+    text-decoration: none;
+    color: rgb(158, 90, 0);
+    background:rgba(255, 0, 0, 0.2);
+    
+
+}
+.forsell1{
+
+    text-decoration: none;
+    color: rgb(158, 90, 0);
+    background:rgba(0,255,0,0.1);
+    
+
+}

@@ -33,6 +33,7 @@ import {UserData} from '../../HomeAfterLogin' ;
 
 
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
    
@@ -149,10 +150,7 @@ const ItemSell=()=>{
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-    setdisable(true);
-  };
+ 
 
   const [sellexist,setsellexist] = useState([{}]);
 
@@ -194,10 +192,11 @@ if (b==true){
     setValue(value.items=itemId);
     setValue(value.location=userData.address);
       addItemToSell(value);
+      setshow(true);
       setOpen(true);
 }else{
-  settrouve('The Item that you want to sell is already in sell , do you want to change the price as you set');
- 
+  settrouve('The Item that you want to sell is already in sell!');
+  setshow(false);
 }
       
     }
@@ -205,15 +204,7 @@ if (b==true){
   };
 
   const [show, setshow] = React.useState(false);
- const YesHandle=()=>{
  
-    SellUpdate(sellexist._id,sellexist);
-    setshow(true);
-
-  }
-  const NoHandle=()=>{
-    setshow(true);
-  }
 
 
 
@@ -231,17 +222,6 @@ if (b==true){
   }
 
 
-  const SellUpdate = (id_sel,val)=>{
-      val.price=prix;
-    axios.patch(`http://localhost:4000/sell/${id_sel}`,val)
-        .then(res =>{
-            console.log(res)
-        })
-    
-         .catch(err=>{
-        console.log(err)
-    })
-}
 
 
   const [sells,setsells] = useState([{}]);
@@ -385,9 +365,9 @@ const ChangeHandler=event=>{
      
 
       <h2 className="MyError"> {trouve} </h2>
-   <h2 hidden={show}> <Button variant="contained" color="default" onClick={YesHandle} > Yes </Button> / <Button  variant="contained" color="inherit" onClick={NoHandle} > No</Button> </h2>
+    
         
-            <Link to={'/home/selling'} className="link">  <Button variant="outlined" color="secondary" > Return to Sell page </Button> </Link>
+            <Link to={'/home/selling'} className="link">  <Button variant="outlined" color="secondary" > Go to Sell page </Button> </Link>
           </div>
         
         
