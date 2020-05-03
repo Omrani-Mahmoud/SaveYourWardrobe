@@ -40,6 +40,23 @@ import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
 import SaveIcon from '@material-ui/icons/Save';
 import DoneIcon from '@material-ui/icons/Done';
 import SingleItem from './SingleItem';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Dialog from '@material-ui/core/Dialog';
+
+import Tooltip from '@material-ui/core/Tooltip';
+
+import LinkIcon from '@material-ui/icons/Link';
+
+import Froms from '@material-ui/icons/Description';
+import RowMail from './RowMail';
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -48,6 +65,10 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2),
       textAlign: 'center',
       color: theme.palette.text.secondary,
+    },
+    rootBtnAdd: {
+      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      color: 'white',
     },
   }));
 
@@ -68,10 +89,29 @@ function PerEmail() {
 
     const [openUpload, setOpenUpload] = React.useState(false);
     const [searchMode, setSearchMode] = React.useState("");
+    const [openLink, setOpenLink] = React.useState(false);
+    const [myEmails, setMyEmails] = React.useState([]);
+    const [chosedList, setChosedlist] = React.useState([]);
+
+    const [loadingMails, setLoadingMails] = React.useState(false);
+
+
+    const pushToChosedList = (x)=>{
+      setChosedlist([...chosedList,x])
+    }
 
     const theme = useTheme();
-
-
+    function createData(name, calories, fat, carbs, protein) {
+      return { name, calories, fat, carbs, protein };
+    }
+    
+    const rows = [
+      createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+      createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+      createData('Eclair', 262, 16.0, 24, 6.0),
+      createData('Cupcake', 305, 3.7, 67, 4.3),
+      createData('Gingerbread', 356, 16.0, 49, 3.9),
+    ];
 
     const charityList = [
       {name:"First-email", value:2},
@@ -95,12 +135,14 @@ const onChangeHandlerT=event=>{
 }
 
 
-const fetchIt = ()=>{
+const fetchIt = (objet)=>{
   setLoading(true)
   setBeforeLoading(true)
   axios.post(`http://localhost:4000/extractProductsFromMailTest`,{
-   filePathText:`./uploads/mails/${selectedFile.selectedFile.name}`,
-   filePathHTML:`./uploads/mails/${selectedFileT.selectedFile.name}`,
+   //filePathText:`./uploads/mails/${selectedFile.selectedFile.name}`,
+   //filePathHTML:`./uploads/mails/${selectedFileT.selectedFile.name}`,
+   mailText:objet.text,
+   mailHtml:objet.html,
    searchMode: searchMode
   })
   .then(res=>{
@@ -146,10 +188,39 @@ const handleChange = (event) => {
   setSearchMode(event.target.value)
 };
 
+
+const handleOpenLink = () => {
+  setOpenLink(true)
+};
+
+const handleCloseLink = () => {
+  setOpenLink(false)
+};
+
+
+const getMyEmails =async  ()=>{
+  const datatFromDataBase = await fetch(`http://localhost:4000/mails`);
+  const data = await datatFromDataBase.json();
+  setMyEmails(data)
+  setLoadingMails(true)
+}
+
+React.useEffect(() => {
+  getMyEmails()
+  
+}, [])
+
+console.log(chosedList)
     return (
         <Grid container spacing={3} >
-          
+
         <Container maxWidth="lg">
+
+        <Tooltip title="Link your email">
+        <IconButton  aria-label="upload picture" component="span" className={classes.rootBtnAdd} style={{float:"right"}} onClick={()=>setOpenLink(!openLink)} >
+          <LinkIcon /> 
+        </IconButton>
+        </Tooltip>
                    <FormControl style={{width:'220px', marginBottom:"1%"}} >
                    <InputLabel htmlFor="search">Search methode</InputLabel>
         <Select
@@ -168,20 +239,68 @@ const handleChange = (event) => {
           <option value="image">image</option>
           <option value="text">text</option>
         </Select>
-        <Input type="file" onChange={onChangeHandler} />
-        <Input type="file" onChange={onChangeHandlerT} />
+       { /*<Input type="file" onChange={onChangeHandler} />
+        <Input type="file" onChange={onChangeHandlerT} />*/}
       </FormControl>
-      <Grid item xs={3} >
-      <div hidden={!showBtn}>
+      <Grid item xs={3}  md={12}>
+      <Button variant="contained" color="primary" href="#contained-buttons" onClick={()=>getMyEmails()}   >
+                    Get my emails
+        </Button>
+
+     { /*<div hidden={!showBtn}>
         <Button variant="contained" color="primary" href="#contained-buttons" disabled={!showBtn} onClick={()=>fetchIt()}>
                     Show results
         </Button>
       </div>
-        <div hidden={showBtn}>
+      */}
+       { /*<div hidden={showBtn}>
         <Button variant="contained" color="primary" href="#contained-buttons" disabled={selectedFile.selectedFile===null?true:false}onClick={()=>{onClickHandler();onClickHandlerT()}}>
                     Upload
         </Button>
-        </div>
+        </div> */}
+        
+       
+          
+
+        <Grid
+        
+  container
+  direction="row"
+  justify="center"
+  alignItems="center"
+>
+  <div hidden={loadingMails}>
+                  <CircularProgress color="inherit" />
+                  </div>
+                  </Grid>
+<div hidden={!loadingMails}>
+        <TableContainer component={Paper} style={{maxHeight:"300px", marginTop:"3%",width:"100%"}}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">From</TableCell>
+            <TableCell align="center">Email</TableCell>
+            <TableCell align="center">Recieve date</TableCell>
+            <TableCell align="center"></TableCell>
+          </TableRow>
+        </TableHead>
+      
+        <TableBody>
+          {myEmails.map((row) => (
+           <RowMail row={row} push={pushToChosedList} fetch={fetchIt}/>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+   
+    </div>
+
+
+
+
+
+
         </Grid>
       <Collapse in={open} style={{width:"30%"}}>
      
@@ -258,7 +377,16 @@ const handleChange = (event) => {
                        )
                        }
    
-      
+   <Dialog onClose={handleCloseLink} aria-labelledby="simple-dialog-title" open={openLink}>
+      <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
+      <DialogContent>
+        <div style={{display:"flex",flexDirection:"column"}}>
+      <TextField id="standard-basic" type='email'label="Email" />
+      <TextField id="standard-basic" type="password"label="Password" />
+      <Button style={{marginTop:"10%"}} onClick={handleCloseLink} color="primary" size="small" variant="contained">Link</Button>
+      </div>
+      </DialogContent>
+      </Dialog>
         </div>
           </Paper>
         </Grid>
