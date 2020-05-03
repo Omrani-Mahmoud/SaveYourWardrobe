@@ -62,6 +62,9 @@ import StarIcon from '@material-ui/icons/Star';
 import Slide from '@material-ui/core/Slide';
 import Alert from '@material-ui/lab/Alert';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import SellDetails from './components/Selling/SellDetails';
+import SyncAltRoundedIcon from '@material-ui/icons/SyncAltRounded';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
@@ -323,18 +326,17 @@ const handleCloseOpenOldItems = ()=>{
 
             
             <Link to="/home/trades" ><ListItem button>
-              <ListItemIcon> <EuroIcon /></ListItemIcon>
+              <ListItemIcon> <SyncAltRoundedIcon /></ListItemIcon>
               <ListItemText primary={"Trades"} />
             </ListItem>
             </Link>
 
 
                <Link to="/home/selling" ><ListItem button>
-              <ListItemIcon> <EuroIcon  /></ListItemIcon>
+              <ListItemIcon> <ShoppingBasketIcon  /></ListItemIcon>
               <ListItemText primary={"Selling"} />
             </ListItem>
             </Link>
-
 
             <Link to="/home/tclothes" ><ListItem button>
               <ListItemIcon> <FavoriteBorderIcon /></ListItemIcon>
@@ -395,6 +397,7 @@ const handleCloseOpenOldItems = ()=>{
                     <Route path={`${props.match.path}/v`} exact component={EmailItemView} />
                     <Route path={`/home/selling`} exact component={Selling} />
                     <Route path="/home/selling/itemSell/:itemId" exact  component={ItemSell}    />
+                    <Route path="/home/selling/sellDetails/:itemId" exact  component={SellDetails}    />
                 </Switch>
       </main>
 
