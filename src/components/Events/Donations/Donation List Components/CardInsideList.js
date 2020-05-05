@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import img from '../../../../Assets/images/outfit.jpg'
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +27,7 @@ export default function CardInsideList(props) {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image={props.data.image?props.data.image:img}
           title="Contemplative Reptile"
         />
         <CardContent>

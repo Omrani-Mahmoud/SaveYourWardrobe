@@ -46,6 +46,7 @@ function SingleItem({elem,index}) {
 
     const [selectedItemIndex,setSelectedItemIndex] = React.useState(0)
     const [disabled,setDisabled] = React.useState(false)
+    const [newItem,setNewItem] = React.useState({name:elem.Name,description:"",size:elem.Size,color:elem.Color,price:elem.Price?elem.Price:0,brand:"",add_date:"",image:elem.images[selectedItemIndex]})
 
     const nextImage = (images)=>{
         setSelectedItemIndex(selectedItemIndex===images.length-1?0:selectedItemIndex+1) 
@@ -53,6 +54,20 @@ function SingleItem({elem,index}) {
       const previousImage = ()=>{
       setSelectedItemIndex(selectedItemIndex<=0 ?0:selectedItemIndex-1) 
       }
+
+      const addItem =()=>{
+        newItem.add_date=new Date()
+        axios.post("http://localhost:4000/item",{item:newItem,user:window.localStorage.getItem("connectedUserID")})
+            .then(res=>{
+                console.log(res)
+                setDisabled(true)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+
+    }
+
     return (
         <Paper style={{marginBottom:"2%"}}>
                              <div style={{display:"flex",width:"100%",}}>
@@ -74,18 +89,18 @@ function SingleItem({elem,index}) {
                                   <h5 style={{color:"grey"}}><b>Item Name </b>: {elem.Name} </h5>
                                   <h5 style={{color:"grey"}}><b>Item Size </b>: {elem.Size} </h5>
                                   <h5 style={{color:"grey"}}><b>Item Color </b>: {elem.Color} </h5>
-                                  <h5 style={{color:"grey"}}><b>Item Price </b>: {elem.Color} </h5>
+                                  <h5 style={{color:"grey"}}><b>Item Price </b>: {elem.Price} </h5>
                               </div>
                              </div>
                              {
                                  !disabled?
-                                 <div   style={{display:"flex",justifyContent:"center",alignItems:"center", cursor:"pointer"}}onClick={()=>{setDisabled(true)}}>
+                                 <div   style={{display:"flex",justifyContent:"center",alignItems:"center", cursor:"pointer"}}onClick={()=>{addItem()}}>
                                <div style={{display:"flex",backgroundColor:"rgb(64,185,127)",justifyContent:"center",alignItems:"center",border:"none",borderRadius:"4px" ,width:"40%",float:'right', marginRight:'5%',marginBottom:'5%'}}>
                                    <div style={{backgroundColor:"rgb(28,35,41)" ,width:"15%",borderTopLeftRadius:'4px',borderBottomLeftRadius:'4px'}}>
                                        <DoneIcon style={{color:"rgb(137,196,74)"}} fontSize="small" />
                                     </div>
                                    <div style={{width:"87%",height:"100%"}}>
-                                   <span style={{color:"white"}} >Confirm</span>
+                                   <span style={{color:"white"}} >Confirms</span>
                                    </div>
                              </div>
                              </div>:

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles , useTheme} from '@material-ui/core/styles';
 import clsx from 'clsx';
-import img from "../../Assets/images/stan.jpg"
+import img from "../../Assets/images/outfit.jpg"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
@@ -81,7 +81,7 @@ function SingleItem({elem,index,addToList,list,removedList,clearItem}) {
                              <div style={{display:"flex",width:"100%",}}>
                               <div style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
                       
-                          <img src={img} width="100" height="auto" />
+                          <img src={elem.image?elem.image:img} width="100" height="auto" />
 
                           
                     

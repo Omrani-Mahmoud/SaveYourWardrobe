@@ -12,8 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import exchange from '../../Assets/images/outfit.jpg'
 import {Link} from 'react-router-dom';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-
-
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Emails from '@material-ui/icons/Drafts';
+import Froms from '@material-ui/icons/Description';
 
 
 const useStyles = makeStyles(theme => ({
@@ -30,6 +32,13 @@ const useStyles = makeStyles(theme => ({
       padding: theme.spacing(1),
       textAlign: 'center',
       color: theme.palette.text.secondary,
+    },
+    rootBtnAdd: {
+      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      color: 'white',
+  
+  
+  
     },
   }));
 
@@ -60,7 +69,6 @@ React.useEffect(() => {
      
       <React.Fragment>
 
-       
 
       {items.map(i=>{
 
@@ -74,7 +82,7 @@ React.useEffect(() => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={exchange}
+          image={i.image?i.image:exchange}
           title={i.name}
         />
         <CardContent>
@@ -139,7 +147,25 @@ React.useEffect(() => {
      
        </div>
 
-       
+       <div style={{display:'flex',float:'right',flexDirection:"row",marginBottom:"2%"}}>
+        <Link to="/home/perEmails" style={{marginRight:"20px"}}> 
+        <Tooltip title="Import items from emails">
+        <IconButton  aria-label="upload picture" component="span" className={classes.rootBtnAdd}>
+          <Emails /> 
+        </IconButton>
+        </Tooltip>
+        </Link>
+          <Link to="/home/items" style={{marginRight:"30px"}}>
+          <Tooltip title="Add items manually">
+            <IconButton aria-label="upload picture" component="span" className={classes.rootBtnAdd}>
+              <Froms />
+            </IconButton>
+            </Tooltip>
+          </Link>
+
+          
+        </div>
+
       <Grid container spacing={1}>
         
      

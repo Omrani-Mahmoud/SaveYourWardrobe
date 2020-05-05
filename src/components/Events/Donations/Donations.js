@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import img from "../../../Assets/images/stan.jpg"
+import img from "../../../Assets/images/outfit.jpg"
 import Steps from './Steps';
 import donation from '../../../Assets/images/donate1.png'
 import alertBG from '../../../Assets/images/alertBG.png'
@@ -225,7 +225,7 @@ const handleCloseNot = () => {
                       <CardMedia
                         
                         className={classes.cover}
-                        image={img}
+                        image={items[selectedItemIndex].image?items[selectedItemIndex].image:img}
                         title={items[selectedItemIndex].name}
                       />
                  

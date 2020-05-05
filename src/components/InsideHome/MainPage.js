@@ -118,24 +118,7 @@ export default function MainPage() {
   return (
     <div className={classes.root} style={{marginTop:'5%'}}>
       <main className={classes.content}>
-        <div style={{display:'flex',float:'right',flexDirection:"row"}}>
-        <Link to="/home/perEmails" style={{marginRight:"20px"}}> 
-        <Tooltip title="Import items from emails">
-        <IconButton  aria-label="upload picture" component="span" className={classes.rootBtnAdd}>
-          <Emails /> 
-        </IconButton>
-        </Tooltip>
-        </Link>
-          <Link to="/home/items" style={{marginRight:"30px"}}>
-          <Tooltip title="Add items manually">
-            <IconButton aria-label="upload picture" component="span" className={classes.rootBtnAdd}>
-              <Froms />
-            </IconButton>
-            </Tooltip>
-          </Link>
-
-          
-        </div>
+       
         <div className={classes.appBarSpacer} />
           
      
