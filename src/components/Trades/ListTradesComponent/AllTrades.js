@@ -1,144 +1,54 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import LocationCityIcon from '@material-ui/icons/LocationCity';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import Clothes from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
 import Chip from '@material-ui/core/Chip';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
-import Button from '@material-ui/core/Button';
-import Popover from '@material-ui/core/Popover';
-import CardInsideList from './CardInsideList';
 import Help from '@material-ui/icons/Help';
-
-import Receive from "@material-ui/icons/CallReceived";
 import Out from "@material-ui/icons/CallMade";
 import In from "@material-ui/icons/TransitEnterexit";
-
 import axios from "axios";
 import Swal from 'sweetalert2'
-
-import TradeDialog from './TradeDialog';
+import Box from '@material-ui/core/Box';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import Button from '@material-ui/core/Button';
+import TradeDialog from './TradeDialog';
 
 
-const useStyles = makeStyles(theme => ({
+
+  const useRowStyles = makeStyles({
     root: {
-      width: '100%',
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-    },
-    secondaryHeading: {
-      fontSize: theme.typography.pxToRem(15),
-      color: theme.palette.text.secondary,
-    },
-    icon: {
-      verticalAlign: 'bottom',
-      height: 20,
-      width: 20,
-    },
-    details: {
-      alignItems: 'center',
-    },
-    column: {
-      flexBasis: '1%',
-    },
-    helper: {
-      borderLeft: `2px solid ${theme.palette.divider}`,
-      padding: theme.spacing(1, 2),
-    },
-    link: {
-      color: theme.palette.primary.main,
-      textDecoration: 'none',
-      '&:hover': {
-        textDecoration: 'underline',
+      '& > *': {
+        borderBottom: 'unset',
       },
     },
-  }));
-
-const ExpansionPanel = withStyles({
-    root: {
-      border: '1px solid rgba(0, 0, 0, .125)',
-      boxShadow: 'none',
-      '&:not(:last-child)': {
-        borderBottom: 0,
-      },
-      '&:before': {
-        display: 'none',
-      },
-      '&$expanded': {
-        margin: 'auto',
-      },
-    },
-    expanded: {},
-  })(MuiExpansionPanel);
+  });
   
-  const ExpansionPanelSummary = withStyles({
-    root: {
-      backgroundColor: 'rgba(0, 0, 0, .03)',
-      borderBottom: '1px solid rgba(0, 0, 0, .125)',
-      marginBottom: -1,
-      minHeight: 56,
-      '&$expanded': {
-        minHeight: 56,
-      },
-    },
-    content: {
-      '&$expanded': {
-        margin: '12px 0',
-      },
-    },
-    expanded: {},
-  })(MuiExpansionPanelSummary);
-  
-  const ExpansionPanelDetails = withStyles(theme => ({
-    root: {
-      padding: theme.spacing(2),
-    },
-  }))(MuiExpansionPanelDetails);
-
-
 
 
 function AllTrades(props) {
-    const [expanded, setExpanded] = React.useState('');
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleChange = panel => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
-
-  const handlePopoverOpen = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-
-
-
-
-  const open = Boolean(anchorEl);
+  const { row } = props;
+  const [open, setOpen] = React.useState(false);
+  const classes = useRowStyles();
   const [isEit, setIsEdit] = React.useState(false);
   const [TradeState, setTradeState] = React.useState(false);
-
   const [deletedList, setDeletedList] = React.useState([]);
   const [disableIt, setdisableIt] = React.useState(false);
-  const classes = useStyles();
-  
   const [selectedValue, setSelectedValue] = React.useState(false);
-
-
   const [itemTrade, setItemTrade] = React.useState([]);
 
  
@@ -218,77 +128,102 @@ const UserWardrobeItems=() =>{
 
 
     return (
-        <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                        <ExpansionPanelSummary  aria-controls="panel1d-content" id="panel1d-header">
-                        <LocationCityIcon fontSize="small"/>
-                        <Typography >{`: ${props.data.location?props.data.location:"no name"}`}</Typography>
-                        <EventNoteIcon style={{marginLeft:"10%"}} />
-                        <Typography>{`: ${props.data.datePost?new Date(props.data.datePost).toDateString():"no date"}`}</Typography>
-                        <Badge  badgeContent={props.data.items.length} color="primary" style={{marginLeft:"10%"}}>
+    
+      <React.Fragment>
+      <TableRow className={classes.root}>
+        <TableCell>
+          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell component="th" scope="row">
+        <LocationCityIcon fontSize="small"/>
+        {`: ${props.data.location?props.data.location:"no name"}`}
+        </TableCell>
+        <TableCell align="left">
+        <EventNoteIcon  />
+          {`: ${props.data.datePost?new Date(props.data.datePost).toDateString():"no date"}`}
+          </TableCell>
+        <TableCell align="left">
+        <Badge  badgeContent={props.data.items.length} color="primary">
                             <Clothes />
-                        </Badge>
-                        <Help style={{marginLeft:"10%", color:"red"  }} />
-                        <Typography>{`Status: ${props.data.status}`}</Typography>
-                        <Out style={{marginLeft:"3%"}} />
-                        
-                      
-                         
-                            <div className={clsx(classes.column)}>
-                                        <Chip variant="outlined" color="primary" size="small"  label={props.data.TradeFrom.email} style={{marginLeft:"5%"}}/>
-                              </div>
-                       
-                        <In style={{marginLeft:"3%"}} />
-                        <Typography>{`: ${props.data && props.data.TradeTo && props.data.TradeTo.email?props.data.TradeTo.email:"Not Traded"}`}</Typography>                        
-                       
-                        </ExpansionPanelSummary>
+          </Badge>
+        </TableCell>
+        <TableCell align="left">
+        <div hidden={props.data.status=="Confirmed"}>
+        <Help  style={{ color:"red"  }} />
+        {`${props.data.status}`}
+        </div>
+        <div hidden={props.data.status=="pending"}>
+        <Help  style={{ color:"green"  }} />
+        {`${props.data.status}`}
+        </div>
+        </TableCell>
+        <TableCell align="left">
+        <Out/>
+        <Chip variant="outlined" color="primary" size="small"  label={props.data.TradeFrom.email}/>                                         
+        </TableCell>
 
-                        <TradeDialog  selectedValue={selectedValue} onClose={handleClose} open={TradeState} data={itemTrade} trade={props.data} />
-                        <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
-                            {
-                                props.data.items.map(elem =>
-                                    <React.Fragment>
-                                    <div className={clsx(classes.column)} key={elem._id} onClick={handlePopoverOpen} >
-                                        <Chip variant="outlined" color="primary" size="small"  label={elem.name} style={{marginLeft:"5%"}} disabled={disableIt} onDelete={isEit?()=>{handleDelete(elem._id);setdisableIt(true)}:null} />
-                                    </div>
-                                        <Popover
-                                            id="mouse-over-popover"
-                                            className={classes.popover}
-                                            classes={{
-                                            paper: classes.paper,
-                                            }}
-                                            open={open}
-                                            anchorEl={anchorEl}
-                                            anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'left',
-                                            }}
-                                            transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'left',
-                                            }}
-                                            onClose={handlePopoverClose}
-                                            
-                                        >
-                                            <CardInsideList data={elem} />
-                                    </Popover>
-                                  </React.Fragment>
-                                )
-                            }
-                        </ExpansionPanelDetails>
-                            
-                        
-                          
+        <TableCell align="left">
+        <In />
+        {`: ${props.data && props.data.TradeTo && props.data.TradeTo.email?props.data.TradeTo.email:"Not Traded"}`}                                                                  
+        </TableCell>
 
-                        <ExpansionPanelActions>
-                        <div hidden={props.data.status==="Confirmed"}>
-                         <Button size="small" color="primary" onClick={()=>{setTradeState(true);UserWardrobeItems()}}>Accept Trade</Button>
-                        </div>
+        <TableCell>
+        <div hidden={props.data.status==="Confirmed"}>
+      <Button size="small" color="primary" onClick={()=>{setTradeState(true);UserWardrobeItems()}}>Accept Trade</Button>
+      </div>
+      <TradeDialog  selectedValue={selectedValue} onClose={handleClose} open={TradeState} data={itemTrade} trade={props.data} />
+      <div hidden={props.data.status==="pending"}>
+      <HelpOutlineIcon onClick={showIt}  />
+        </div>
+        </TableCell>
 
-                            <div hidden={props.data.status==="pending"}>
-                          <HelpOutlineIcon onClick={showIt}  />
-                          </div>
-                        </ExpansionPanelActions>
-                </ExpansionPanel>
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box margin={1}>
+              <Typography variant="h6" gutterBottom component="div">
+               Trade Items
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Item Name</TableCell>
+                    <TableCell>Size</TableCell>
+                    <TableCell align="right">Color</TableCell>
+                    <TableCell align="right">Price</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {props.data.items.map((e) => (
+                    <TableRow key={e.name}>
+                      <TableCell component="th" scope="row">
+                        {e.name}
+                      </TableCell>
+                      <TableCell>{e.size}</TableCell>
+                      <TableCell align="right">{e.color}</TableCell>
+
+                      <TableCell align="right">
+                        {e.price}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+      
+      </React.Fragment>
+ 
+
+
+
+      
+        
     )
 }
 
