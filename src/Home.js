@@ -94,7 +94,7 @@ function Home (){
                 </div>
                 <div className="info">
                 <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
-                        <Link to="#"><Button className="navBtn">Home</Button></Link>
+                    <Link to="/home"><Button className="navBtn">Home</Button></Link>
                     </Tooltip>
                     <Tooltip title="brief description oabout our story" TransitionComponent={Zoom} classes={{ tooltip: classes.customWidth }}>
                     <Link to="#"> <Button className="navBtn">Our story</Button></Link>
