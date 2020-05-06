@@ -231,7 +231,7 @@ export default function Steps(props) {
   const sendEmail =(charityID)=>{
     charityList.map(x =>{
       if(x._id===charityID){
-        axios.post("http://code-beast.herokuapp.com/send-email",{email:x.email})
+        axios.post("https://code-beast.herokuapp.com/send-email",{email:x.email})
         .then(res=>{
             console.log(res)
         })
@@ -247,7 +247,7 @@ export default function Steps(props) {
 
   const createDonation =()=>{
     var donObject = {dateDonation:new Date(),items:props.data,charity:charity,userId:window.localStorage.getItem("connectedUserID")}
-    axios.post("http://code-beast.herokuapp.com/donation",donObject)
+    axios.post("https://code-beast.herokuapp.com/donation",donObject)
         .then(res=>{
             console.log(res)
             sendEmail(charity)
@@ -264,7 +264,7 @@ export default function Steps(props) {
 
 
 const fetchIt =async ()=>{
-  const datatFromDataBase = await fetch("http://code-beast.herokuapp.com/association");
+  const datatFromDataBase = await fetch("https://code-beast.herokuapp.com/association");
   const data = await datatFromDataBase.json();
   setCharityList(data)
   console.log("list of charity",data)

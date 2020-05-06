@@ -71,7 +71,7 @@ export default function SingleSell({i,refresh}) {
     const deletee =  (idd) =>{
 
 
-        axios.delete(`http://code-beast.herokuapp.com/sell/${idd}`)
+        axios.delete(`https://code-beast.herokuapp.com/sell/${idd}`)
          .then(res=>{
              console.log(res)
              refresh(true);
@@ -107,7 +107,7 @@ export default function SingleSell({i,refresh}) {
      const SellUpdate = (id_sel,val)=>{
        val.price=prix;
        
-     axios.patch(`http://code-beast.herokuapp.com/sell/${id_sel}`,val)
+     axios.patch(`https://code-beast.herokuapp.com/sell/${id_sel}`,val)
          .then(res =>{
              console.log(res)
             

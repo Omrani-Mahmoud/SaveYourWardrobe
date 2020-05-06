@@ -57,7 +57,7 @@ function SingleItem({elem,index}) {
 
       const addItem =()=>{
         newItem.add_date=new Date()
-        axios.post("http://code-beast.herokuapp.com/item",{item:newItem,user:window.localStorage.getItem("connectedUserID")})
+        axios.post("https://code-beast.herokuapp.com/item",{item:newItem,user:window.localStorage.getItem("connectedUserID")})
             .then(res=>{
                 console.log(res)
                 setDisabled(true)

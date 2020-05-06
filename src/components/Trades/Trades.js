@@ -113,7 +113,7 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
   
     }
   const addTrade =()=>{
-    axios.post("http://code-beast.herokuapp.com/trade",newTrade)
+    axios.post("https://code-beast.herokuapp.com/trade",newTrade)
         .then(res=>{
             console.log(res)
         })
@@ -125,7 +125,7 @@ const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateT
 
 
   const fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://code-beast.herokuapp.com/userbyId/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/userbyId/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     console.log(data)
     setItems(data.wardrobe.items)

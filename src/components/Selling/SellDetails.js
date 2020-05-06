@@ -92,7 +92,7 @@ export default function SingleSell() {
       obj.notif=1;
       obj.state="Pending";
 
-     axios.patch(`http://code-beast.herokuapp.com/sell/${obj._id}`,obj)
+     axios.patch(`https://code-beast.herokuapp.com/sell/${obj._id}`,obj)
         .then(res =>{
             console.log(res)
         })
@@ -120,7 +120,7 @@ export default function SingleSell() {
 
     const fetchIt1 =async ()=>{
 
-        axios.get("http://code-beast.herokuapp.com/sell/"+itemId)
+        axios.get("https://code-beast.herokuapp.com/sell/"+itemId)
         .then(res => {
        
           setsells(res.data)
@@ -139,7 +139,7 @@ export default function SingleSell() {
 
         
 
-        axios.get("http://code-beast.herokuapp.com/user")
+        axios.get("https://code-beast.herokuapp.com/user")
         .then(res => {
        
           setusers(res.data)

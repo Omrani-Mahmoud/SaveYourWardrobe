@@ -117,7 +117,7 @@ function SingleDonation(props) {
 
   const updateShippingState = ()=>{
     console.log(props.data._id)
-    axios.patch(`http://code-beast.herokuapp.com/donationAss/${props.data._id}`)
+    axios.patch(`https://code-beast.herokuapp.com/donationAss/${props.data._id}`)
     .then(res=>{
         console.log(res)
     })

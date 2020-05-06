@@ -31,14 +31,14 @@ export default function EventList() {
 
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://code-beast.herokuapp.com/event/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/event/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     console.log(data)
     setNewDataFromDB(data);
 
 }
 const handleRemove = id => {
-  const url = `http://code-beast.herokuapp.com/event/${id}`;
+  const url = `https://code-beast.herokuapp.com/event/${id}`;
 
   axios
     .delete(url)

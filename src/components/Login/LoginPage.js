@@ -35,7 +35,7 @@ function LoginPage(props) {
 
     const login = ()=>{
         console.log("clicked")
-        axios.post("http://code-beast.herokuapp.com/login",info)
+        axios.post("https://code-beast.herokuapp.com/login",info)
             .then(res=>{
                 if(res.data && res.data.accessToken){
                     window.localStorage.setItem("tokenWardrobe",res.data.accessToken)

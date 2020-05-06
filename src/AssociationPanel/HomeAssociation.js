@@ -112,7 +112,7 @@ export default function HomeAssociation(props) {
   };
 
   React.useEffect(() => {
-    axios.post("http://code-beast.herokuapp.com/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+    axios.post("https://code-beast.herokuapp.com/verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){

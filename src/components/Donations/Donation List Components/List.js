@@ -9,7 +9,7 @@ export default function List(props) {
   const [donationList,setDonationList] = React.useState([]);
   const [loading,setLoading] = React.useState(true);
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://code-beast.herokuapp.com/userDonation/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/userDonation/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     setLoading(false)
     setDonationList(data);

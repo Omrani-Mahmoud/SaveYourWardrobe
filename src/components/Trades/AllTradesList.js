@@ -16,7 +16,7 @@ export default function List() {
   const [tradeList,setTradeList] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://code-beast.herokuapp.com/trade`);
+    const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/trade`);
     const data = await datatFromDataBase.json();
     console.log(""+data)
     setTradeList(data);
