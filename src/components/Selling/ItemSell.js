@@ -211,7 +211,7 @@ if (b==true){
   const addItemToSell =(aa)=>{
 
 
-    axios.post("http://localhost:4000/sell",aa)
+    axios.post("http://code-beast.herokuapp.com/sell",aa)
         .then(res=>{
             console.log(res)
         })
@@ -226,7 +226,7 @@ if (b==true){
 
   const [sells,setsells] = useState([{}]);
   const fetchForSells =async ()=>{
-    const datatFromDataBase = await fetch("http://localhost:4000/sell");
+    const datatFromDataBase = await fetch("http://code-beast.herokuapp.com/sell");
     const data = await datatFromDataBase.json();
    
   
@@ -240,7 +240,7 @@ if (b==true){
   
   
     const fetchIt1 =async ()=>{
-      const datatFromDataBase = await fetch("http://localhost:4000/item/"+itemId);
+      const datatFromDataBase = await fetch("http://code-beast.herokuapp.com/item/"+itemId);
       const data = await datatFromDataBase.json();
      
     

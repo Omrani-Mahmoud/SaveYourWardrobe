@@ -29,7 +29,7 @@ export default function FollowStoreComponent({ stores }) {
   console.log(userData)
 
   async function followStore(id_store) {
-    await axios.post(`http://localhost:4000/follow/${
+    await axios.post(`http://code-beast.herokuapp.com/follow/${
       window.localStorage.getItem("connectedUserID")
     }/store/${
       id_store

@@ -55,7 +55,7 @@ export default function SignUp() {
 
 
   const addUser =()=>{
-    axios.post("http://localhost:4000/user",newUser)
+    axios.post("http://code-beast.herokuapp.com/user",newUser)
         .then(res=>{
             console.log(res)
         })

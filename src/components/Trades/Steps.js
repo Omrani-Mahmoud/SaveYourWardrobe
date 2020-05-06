@@ -248,7 +248,7 @@ export default function Steps(props) {
    newTrade.TradeTo=null;
    
    newTrade.items=props.data;
-    axios.post("http://localhost:4000/trade",newTrade)
+    axios.post("http://code-beast.herokuapp.com/trade",newTrade)
         .then(res=>{
             console.log(res)
         })

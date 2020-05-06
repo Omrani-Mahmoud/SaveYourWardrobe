@@ -28,7 +28,7 @@ function AddEvent() {
 
     const addEvent=()=>{
         newEvent.association = window.localStorage.getItem("connectedUserID")
-        axios.post("http://localhost:4000/event",newEvent)
+        axios.post("http://code-beast.herokuapp.com/event",newEvent)
             .then(res=>{
                 if(res.status===200)
                 Swal.fire({

@@ -138,7 +138,7 @@ const onChangeHandlerT=event=>{
 const fetchIt = (objet)=>{
   setLoading(true)
   setBeforeLoading(true)
-  axios.post(`http://localhost:4000/extractProductsFromMailTest`,{
+  axios.post(`http://code-beast.herokuapp.com/extractProductsFromMailTest`,{
    //filePathText:`./uploads/mails/${selectedFile.selectedFile.name}`,
    //filePathHTML:`./uploads/mails/${selectedFileT.selectedFile.name}`,
    mailText:objet.text,
@@ -160,7 +160,7 @@ const fetchIt = (objet)=>{
 const onClickHandler = () => {
   const data = new FormData() 
   data.append('file', selectedFile.selectedFile)
-  axios.post("http://localhost:4000/upload", data)
+  axios.post("http://code-beast.herokuapp.com/upload", data)
       .then(res => { 
         console.log(res.status)
         if(res.status===200){
@@ -174,7 +174,7 @@ const onClickHandler = () => {
 const onClickHandlerT = () => {
   const data = new FormData() 
   data.append('file', selectedFileT.selectedFile)
-  axios.post("http://localhost:4000/upload", data)
+  axios.post("http://code-beast.herokuapp.com/upload", data)
       .then(res => { 
         console.log(res.status)
         if(res.status===200){
@@ -199,7 +199,7 @@ const handleCloseLink = () => {
 
 
 const getMyEmails =async  ()=>{
-  const datatFromDataBase = await fetch(`http://localhost:4000/mails`);
+  const datatFromDataBase = await fetch(`http://code-beast.herokuapp.com/mails`);
   const data = await datatFromDataBase.json();
   setMyEmails(data)
   setLoadingMails(true)

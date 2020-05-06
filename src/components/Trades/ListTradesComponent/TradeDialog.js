@@ -39,9 +39,9 @@ export default function TradeDialog(props) {
     trade.status="Confirmed";
     e.traded="traded";
     trade.items.push(e);
-    axios.patch(`http://localhost:4000/trade/${trade._id}`,trade)
+    axios.patch(`http://code-beast.herokuapp.com/trade/${trade._id}`,trade)
     .then(res=>{
-      axios.patch(`http://localhost:4000/changeitem/${trade._id}`)
+      axios.patch(`http://code-beast.herokuapp.com/changeitem/${trade._id}`)
       .then(res=>{
   
           console.log(res)

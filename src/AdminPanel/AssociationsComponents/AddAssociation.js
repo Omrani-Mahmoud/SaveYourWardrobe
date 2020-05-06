@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const sendEmail =(email)=>{
-        axios.post("http://localhost:4000/send-email-information",{email:email})
+        axios.post("http://code-beast.herokuapp.com/send-email-information",{email:email})
         .then(res=>{
             console.log(res)
         })
@@ -29,7 +29,7 @@ function AddAssociation() {
 
     const addAssociation =()=>{
         newAsso.joinDate=new Date();
-        axios.post("http://localhost:4000/association",newAsso)
+        axios.post("http://code-beast.herokuapp.com/association",newAsso)
             .then(res=>{
                 if(res.status===200)
                 sendEmail(newAsso.email)

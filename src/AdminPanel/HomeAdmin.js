@@ -111,7 +111,7 @@ export default function HomeAdmin(props) {
   };
 
   React.useEffect(() => {
-    axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+    axios.post("http://code-beast.herokuapp.com/verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){

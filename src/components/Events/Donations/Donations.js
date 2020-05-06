@@ -112,7 +112,7 @@ function Donations() {
 
   const fetchIt =async ()=>{
     const filtredItems = [];
-    const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`http://code-beast.herokuapp.com/userbyId/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     data.wardrobe.items.map(elem=>{
       if(!elem.state)
@@ -139,7 +139,7 @@ function Donations() {
 
   };
   const getAsso =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/eventTo/${location.id}`);
+    const datatFromDataBase = await fetch(`http://code-beast.herokuapp.com/eventTo/${location.id}`);
     const data = await datatFromDataBase.json();
     console.log(data)
     setCharity(data)

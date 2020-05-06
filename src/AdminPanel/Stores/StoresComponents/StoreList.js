@@ -27,7 +27,7 @@ export default function StoreList() {
   const [dataFromDB,setNewDataFromDB] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch("http://localhost:4000/store");
+    const datatFromDataBase = await fetch("http://code-beast.herokuapp.com/store");
     const data = await datatFromDataBase.json();
     setNewDataFromDB(data);
 

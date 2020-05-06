@@ -38,7 +38,7 @@ export default function EmailItemView() {
 
 
   const fetchIt =async ()=>{
-    //const datatFromDataBase = await fetch('http://localhost:4000/searchProductByNameAndImage');
+    //const datatFromDataBase = await fetch('http://code-beast.herokuapp.com/searchProductByNameAndImage');
     //const data = await datatFromDataBase.json();
     console.log("hello email items")
    // console.log(data)

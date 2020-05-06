@@ -31,7 +31,7 @@ export default function FollowStoreLine({ item, userStores }) {
 
   const fetchUserData = async () => {
     const datatFromDataBase = await fetch(
-      `http://localhost:4000/user/`+window.localStorage.getItem("connectedUserID")
+      `http://code-beast.herokuapp.com/user/`+window.localStorage.getItem("connectedUserID")
     );
     const data = await datatFromDataBase.json();
     setUserData(data);
@@ -56,7 +56,7 @@ export default function FollowStoreLine({ item, userStores }) {
   }
 
   async function followStore(id_store) {
-    await axios.post(`http://localhost:4000/follow/${
+    await axios.post(`http://code-beast.herokuapp.com/follow/${
       window.localStorage.getItem("connectedUserID")
     }/store/${
       id_store
@@ -73,7 +73,7 @@ export default function FollowStoreLine({ item, userStores }) {
       }
 
       async function unfollowStore(id_store) {
-        await axios.post(`http://localhost:4000/unfollow/${
+        await axios.post(`http://code-beast.herokuapp.com/unfollow/${
           window.localStorage.getItem("connectedUserID")
         }/store/${
           id_store

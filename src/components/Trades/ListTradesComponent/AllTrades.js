@@ -63,7 +63,7 @@ function AllTrades(props) {
 }
 
   const deleteTrade = (idTrade)=>{
-    axios.delete(`http://localhost:4000/trade/${idTrade}`)
+    axios.delete(`http://code-beast.herokuapp.com/trade/${idTrade}`)
     .then(res=>{
         console.log(res)
     })
@@ -77,7 +77,7 @@ function AllTrades(props) {
 
 const UserWardrobeItems=() =>{
     
-    axios.get(`http://localhost:4000/user/${window.localStorage.getItem("connectedUserID")}`)
+    axios.get(`http://code-beast.herokuapp.com/user/${window.localStorage.getItem("connectedUserID")}`)
     .then(res=>{
         console.log(res)
         setItemTrade(res);
