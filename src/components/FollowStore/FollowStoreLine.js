@@ -56,11 +56,10 @@ export default function FollowStoreLine({ item, userStores }) {
   }
 
   async function followStore(id_store) {
-    await axios.post(`https://code-beast.herokuapp.com/follow/${
-      window.localStorage.getItem("connectedUserID")
-    }/store/${
-      id_store
-    }`)
+    await axios.post(`https://code-beast.herokuapp.com/follow/store/`, {
+      user: window.localStorage.getItem("connectedUserID"),
+      store: id_store
+    })
         .then(res=>{
             setReload(!reload)
             console.log(res)
@@ -73,11 +72,10 @@ export default function FollowStoreLine({ item, userStores }) {
       }
 
       async function unfollowStore(id_store) {
-        await axios.post(`https://code-beast.herokuapp.com/unfollow/${
-          window.localStorage.getItem("connectedUserID")
-        }/store/${
-          id_store
-        }`)
+        await axios.delete(`https://code-beast.herokuapp.com/unfollow/store/`, {
+          user: window.localStorage.getItem("connectedUserID"),
+          store: id_store
+        })
             .then(res=>{
                 setReload(!reload)
                 console.log(res)
