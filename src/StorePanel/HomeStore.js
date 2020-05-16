@@ -110,7 +110,7 @@ export default function HomeStore(props) {
   };
 
   React.useEffect(() => {
-    axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+    axios.post("https://code-beast.herokuapp.com/verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){

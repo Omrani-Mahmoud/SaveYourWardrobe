@@ -27,7 +27,7 @@ export default function AssociationList() {
   const [dataFromDB,setNewDataFromDB] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch("http://localhost:4000/association");
+    const datatFromDataBase = await fetch("https://code-beast.herokuapp.com/association");
     const data = await datatFromDataBase.json();
     setNewDataFromDB(data);
 

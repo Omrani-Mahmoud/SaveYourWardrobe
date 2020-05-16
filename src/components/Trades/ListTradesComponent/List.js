@@ -15,7 +15,7 @@ export default function List() {
   const [tradeList,setTradeList] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/userTrade/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/userTrade/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     console.log(""+data)
     setTradeList(data);

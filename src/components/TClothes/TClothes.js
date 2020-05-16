@@ -76,7 +76,7 @@ export default function TClothes() {
 
   const fetchStores = async () => {
     const datatFromDataBase = await fetch(
-      `http://localhost:4000/store`
+      `https://code-beast.herokuapp.com/store`
     );
     const data = await datatFromDataBase.json();
     setStores(data);
@@ -85,7 +85,7 @@ export default function TClothes() {
 
   const fetchSubscribedStoreItems = async () => {
     const datatFromDataBase = await fetch(
-      `http://localhost:4000/userStoreItemsToReact/`+window.localStorage.getItem("connectedUserID")
+      `https://code-beast.herokuapp.com/userStoreItemsToReact/`+window.localStorage.getItem("connectedUserID")
     );
     const data = await datatFromDataBase.json();
     setSubscribtionStoreItems(data);
@@ -102,7 +102,7 @@ export default function TClothes() {
   }, [reload]);
 
   async function handleChildClick(favorite) {
-    await axios.patch("http://localhost:4000/updateUserStoreItemsToReact/"+window.localStorage.getItem("connectedUserID")+"/"+favorite.action+"/"+favorite.item_id)
+    await axios.patch("https://code-beast.herokuapp.com/updateUserStoreItemsToReact/"+window.localStorage.getItem("connectedUserID")+"/"+favorite.action+"/"+favorite.item_id)
         .then(res=>{
             console.log(res)
         })

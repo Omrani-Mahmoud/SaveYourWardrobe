@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 
 
   const fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/userbyId/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     setItems(data.wardrobe.items)
 }

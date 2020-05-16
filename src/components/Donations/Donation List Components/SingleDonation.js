@@ -118,7 +118,7 @@ function SingleDonation(props) {
   }
 
   const deleteIt = (idDonation)=>{
-      axios.post(`http://localhost:4000/donation/${idDonation}`,deletedList)
+      axios.post(`https://code-beast.herokuapp.com/donation/${idDonation}`,deletedList)
       .then(res=>{
           console.log(res)
       })
@@ -128,7 +128,7 @@ function SingleDonation(props) {
   
   }
   const deleteDonation = (idDonation)=>{
-    axios.delete(`http://localhost:4000/donation/${idDonation}`)
+    axios.delete(`https://code-beast.herokuapp.com/donation/${idDonation}`)
     .then(res=>{
         console.log(res)
     })
