@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import axios from "axios";
+import {uri} from "../../../UrlBase";
 
 // Generate Order Data
 
@@ -27,7 +28,7 @@ export default function StoreList() {
   const [dataFromDB,setNewDataFromDB] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch("http://localhost:4000/store");
+    const datatFromDataBase = await fetch(uri.link+"store");
     const data = await datatFromDataBase.json();
     setNewDataFromDB(data);
 

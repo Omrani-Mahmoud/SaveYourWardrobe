@@ -29,6 +29,7 @@ import Button from '@material-ui/core/Button';
 import TradeDialog from './TradeDialog';
 
 
+import {uri} from "../../../UrlBase";
 
   const useRowStyles = makeStyles({
     root: {
@@ -63,7 +64,7 @@ function AllTrades(props) {
 }
 
   const deleteTrade = (idTrade)=>{
-    axios.delete(`http://localhost:4000/trade/${idTrade}`)
+    axios.delete(`${uri.link}trade/${idTrade}`)
     .then(res=>{
         console.log(res)
     })
@@ -77,7 +78,7 @@ function AllTrades(props) {
 
 const UserWardrobeItems=() =>{
     
-    axios.get(`http://localhost:4000/user/${window.localStorage.getItem("connectedUserID")}`)
+    axios.get(`${uri.link}user/${window.localStorage.getItem("connectedUserID")}`)
     .then(res=>{
         console.log(res)
         setItemTrade(res);

@@ -7,6 +7,7 @@ import { Card, CardHeader, CardContent } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import {uri} from "../UrlBase";
 
 const useStyles = makeStyles({
   root: {

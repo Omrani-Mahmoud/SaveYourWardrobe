@@ -40,6 +40,7 @@ import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
 import SaveIcon from '@material-ui/icons/Save';
 import DoneIcon from '@material-ui/icons/Done';
 
+import {uri} from "../UrlBase";
 
 function SingleItem({elem,index}) {
     const theme = useTheme();
@@ -57,7 +58,7 @@ function SingleItem({elem,index}) {
 
       const addItem =()=>{
         newItem.add_date=new Date()
-        axios.post("http://localhost:4000/item",{item:newItem,user:window.localStorage.getItem("connectedUserID")})
+        axios.post(uri.link+"item",{item:newItem,user:window.localStorage.getItem("connectedUserID")})
             .then(res=>{
                 console.log(res)
                 setDisabled(true)

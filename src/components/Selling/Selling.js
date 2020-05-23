@@ -27,6 +27,7 @@ import AppsIcon from '@material-ui/icons/Apps';
 import Chip from '@material-ui/core/Chip';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
+import {uri} from "../../UrlBase";
 
 
 
@@ -143,7 +144,7 @@ export default function ScrollableTabsButtonForce() {
   const fetchIt1 =async ()=>{
 
  
-    axios.get(`http://localhost:4000/sell`)
+    axios.get(`${uri.link}sell`)
       .then(res => {
      
         setsells(res.data)
@@ -187,7 +188,7 @@ export default function ScrollableTabsButtonForce() {
         
         s.notif=0;
 
-        axios.patch(`http://localhost:4000/sell/${s._id}`,s)
+        axios.patch(`${uri.link}sell/${s._id}`,s)
         .then(res =>{
             console.log(res)
         })

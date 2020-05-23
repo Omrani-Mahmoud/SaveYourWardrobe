@@ -13,6 +13,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Button from '@material-ui/core/Button';
+import {uri} from "../../../../UrlBase";
 
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import axios from "axios";
@@ -118,7 +119,7 @@ function SingleDonation(props) {
   }
 
   const deleteIt = (idDonation)=>{
-      axios.post(`http://localhost:4000/donation/${idDonation}`,deletedList)
+      axios.post(`${uri.link}donation/${idDonation}`,deletedList)
       .then(res=>{
           console.log(res)
       })
@@ -128,7 +129,7 @@ function SingleDonation(props) {
   
   }
   const deleteDonation = (idDonation)=>{
-    axios.delete(`http://localhost:4000/donation/${idDonation}`)
+    axios.delete(`${uri.link}donation/${idDonation}`)
     .then(res=>{
         console.log(res)
     })

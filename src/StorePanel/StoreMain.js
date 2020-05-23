@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import ItemList from './ItemList';
 
+import {uri} from "../UrlBase";
 
 
 const drawerWidth = 240;

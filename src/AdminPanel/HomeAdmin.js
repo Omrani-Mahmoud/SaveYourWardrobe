@@ -32,6 +32,9 @@ import axios from "axios";
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import AdminMain from './InsideHome/AdminMain';
 import StoresMain from './Stores/StoresMain';
+
+import {uri} from "../UrlBase";
+
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -111,7 +114,7 @@ export default function HomeAdmin(props) {
   };
 
   React.useEffect(() => {
-    axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+    axios.post(uri.link+"verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){

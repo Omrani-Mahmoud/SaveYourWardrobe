@@ -30,6 +30,7 @@ import DonationList from './DonationList';
 import ListIcon from '@material-ui/icons/FormatListBulleted';
 import {useLocation} from "react-router-dom";
 import SingleItem from './SingleItem';
+import {uri} from "../../UrlBase";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -108,7 +109,7 @@ function Donations() {
 
   const fetchIt =async ()=>{
     const filtredItems = [];
-    const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`${uri.link}userbyId/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     data.wardrobe.items.map(elem=>{
       if(!elem.state)

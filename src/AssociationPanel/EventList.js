@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Swal from 'sweetalert2';
 // Generate Order Data
+import {uri} from "../UrlBase";
 
 
 function preventDefault(event) {
@@ -31,14 +32,14 @@ export default function EventList() {
 
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/event/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`${uri.link}event/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     console.log(data)
     setNewDataFromDB(data);
 
 }
 const handleRemove = id => {
-  const url = `http://localhost:4000/event/${id}`;
+  const url = `${uri.link}event/${id}`;
 
   axios
     .delete(url)

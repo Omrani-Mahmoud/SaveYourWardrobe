@@ -10,6 +10,7 @@ import { Typography} from '@material-ui/core';
 import axios from "axios";
 import {Route,BrowserRouter as Router,Switch,Link,useHistory} from 'react-router-dom';
 import Swal from 'sweetalert2'
+import {uri} from "../../UrlBase";
 
 const useStyles = makeStyles(({
   
@@ -35,7 +36,7 @@ function LoginPage(props) {
 
     const login = ()=>{
         console.log("clicked")
-        axios.post("http://localhost:4000/login",info)
+        axios.post(uri.link+"login",info)
             .then(res=>{
                 if(res.data && res.data.accessToken){
                     window.localStorage.setItem("tokenWardrobe",res.data.accessToken)

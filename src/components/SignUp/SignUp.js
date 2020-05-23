@@ -15,6 +15,9 @@ import Container from '@material-ui/core/Container';
 import logo from '../../Assets/images/logoBlack.png'
 
 import axios from "axios";
+
+import {uri} from "../../UrlBase";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -55,7 +58,7 @@ export default function SignUp() {
 
 
   const addUser =()=>{
-    axios.post("http://localhost:4000/user",newUser)
+    axios.post(uri.link+"user",newUser)
         .then(res=>{
             console.log(res)
         })

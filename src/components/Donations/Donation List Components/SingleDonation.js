@@ -19,6 +19,7 @@ import axios from "axios";
 import Swal from 'sweetalert2'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SingleItem from './SingleItem';
+import {uri} from "../../../UrlBase";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -118,7 +119,7 @@ function SingleDonation(props) {
   }
 
   const deleteIt = (idDonation)=>{
-      axios.post(`http://localhost:4000/donation/${idDonation}`,deletedList)
+      axios.post(`${uri.link}donation/${idDonation}`,deletedList)
       .then(res=>{
           console.log(res)
       })
@@ -128,7 +129,7 @@ function SingleDonation(props) {
   
   }
   const deleteDonation = (idDonation)=>{
-    axios.delete(`http://localhost:4000/donation/${idDonation}`)
+    axios.delete(`${uri.link}donation/${idDonation}`)
     .then(res=>{
         console.log(res)
     })

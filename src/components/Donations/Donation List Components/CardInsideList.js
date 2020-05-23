@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import img from '../../../Assets/images/outfit.jpg'
+import {uri} from "../../../UrlBase";
 
 const useStyles = makeStyles({
   root: {

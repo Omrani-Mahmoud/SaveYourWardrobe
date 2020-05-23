@@ -1,6 +1,7 @@
 import React from 'react'
 
 
+import {uri} from "../../UrlBase";
 
 import Skeleton from '@material-ui/lab/Skeleton';
 import SingleDonation from './SingleDonation';

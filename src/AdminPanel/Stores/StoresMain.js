@@ -10,6 +10,7 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import AddAssociation from '../AssociationsComponents/AddAssociation.js';
 import StoreList from './StoresComponents/StoreList';
 import AddStore from './StoresComponents/AddStore';
+import {uri} from "../../UrlBase";
 
 
 const drawerWidth = 240;

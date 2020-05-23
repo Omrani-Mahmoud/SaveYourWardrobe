@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import GradeIcon from '@material-ui/icons/Grade';
 
+import {uri} from "../../UrlBase";
 
 
 const drawerWidth = 240;
@@ -110,7 +111,7 @@ export default function AssociationMain() {
   const [donList, setDonList] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/associationDon/${window.localStorage.getItem('connectedUserID')}`);
+    const datatFromDataBase = await fetch(`${uri.link}associationDon/${window.localStorage.getItem('connectedUserID')}`);
     const data = await datatFromDataBase.json();
     setDonList(data.donations);
 }

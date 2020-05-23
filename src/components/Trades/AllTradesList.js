@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import {uri} from "../../UrlBase";
 
 
 
@@ -16,7 +17,7 @@ export default function List() {
   const [tradeList,setTradeList] = React.useState([]);
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/trade`);
+    const datatFromDataBase = await fetch(`${uri.link}trade`);
     const data = await datatFromDataBase.json();
     console.log(""+data)
     setTradeList(data);

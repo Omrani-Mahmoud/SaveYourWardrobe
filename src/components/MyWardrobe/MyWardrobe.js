@@ -17,6 +17,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Emails from '@material-ui/icons/Drafts';
 import Froms from '@material-ui/icons/Description';
 
+import {uri} from "../../UrlBase";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -50,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 
 
   const fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`${uri.link}userbyId/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     setItems(data.wardrobe.items)
 }

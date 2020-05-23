@@ -33,6 +33,8 @@ import axios from "axios";
 import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import AssociationMain from './InsideHome/AssociationMain';
 import AddEvent from './AddEvent';
+import {uri} from "../UrlBase";
+
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -112,7 +114,7 @@ export default function HomeAssociation(props) {
   };
 
   React.useEffect(() => {
-    axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+    axios.post(uri.link+"verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){
@@ -187,11 +189,11 @@ export default function HomeAssociation(props) {
         </div>
         <Divider />
         <List>
-        <Link to={`/home`}  > <ListItem button>
+        <Link to={`/association`}  > <ListItem button>
              <ListItemIcon><BubbleChartIcon /></ListItemIcon>
               <ListItemText primary={"Associations"} />
             </ListItem></Link>
-            <Link to={`/home/events`}  > <ListItem button>
+            <Link to={`/association/events`}  > <ListItem button>
              <ListItemIcon><GradeIcon /></ListItemIcon>
               <ListItemText primary={"Events"} />
             </ListItem></Link>
@@ -212,9 +214,8 @@ export default function HomeAssociation(props) {
         <div className={classes.toolbar} />
  
                 <Switch>
-                    <Route path={`/home`} exact component={AssociationMain} />
-                    <Route path={`/home/events`} exact component={AddEvent} />
-                   
+                    <Route path={`/association`} exact component={AssociationMain} />
+                    <Route path={`/association/events`} exact component={AddEvent} />
                 </Switch>
       </main>
 
