@@ -158,15 +158,14 @@ const UserWardrobeItems=() =>{
         <div hidden={props.data.status=="pending"}>
         <Help  style={{ color:"green"  }} />
         {`${props.data.status}`}
-        </div>
-       
+        </div> 
         </TableCell>
         <TableCell align="left">
         <In />
         {`: ${props.data && props.data.TradeTo && props.data.TradeTo.email?props.data.TradeTo.email:"Not Traded"}`}                                                                  
         </TableCell>
-  
 
+      
 
         <TableCell>
         <div hidden={isEit || props.data.shiped}>

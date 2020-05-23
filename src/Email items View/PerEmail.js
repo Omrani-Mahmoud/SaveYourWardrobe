@@ -145,8 +145,7 @@ const fetchIt = (objet)=>{
   axios.post(`${uri.link}extractProductsFromMailTest`,{
    //filePathText:`./uploads/mails/${selectedFile.selectedFile.name}`,
    //filePathHTML:`./uploads/mails/${selectedFileT.selectedFile.name}`,
-   mailText:objet.text,
-   mailHtml:objet.html,
+   messageId:objet.messageId,
    searchMode: searchMode
   })
   .then(res=>{
