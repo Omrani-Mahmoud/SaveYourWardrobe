@@ -169,11 +169,7 @@ const UserWardrobeItems=() =>{
         {`: ${props.data && props.data.TradeTo && props.data.TradeTo.email?props.data.TradeTo.email:"Not Traded"}`}                                                                  
         </TableCell>
 
-        <TableCell>
-        <div hidden={props.data.status=="pending" || props.data.status=="Confirmed"}>
-        <Button size="small" color="primary" onClick={()=>confirmAlert()}>Confirm Trade</Button>
-          </div>
-        </TableCell>
+      
 
         <TableCell>
         <div hidden={isEit || props.data.shiped}>
