@@ -20,6 +20,17 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import CloseIcon from "@material-ui/icons/Close";
 import img from "../../Assets/images/sweat-homme.jpg";
 
+
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
+import Icon from '@material-ui/core/Icon';
+import SaveIcon from '@material-ui/icons/Save';
+import DialogTitle from '@material-ui/core/DialogTitle'; 
+import Dialog from '@material-ui/core/Dialog';
+
+import FollowStoreComponent from "../FollowStore/FollowStoreComponent";
 //TClothes.Card-List.styles.css
 
 import TClothesCard from "./TClothes.Card";
@@ -46,7 +57,10 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     backgroundColor: red[500]
-  }
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export default function TClothes() {
@@ -54,26 +68,41 @@ export default function TClothes() {
   const [expanded, setExpanded] = React.useState(false);
   const [favorite, setFavorite] = React.useState(false);
   const [reload,setReload] = useState(false);
+  const [showFollowStore, setShowFollowStore] = React.useState(false);
 
   const [subscribtionStoreItems, setSubscribtionStoreItems] = useState([]);
   const [cardRemoved, setCardRemoved] = React.useState(false);
+  const [stores, setStores] = React.useState([])
 
-
+  const fetchStores = async () => {
+    const datatFromDataBase = await fetch(
+      `https://code-beast.herokuapp.com/store`
+    );
+    const data = await datatFromDataBase.json();
+    setStores(data);
+    //console.log("Debug subscribtionStoreItems", subscribtionStoreItems);
+  };
 
   const fetchSubscribedStoreItems = async () => {
     const datatFromDataBase = await fetch(
-      `http://localhost:4000/userStoreItemsToReact/`+window.localStorage.getItem("connectedUserID")
+      `https://code-beast.herokuapp.com/userStoreItemsToReact/`+window.localStorage.getItem("connectedUserID")
     );
     const data = await datatFromDataBase.json();
     setSubscribtionStoreItems(data);
     //console.log("Debug subscribtionStoreItems", subscribtionStoreItems);
   };
   React.useEffect(() => {
+    fetchStores();
+    
+  }, []);
+
+  React.useEffect(() => {
     fetchSubscribedStoreItems();
+    
   }, [reload]);
 
   async function handleChildClick(favorite) {
-    await axios.patch("http://localhost:4000/updateUserStoreItemsToReact/"+window.localStorage.getItem("connectedUserID")+"/"+favorite.action+"/"+favorite.item_id)
+    await axios.patch("https://code-beast.herokuapp.com/updateUserStoreItemsToReact/"+window.localStorage.getItem("connectedUserID")+"/"+favorite.action+"/"+favorite.item_id)
         .then(res=>{
             console.log(res)
         })
@@ -84,8 +113,25 @@ export default function TClothes() {
       }
 
   console.log("fou9 return", subscribtionStoreItems);
+  const handleClose = () => {     setShowFollowStore(false);   };
   return (
     <div className="card-list">
+      <div>
+      <Button onClick={() => {
+        setShowFollowStore(true)
+      }}
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        startIcon={<DeleteIcon />}
+      >
+        Follow List
+      </Button>
+      <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={showFollowStore}>       
+      <DialogTitle id="simple-dialog-title">Stores</DialogTitle>
+      <FollowStoreComponent stores = {stores}></FollowStoreComponent>
+      </Dialog>
+    </div>
       {subscribtionStoreItems.map((store,i) => (
         store.userStoreItemsReaction.items.map((item,j) => {
           console.log(item);

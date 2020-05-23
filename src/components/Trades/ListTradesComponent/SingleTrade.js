@@ -63,7 +63,7 @@ function AllTrades(props) {
 }
 
   const deleteTrade = (idTrade)=>{
-    axios.delete(`http://localhost:4000/trade/${idTrade}`)
+    axios.delete(`https://code-beast.herokuapp.com/trade/${idTrade}`)
     .then(res=>{
         console.log(res)
     })
@@ -77,7 +77,7 @@ function AllTrades(props) {
 
 const UserWardrobeItems=() =>{
     
-    axios.get(`http://localhost:4000/user/${window.localStorage.getItem("connectedUserID")}`)
+    axios.get(`https://code-beast.herokuapp.com/user/${window.localStorage.getItem("connectedUserID")}`)
     .then(res=>{
         console.log(res)
         setItemTrade(res);
@@ -158,14 +158,22 @@ const UserWardrobeItems=() =>{
         <Help  style={{ color:"green"  }} />
         {`${props.data.status}`}
         </div>
+        <div hidden={props.data.status=="In Progress"}>
+        <Help  style={{ color:"orange" }} />
+        {`${props.data.status}`}
+        </div>
        
         </TableCell>
         <TableCell align="left">
         <In />
         {`: ${props.data && props.data.TradeTo && props.data.TradeTo.email?props.data.TradeTo.email:"Not Traded"}`}                                                                  
         </TableCell>
-  
 
+        <TableCell>
+        <div hidden={props.data.status=="pending" || props.data.status=="Confirmed"}>
+        <Button size="small" color="primary" onClick={()=>confirmAlert()}>Confirm Trade</Button>
+          </div>
+        </TableCell>
 
         <TableCell>
         <div hidden={isEit || props.data.shiped}>

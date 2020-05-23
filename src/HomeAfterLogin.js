@@ -155,7 +155,7 @@ export default function HomeAfterLogin(props) {
   };
 
   React.useEffect(async () => {
-   await axios.post("http://localhost:4000/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+   await axios.post("https://code-beast.herokuapp.com/verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){
@@ -179,7 +179,7 @@ export default function HomeAfterLogin(props) {
   }, [])
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`http://localhost:4000/eventByDate`);
+    const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/eventByDate`);
     const data = await datatFromDataBase.json();
     setEvents((data));
 
@@ -194,7 +194,7 @@ const handleOpen = (value) => {
 
 const fetchItems =async ()=>{
   const filtredItems = [];
-  const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
+  const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/userbyId/${window.localStorage.getItem("connectedUserID")}`);
   const data = await datatFromDataBase.json();
   setLastItem(data.wardrobe.items)
   data.wardrobe.items.map(elem=>{
