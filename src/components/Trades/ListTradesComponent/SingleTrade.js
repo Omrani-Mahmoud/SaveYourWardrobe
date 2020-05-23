@@ -157,12 +157,7 @@ const UserWardrobeItems=() =>{
         <div hidden={props.data.status=="pending"}>
         <Help  style={{ color:"green"  }} />
         {`${props.data.status}`}
-        </div>
-        <div hidden={props.data.status=="In Progress"}>
-        <Help  style={{ color:"orange" }} />
-        {`${props.data.status}`}
-        </div>
-       
+        </div> 
         </TableCell>
         <TableCell align="left">
         <In />
