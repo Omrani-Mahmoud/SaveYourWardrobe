@@ -46,17 +46,19 @@ function SingleItem({elem,index}) {
   function hasNumber(myString) {
     return /\d/.test(myString);
   }
-
-  var item_price_tmp = elem.price.split(" ");
-  var item_price = 0;
-  var item_currency = "";
-  if(hasNumber(item_price_tmp[0])) {
-    item_price = item_price_tmp[0];
-    item_currency = item_price_tmp[1];
-  }else {
-    item_price = item_price_tmp[1];
-    item_currency = item_price_tmp[0];
+  if(elem.Price) {
+    var item_price_tmp = elem.Price.split(" ");
+    var item_price = 0;
+    var item_currency = "";
+    if(hasNumber(item_price_tmp[0])) {
+      item_price = item_price_tmp[0];
+      item_currency = item_price_tmp[1];
+    }else {
+      item_price = item_price_tmp[1];
+      item_currency = item_price_tmp[0];
+    }
   }
+  
     const theme = useTheme();
 
     const [selectedItemIndex,setSelectedItemIndex] = React.useState(0)
