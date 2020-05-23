@@ -26,7 +26,7 @@ import Slide from '@material-ui/core/Slide';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from "axios";
 import TextField from '@material-ui/core/TextField';
-
+import GoogleMap from './GoogleMap'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
@@ -238,8 +238,8 @@ export default function Steps(props) {
 
     setOpen(false);
   };
-
-  const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateTrade:"",userId:window.localStorage.getItem("connectedUserID")})
+  var place;
+  const [newTrade,setNewTrade] = useState({location:place,status:"",datePost:"",dateTrade:"",userId:window.localStorage.getItem("connectedUserID")})
 
   const createTrade =()=>{
   
@@ -257,7 +257,10 @@ export default function Steps(props) {
         })
 
 }
-
+const getPlaceName=(data)=>{
+place=data;
+return data;
+}
 
 
 
@@ -319,16 +322,16 @@ export default function Steps(props) {
         )
         :
         activeStep === 1?(<div>
-        <FormControl style={{width:'220px' , marginBottom:'4%'}}>
-                <TextField classes={{root: classes.input}} id="standard-basic" label="location" name="location" onChange={(e)=>newTrade.location=e.target.value} />
-                  <br />
-                 <label>Status</label>
+        <FormControl style={{width:'100%',height:'300px' , marginBottom:'4%'}}>               
+                  <GoogleMap getPlaceName={getPlaceName}/>
+      </FormControl>
+      <div>
+      <p>Status</p>
                   <FormControlLabel
         control={<Checkbox  onChange={(e)=>newTrade.status="pending"} name="status" />}
         label="Pending"
-      />
-            
-      </FormControl>
+      />  
+      </div>
         <div>
         <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
           Back
