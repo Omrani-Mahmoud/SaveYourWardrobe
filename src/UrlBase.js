@@ -1,3 +1,3 @@
 export const uri ={
-    link:"https://sywd-code-beast.herokuapp.com"
+    link:"https://sywd-code-beast.herokuapp.com/"
 };
