@@ -73,11 +73,11 @@ function SingleItem({elem,index}) {
     };
     const nextImage = (images)=>{
         setSelectedItemIndex(selectedItemIndex===images.length-1?0:selectedItemIndex+1);
-        changeImage(images[selectedItemIndex])
+        changeImage(images[selectedItemIndex===images.length-1?0:selectedItemIndex+1])
       }
       const previousImage = (images)=>{
       setSelectedItemIndex(selectedItemIndex<=0 ?0:selectedItemIndex-1);
-      changeImage(images[selectedItemIndex]);
+      changeImage(images[selectedItemIndex<=0 ?0:selectedItemIndex-1]);
       }
 
       const addItem =()=>{
