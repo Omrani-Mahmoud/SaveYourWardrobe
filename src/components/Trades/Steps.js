@@ -239,15 +239,15 @@ export default function Steps(props) {
 
     setOpen(false);
   };
-  var place;
-  const [newTrade,setNewTrade] = useState({location:place,status:"",datePost:"",dateTrade:"",userId:window.localStorage.getItem("connectedUserID")})
+  const [place,setPlace]=useState();
+  const [newTrade,setNewTrade] = useState({location:"",status:"",datePost:"",dateTrade:"",userId:window.localStorage.getItem("connectedUserID")})
 
   const createTrade =()=>{
   
    newTrade.datePost=new Date();
    newTrade.TradeFrom=props.userId;
    newTrade.TradeTo=null;
-   
+   newTrade.location=place;
    newTrade.items=props.data;
     axios.post(uri.link+"trade",newTrade)
         .then(res=>{
@@ -259,7 +259,7 @@ export default function Steps(props) {
 
 }
 const getPlaceName=(data)=>{
-place=data;
+setPlace(data);
 return data;
 }
 

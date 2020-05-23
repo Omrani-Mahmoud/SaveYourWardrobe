@@ -36,6 +36,10 @@ export class GoogleMap extends Component {
     return (
       <Map google={this.props.google} 
       
+      initialCenter={{
+        lat:34.762653,
+        lng:10.754910
+      }}
       onClick={this.mapClicked} 
       onDragend={this.centerMoved}
       >
