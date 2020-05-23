@@ -144,8 +144,7 @@ const fetchIt = (objet)=>{
   axios.post(`https://code-beast.herokuapp.com/extractProductsFromMailTest`,{
    //filePathText:`./uploads/mails/${selectedFile.selectedFile.name}`,
    //filePathHTML:`./uploads/mails/${selectedFileT.selectedFile.name}`,
-   mailText:objet.text,
-   mailHtml:objet.html,
+   messageId:objet.messageId,
    searchMode: searchMode
   })
   .then(res=>{
