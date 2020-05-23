@@ -59,6 +59,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import Froms from '@material-ui/icons/Description';
 import RowMail from './RowMail';
 
+import {uri} from "../UrlBase";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -141,7 +142,7 @@ const onChangeHandlerT=event=>{
 const fetchIt = (objet)=>{
   setLoading(true)
   setBeforeLoading(true)
-  axios.post(`https://code-beast.herokuapp.com/extractProductsFromMailTest`,{
+  axios.post(`${uri.link}extractProductsFromMailTest`,{
    //filePathText:`./uploads/mails/${selectedFile.selectedFile.name}`,
    //filePathHTML:`./uploads/mails/${selectedFileT.selectedFile.name}`,
    messageId:objet.messageId,
@@ -162,7 +163,7 @@ const fetchIt = (objet)=>{
 const onClickHandler = () => {
   const data = new FormData() 
   data.append('file', selectedFile.selectedFile)
-  axios.post("https://code-beast.herokuapp.com/upload", data)
+  axios.post(uri.link+"upload", data)
       .then(res => { 
         console.log(res.status)
         if(res.status===200){
@@ -176,7 +177,7 @@ const onClickHandler = () => {
 const onClickHandlerT = () => {
   const data = new FormData() 
   data.append('file', selectedFileT.selectedFile)
-  axios.post("https://code-beast.herokuapp.com/upload", data)
+  axios.post(uri.link+"upload", data)
       .then(res => { 
         console.log(res.status)
         if(res.status===200){
@@ -201,7 +202,7 @@ const handleCloseLink = () => {
 
 
 const getMyEmails =async  ()=>{
-  const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/mails`);
+  const datatFromDataBase = await fetch(`${uri.link}mails`);
   const data = await datatFromDataBase.json();
   
   setMyEmails(data)

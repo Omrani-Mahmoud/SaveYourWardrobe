@@ -27,6 +27,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 import TextField from '@material-ui/core/TextField';
 import {UserData} from '../../HomeAfterLogin' ;
+import {uri} from "../../UrlBase";
 
 
 
@@ -211,7 +212,7 @@ if (b==true){
   const addItemToSell =(aa)=>{
 
 
-    axios.post("https://code-beast.herokuapp.com/sell",aa)
+    axios.post(uri.link+"sell",aa)
         .then(res=>{
             console.log(res)
         })
@@ -226,7 +227,7 @@ if (b==true){
 
   const [sells,setsells] = useState([{}]);
   const fetchForSells =async ()=>{
-    const datatFromDataBase = await fetch("https://code-beast.herokuapp.com/sell");
+    const datatFromDataBase = await fetch(uri.link+"sell");
     const data = await datatFromDataBase.json();
    
   
@@ -240,7 +241,7 @@ if (b==true){
   
   
     const fetchIt1 =async ()=>{
-      const datatFromDataBase = await fetch("https://code-beast.herokuapp.com/item/"+itemId);
+      const datatFromDataBase = await fetch(uri.link+"item/"+itemId);
       const data = await datatFromDataBase.json();
      
     

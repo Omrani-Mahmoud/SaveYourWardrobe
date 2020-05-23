@@ -27,6 +27,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import axios from "axios";
 import {UserData} from '../../../HomeAfterLogin' ;
 
+import {uri} from "../../../UrlBase";
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -233,7 +234,7 @@ export default function Steps(props) {
   const sendEmail =(charityID)=>{
     charityList.map(x =>{
       if(x._id===charityID){
-        axios.post("https://code-beast.herokuapp.com/send-email",{email:x.email})
+        axios.post(uri.link+"send-email",{email:x.email})
         .then(res=>{
             console.log(res)
         })
@@ -249,7 +250,7 @@ export default function Steps(props) {
 
   const createDonation =()=>{
     var donObject = {dateDonation:new Date(),items:props.data,charity:charity,userId:window.localStorage.getItem("connectedUserID"),donaterAdr:userData.address,tel:userData.phoneNumber}
-    axios.post("http://localhost:4000/donation",donObject)
+    axios.post(uri.link+"donation",donObject)
         .then(res=>{
             console.log(res)
             sendEmail(charity)
@@ -266,14 +267,14 @@ export default function Steps(props) {
 
 
 const fetchIt =async ()=>{
-  const datatFromDataBase = await fetch("https://code-beast.herokuapp.com/association");
+  const datatFromDataBase = await fetch(uri.link+"association");
   const data = await datatFromDataBase.json();
   setCharityList(data)
   console.log("list of charity",data)
 }
 
 const getAsso =async ()=>{
-  const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/eventTo/${props.charity}`);
+  const datatFromDataBase = await fetch(`${uri.link}eventTo/${props.charity}`);
   const data = await datatFromDataBase.json();
   console.log(data)
   setCharity(data)

@@ -66,6 +66,7 @@ import SellDetails from './components/Selling/SellDetails';
 import SyncAltRoundedIcon from '@material-ui/icons/SyncAltRounded';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ff from './Assets/images/evnt.png'
+import {uri} from "./UrlBase";
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
@@ -155,7 +156,7 @@ export default function HomeAfterLogin(props) {
   };
 
   React.useEffect(async () => {
-   await axios.post("https://code-beast.herokuapp.com/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+   await axios.post(uri.link+"verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){
@@ -179,7 +180,7 @@ export default function HomeAfterLogin(props) {
   }, [])
 
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/eventByDate`);
+    const datatFromDataBase = await fetch(`${uri.link}eventByDate`);
     const data = await datatFromDataBase.json();
     setEvents((data));
 
@@ -194,7 +195,7 @@ const handleOpen = (value) => {
 
 const fetchItems =async ()=>{
   const filtredItems = [];
-  const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/userbyId/${window.localStorage.getItem("connectedUserID")}`);
+  const datatFromDataBase = await fetch(`${uri.link}userbyId/${window.localStorage.getItem("connectedUserID")}`);
   const data = await datatFromDataBase.json();
   setLastItem(data.wardrobe.items)
   data.wardrobe.items.map(elem=>{

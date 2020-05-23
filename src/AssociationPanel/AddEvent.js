@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import axios from "axios";
 import Swal from 'sweetalert2';
 import EventList from './EventList';
+import {uri} from "../UrlBase";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,7 +29,7 @@ function AddEvent() {
 
     const addEvent=()=>{
         newEvent.association = window.localStorage.getItem("connectedUserID")
-        axios.post("https://code-beast.herokuapp.com/event",newEvent)
+        axios.post(uri.link+"event",newEvent)
             .then(res=>{
                 if(res.status===200)
                 Swal.fire({

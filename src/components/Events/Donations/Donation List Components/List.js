@@ -3,13 +3,14 @@ import React from 'react';
 import SingleDonation from './SingleDonation';
 
 import Skeleton from '@material-ui/lab/Skeleton';
+import {uri} from "../../../../UrlBase";
 
 export default function List(props) {
 
   const [donationList,setDonationList] = React.useState([]);
   const [loading,setLoading] = React.useState(true);
   const  fetchIt =async ()=>{
-    const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/userDonation/${window.localStorage.getItem("connectedUserID")}`);
+    const datatFromDataBase = await fetch(`${uri.link}userDonation/${window.localStorage.getItem("connectedUserID")}`);
     const data = await datatFromDataBase.json();
     setLoading(false)
     setDonationList(data);

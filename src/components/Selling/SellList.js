@@ -20,6 +20,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 
+import {uri} from "../../UrlBase";
 
 
 
@@ -95,7 +96,7 @@ export default function ListSell({sells}) {
  
            
  
-                axios.get("https://code-beast.herokuapp.com/user")
+                axios.get(uri.link+"user")
                 .then(res => {
       
                     setuser(res.data);
@@ -126,7 +127,7 @@ export default function ListSell({sells}) {
 
         s.state="Confirmed";
 
-        axios.patch(`https://code-beast.herokuapp.com/sell/${s._id}`,s)
+        axios.patch(`${uri.link}sell/${s._id}`,s)
         .then(res =>{
             console.log(res)
            
@@ -145,7 +146,7 @@ export default function ListSell({sells}) {
 
         s.state="Canceled";
 
-        axios.patch(`https://code-beast.herokuapp.com/sell/${s._id}`,s)
+        axios.patch(`${uri.link}sell/${s._id}`,s)
         .then(res =>{
             console.log(res)
            
@@ -171,7 +172,7 @@ export default function ListSell({sells}) {
               
             
 
-            axios.post("https://code-beast.herokuapp.com/itemforsell/"+i._id+"/"+sell.seller)
+            axios.post(uri.link+"itemforsell/"+i._id+"/"+sell.seller)
             .then(res=>{
                 console.log(res)
                 
@@ -197,7 +198,7 @@ export default function ListSell({sells}) {
           
         
 
-        axios.post("https://code-beast.herokuapp.com/itemdelete/"+i._id+"/"+sell.buyer)
+        axios.post(uri.link+"itemdelete/"+i._id+"/"+sell.buyer)
         .then(res=>{
             console.log(res)
             

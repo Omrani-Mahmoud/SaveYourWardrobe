@@ -20,6 +20,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import CloseIcon from '@material-ui/icons/Close';
 import img from "../../Assets/images/sweat-homme.jpg"
 
+import {uri} from "../../UrlBase";
 
 
 

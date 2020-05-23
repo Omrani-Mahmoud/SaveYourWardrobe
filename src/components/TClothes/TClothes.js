@@ -36,6 +36,7 @@ import FollowStoreComponent from "../FollowStore/FollowStoreComponent";
 import TClothesCard from "./TClothes.Card";
 import "./TClothes.Card-List.styles.css";
 import axios from "axios";
+import {uri} from "../../UrlBase";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -85,7 +86,7 @@ export default function TClothes() {
 
   const fetchSubscribedStoreItems = async () => {
     const datatFromDataBase = await fetch(
-      `https://code-beast.herokuapp.com/userStoreItemsToReact/`+window.localStorage.getItem("connectedUserID")
+      `${uri.link}userStoreItemsToReact/`+window.localStorage.getItem("connectedUserID")
     );
     const data = await datatFromDataBase.json();
     setSubscribtionStoreItems(data);
@@ -102,7 +103,7 @@ export default function TClothes() {
   }, [reload]);
 
   async function handleChildClick(favorite) {
-    await axios.patch("https://code-beast.herokuapp.com/updateUserStoreItemsToReact/"+window.localStorage.getItem("connectedUserID")+"/"+favorite.action+"/"+favorite.item_id)
+    await axios.patch(uri.link+"updateUserStoreItemsToReact/"+window.localStorage.getItem("connectedUserID")+"/"+favorite.action+"/"+favorite.item_id)
         .then(res=>{
             console.log(res)
         })

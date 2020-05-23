@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Popover from '@material-ui/core/Popover';
 import CardInsideList from './CardInsideList';
 
+import {uri} from "../../../../UrlBase";
 
 
 const useStyles = makeStyles(theme => ({

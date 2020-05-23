@@ -13,6 +13,7 @@ import Box from '@material-ui/core/Box';
 import ItemList from './ItemList';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Title from '../../AdminPanel/AssociationsComponents/Title';
+import {uri} from "../../UrlBase";
 
 
 
@@ -50,7 +51,7 @@ const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     const addItem =()=>{
         value.add_date=new Date()
-        axios.post("https://code-beast.herokuapp.com/item",{item:value,user:window.localStorage.getItem("connectedUserID")})
+        axios.post(uri.link+"item",{item:value,user:window.localStorage.getItem("connectedUserID")})
             .then(res=>{
                 console.log(res)
             })
@@ -62,7 +63,7 @@ const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
 
     const  fetchIt =async ()=>{
-        const datatFromDataBase = await fetch(`https://code-beast.herokuapp.com/userbyId/${window.localStorage.getItem("connectedUserID")}`);
+        const datatFromDataBase = await fetch(`${uri.link}userbyId/${window.localStorage.getItem("connectedUserID")}`);
         const data = await datatFromDataBase.json();
         setNewDataFromDB((data.wardrobe.items));
 
@@ -86,7 +87,7 @@ const updateItem = (element) =>{
    
 
     const deleteItem = (idItem) =>{
-        axios.delete(`https://code-beast.herokuapp.com/item/${idItem}`)
+        axios.delete(`${uri.link}item/${idItem}`)
         .then(res=>{
             console.log(res)
             setRefresh(true)
@@ -97,7 +98,7 @@ const updateItem = (element) =>{
     }
 
     const persistUpdate = ()=>{
-        axios.patch(`https://code-beast.herokuapp.com/item/${newItem._id}`,value)
+        axios.patch(`${uri.link}item/${newItem._id}`,value)
             .then(res =>{
                 console.log(res)
             })

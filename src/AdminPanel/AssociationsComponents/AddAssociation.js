@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from "axios";
+import {uri} from "../../UrlBase";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const sendEmail =(email)=>{
-        axios.post("https://code-beast.herokuapp.com/send-email-information",{email:email})
+        axios.post(uri.link+"send-email-information",{email:email})
         .then(res=>{
             console.log(res)
         })
@@ -29,7 +30,7 @@ function AddAssociation() {
 
     const addAssociation =()=>{
         newAsso.joinDate=new Date();
-        axios.post("https://code-beast.herokuapp.com/association",newAsso)
+        axios.post(uri.link+"association",newAsso)
             .then(res=>{
                 if(res.status===200)
                 sendEmail(newAsso.email)

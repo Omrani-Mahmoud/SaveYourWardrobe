@@ -16,6 +16,9 @@ import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+
+import {uri} from "../UrlBase";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -38,7 +41,7 @@ export default function EmailItemView() {
 
 
   const fetchIt =async ()=>{
-    //const datatFromDataBase = await fetch('https://code-beast.herokuapp.com/searchProductByNameAndImage');
+    //const datatFromDataBase = await fetch('${uri.link}searchProductByNameAndImage');
     //const data = await datatFromDataBase.json();
     console.log("hello email items")
    // console.log(data)

@@ -32,6 +32,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
+import {uri} from "../../UrlBase";
 
 
 
@@ -92,7 +93,7 @@ export default function SingleSell() {
       obj.notif=1;
       obj.state="Pending";
 
-     axios.patch(`https://code-beast.herokuapp.com/sell/${obj._id}`,obj)
+     axios.patch(`${uri.link}sell/${obj._id}`,obj)
         .then(res =>{
             console.log(res)
         })
@@ -120,7 +121,7 @@ export default function SingleSell() {
 
     const fetchIt1 =async ()=>{
 
-        axios.get("https://code-beast.herokuapp.com/sell/"+itemId)
+        axios.get(uri.link+"sell/"+itemId)
         .then(res => {
        
           setsells(res.data)
@@ -139,7 +140,7 @@ export default function SingleSell() {
 
         
 
-        axios.get("https://code-beast.herokuapp.com/user")
+        axios.get(uri.link+"user")
         .then(res => {
        
           setusers(res.data)

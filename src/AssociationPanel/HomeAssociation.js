@@ -33,6 +33,8 @@ import axios from "axios";
 import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import AssociationMain from './InsideHome/AssociationMain';
 import AddEvent from './AddEvent';
+import {uri} from "../UrlBase";
+
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -112,7 +114,7 @@ export default function HomeAssociation(props) {
   };
 
   React.useEffect(() => {
-    axios.post("https://code-beast.herokuapp.com/verify",{token:window.localStorage.getItem("tokenWardrobe")})
+    axios.post(uri.link+"verify",{token:window.localStorage.getItem("tokenWardrobe")})
     .then(res=>{
       console.log(res)
         if(res){

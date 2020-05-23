@@ -18,6 +18,7 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import axios from "axios";
 import Swal from 'sweetalert2'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import {uri} from "../../UrlBase";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -117,7 +118,7 @@ function SingleDonation(props) {
 
   const updateShippingState = ()=>{
     console.log(props.data._id)
-    axios.patch(`https://code-beast.herokuapp.com/donationAss/${props.data._id}`)
+    axios.patch(`${uri.link}donationAss/${props.data._id}`)
     .then(res=>{
         console.log(res)
     })

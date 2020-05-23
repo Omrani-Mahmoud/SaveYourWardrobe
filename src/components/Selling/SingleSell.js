@@ -29,6 +29,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import {uri} from "../../UrlBase";
 
 
 
@@ -71,7 +72,7 @@ export default function SingleSell({i,refresh}) {
     const deletee =  (idd) =>{
 
 
-        axios.delete(`https://code-beast.herokuapp.com/sell/${idd}`)
+        axios.delete(`${uri.link}sell/${idd}`)
          .then(res=>{
              console.log(res)
              refresh(true);
@@ -107,7 +108,7 @@ export default function SingleSell({i,refresh}) {
      const SellUpdate = (id_sel,val)=>{
        val.price=prix;
        
-     axios.patch(`https://code-beast.herokuapp.com/sell/${id_sel}`,val)
+     axios.patch(`${uri.link}sell/${id_sel}`,val)
          .then(res =>{
              console.log(res)
             

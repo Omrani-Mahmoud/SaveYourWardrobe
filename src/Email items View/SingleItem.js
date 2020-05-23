@@ -40,6 +40,7 @@ import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
 import SaveIcon from '@material-ui/icons/Save';
 import DoneIcon from '@material-ui/icons/Done';
 
+import {uri} from "../UrlBase";
 
 function SingleItem({elem,index}) {
 
@@ -63,18 +64,26 @@ function SingleItem({elem,index}) {
 
     const [selectedItemIndex,setSelectedItemIndex] = React.useState(0)
     const [disabled,setDisabled] = React.useState(false)
-    const [newItem,setNewItem] = React.useState({name:elem.Name,description:"",size:elem.Size,color:elem.Color,price:elem.Price?item_price:0,brand:"",add_date:"",image:elem.images[selectedItemIndex]})
-
+    console.log('selectedItemIndex', selectedItemIndex);
+    console.log('elem.images[selectedItemIndex]', elem.images[selectedItemIndex])
+    const [loadImage, setLoadImage] = React.useState(elem.images[selectedItemIndex]);
+    const [newItem,setNewItem] = React.useState({name:elem.Name,description:"",size:elem.Size,color:elem.Color,price:elem.Price?item_price:0,brand:"",add_date:"",image:loadImage})
+    const changeImage = function (url) {
+      setLoadImage(url);
+    };
     const nextImage = (images)=>{
-        setSelectedItemIndex(selectedItemIndex===images.length-1?0:selectedItemIndex+1) 
+        setSelectedItemIndex(selectedItemIndex===images.length-1?0:selectedItemIndex+1);
+        changeImage(images[selectedItemIndex===images.length-1?0:selectedItemIndex+1])
       }
-      const previousImage = ()=>{
-      setSelectedItemIndex(selectedItemIndex<=0 ?0:selectedItemIndex-1) 
+      const previousImage = (images)=>{
+      setSelectedItemIndex(selectedItemIndex<=0 ?0:selectedItemIndex-1);
+      changeImage(images[selectedItemIndex<=0 ?0:selectedItemIndex-1]);
       }
 
       const addItem =()=>{
-        newItem.add_date=new Date()
-        axios.post("https://code-beast.herokuapp.com/item",{item:newItem,user:window.localStorage.getItem("connectedUserID")})
+        newItem.add_date=new Date();
+        newItem.image = loadImage;
+        axios.post(uri.link+"item",{item:newItem,user:window.localStorage.getItem("connectedUserID")})
             .then(res=>{
                 console.log(res)
                 setDisabled(true)
@@ -89,7 +98,7 @@ function SingleItem({elem,index}) {
         <Paper style={{marginBottom:"2%"}}>
                              <div style={{display:"flex",width:"100%",}}>
                               <div style={{width:"40%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                              <IconButton aria-label="previous" disabled={disabled||selectedItemIndex===0?true:false} onClick={()=>previousImage()} size="small">
+                              <IconButton aria-label="previous" disabled={disabled||selectedItemIndex===0?true:false} onClick={()=>previousImage(elem.images)} size="small">
                             {theme.direction === 'rtl' ? <ArrowRightIcon fontSize="large" /> : <ArrowLeftIcon fontSize="large"/>}
                           </IconButton>
                           <img src={elem.images[selectedItemIndex]} width="100" height="auto" />

@@ -15,6 +15,7 @@ import { blue } from '@material-ui/core/colors';
 import axios from 'axios'
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2'
+import {uri} from "../../../UrlBase";
 
 
 const useStyles = makeStyles({
@@ -39,9 +40,9 @@ export default function TradeDialog(props) {
     trade.status="Confirmed";
     e.traded="traded";
     trade.items.push(e);
-    axios.patch(`https://code-beast.herokuapp.com/trade/${trade._id}`,trade)
+    axios.patch(`${uri.link}trade/${trade._id}`,trade)
     .then(res=>{
-      axios.patch(`https://code-beast.herokuapp.com/changeitem/${trade._id}`)
+      axios.patch(`${uri.link}changeitem/${trade._id}`)
       .then(res=>{
   
           console.log(res)

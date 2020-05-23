@@ -28,6 +28,7 @@ import axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import GoogleMap from './GoogleMap'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {uri} from "../../UrlBase";
 
 
 const QontoConnector = withStyles({
@@ -248,7 +249,7 @@ export default function Steps(props) {
    newTrade.TradeTo=null;
    
    newTrade.items=props.data;
-    axios.post("https://code-beast.herokuapp.com/trade",newTrade)
+    axios.post(uri.link+"trade",newTrade)
         .then(res=>{
             console.log(res)
         })
