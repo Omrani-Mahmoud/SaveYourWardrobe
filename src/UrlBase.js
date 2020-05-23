@@ -1,3 +1,3 @@
 export const uri ={
-    link:"http://localhost:4000/"
+    link:"https://code-beast.herokuapp.com/"
 };
