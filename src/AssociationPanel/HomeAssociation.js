@@ -187,11 +187,11 @@ export default function HomeAssociation(props) {
         </div>
         <Divider />
         <List>
-        <Link to={`/home`}  > <ListItem button>
+        <Link to={`/association`}  > <ListItem button>
              <ListItemIcon><BubbleChartIcon /></ListItemIcon>
               <ListItemText primary={"Associations"} />
             </ListItem></Link>
-            <Link to={`/home/events`}  > <ListItem button>
+            <Link to={`/association/events`}  > <ListItem button>
              <ListItemIcon><GradeIcon /></ListItemIcon>
               <ListItemText primary={"Events"} />
             </ListItem></Link>
@@ -212,9 +212,8 @@ export default function HomeAssociation(props) {
         <div className={classes.toolbar} />
  
                 <Switch>
-                    <Route path={`/home`} exact component={AssociationMain} />
-                    <Route path={`/home/events`} exact component={AddEvent} />
-                   
+                    <Route path={`/association`} exact component={AssociationMain} />
+                    <Route path={`/association/events`} exact component={AddEvent} />
                 </Switch>
       </main>
 

@@ -6,6 +6,7 @@ import img from "../Assets/images/stan.jpg"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import ReactDOM from 'react-dom';
 
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -57,6 +58,8 @@ import LinkIcon from '@material-ui/icons/Link';
 
 import Froms from '@material-ui/icons/Description';
 import RowMail from './RowMail';
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -201,6 +204,7 @@ const handleCloseLink = () => {
 const getMyEmails =async  ()=>{
   const datatFromDataBase = await fetch(`http://localhost:4000/mails`);
   const data = await datatFromDataBase.json();
+  
   setMyEmails(data)
   setLoadingMails(true)
 }
@@ -210,10 +214,11 @@ React.useEffect(() => {
   
 }, [])
 
-console.log(chosedList)
+
     return (
         <Grid container spacing={3} >
 
+  
         <Container maxWidth="lg">
 
         <Tooltip title="Link your email">
@@ -287,13 +292,12 @@ console.log(chosedList)
       
         <TableBody>
           {myEmails.map((row) => (
+            
            <RowMail row={row} push={pushToChosedList} fetch={fetchIt}/>
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
-
-   
+    </TableContainer>  
     </div>
 
 

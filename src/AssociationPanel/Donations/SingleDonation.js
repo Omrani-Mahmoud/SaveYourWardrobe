@@ -169,7 +169,7 @@ const showIt = ()=>{
 
 
 
-  
+  console.log(props.data)
     return (
         <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -183,6 +183,16 @@ const showIt = ()=>{
                        
                         <Typography>{props.data.shiped?" Shiped":" Pending"}</Typography>
                         </ExpansionPanelSummary>
+                        <Typography style={{float:"right",padding:"10px",color:"grey",fontSize:"13px",fontWeight:"bold"}}>
+                          Donator phone : {props.data.donaterAdr?props.data.tel:"-"}
+                        </Typography>
+                        <Typography style={{float:"right",padding:"10px",color:"grey",fontSize:"13px",fontWeight:"bold"}}>
+                          -
+                        </Typography>
+                        <Typography style={{float:"right",padding:"10px",color:"grey",fontSize:"13px",fontWeight:"bold"}}>
+                          Donator address : {props.data.donaterAdr?props.data.donaterAdr:"-"}
+                        </Typography>
+                      
                         <ExpansionPanelDetails style={{display:"flex",width:"100%"}} >
                             {
                                 props.data.items.map(elem =>
@@ -194,6 +204,7 @@ const showIt = ()=>{
                                   </React.Fragment>
                                 )
                             }
+                     
                         </ExpansionPanelDetails>
                         <ExpansionPanelActions>
                           <div hidden={props.data.shiped}>

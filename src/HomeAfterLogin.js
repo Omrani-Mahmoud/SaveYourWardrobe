@@ -65,6 +65,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import SellDetails from './components/Selling/SellDetails';
 import SyncAltRoundedIcon from '@material-ui/icons/SyncAltRounded';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import ff from './Assets/images/evnt.png'
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
@@ -144,6 +145,7 @@ export default function HomeAfterLogin(props) {
   const [openD, setOpenD] = React.useState(false);
   const [openOldItems, setOpenOldItems] = React.useState(true);
 
+  const [lastItem, setLastItem] = React.useState([])
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -194,6 +196,7 @@ const fetchItems =async ()=>{
   const filtredItems = [];
   const datatFromDataBase = await fetch(`http://localhost:4000/userbyId/${window.localStorage.getItem("connectedUserID")}`);
   const data = await datatFromDataBase.json();
+  setLastItem(data.wardrobe.items)
   data.wardrobe.items.map(elem=>{
     if(!elem.state){
       if(elem.add_date)
@@ -213,26 +216,34 @@ const handleCloseOpenOldItems = ()=>{
   setOpenOldItems(false)
 }
 
+
   if (user && user.role==="user" && window.localStorage.getItem("tokenWardrobe")){
   
   
   return (
     <UserData.Provider value={user}> 
     
-    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={openD}>
-      <DialogTitle id="simple-dialog-title">Current events : </DialogTitle>
+
+    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={openD} style={{borderRadius:"10px!important"}}>
+      <DialogTitle id="simple-dialog-title">
+        <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
+        <img src={ff} width="60px"/>
+        <span style={{paddingLeft:"10px"}}><b>Current events</b></span>
+        </div>
+
+
+      </DialogTitle>
+
       <DialogContent >
-        <div style={{display:"flex", justifyContent:"center",alignItems:"flex-start", flexDirection:"column"}}>
+        
+        <div style={{display:"flex", justifyContent:"center",alignItems:"center", flexDirection:"column"}}>
           {events.map(x=>(
             <Link to={x.type==='Donation'?{pathname:"/home/donationEvent",id:x.association}:"/home"} style={{textDecoration:"none", color:"black"}} onClick={()=>setOpenD(false)}>
               <div style={{display:"flex", justifyContent:"center",alignItems:"center", marginBottom:"10%"}}>
-             
-              <StarIcon style={{color:"orange"}}/>
-             
-
-          <span ><b>{`${x.name}  `}</b><span style={{color:"grey"}}>{` event for:${x.type}`}</span></span>
-     
-          {~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))<=2?
+                <Tooltip title={x.type?x.type:'-'}>
+              <Button variant="outlined" style={{color:"#010d75",borderColor:"#010d75",borderRadius:'100px'}} fullWidth={true}>{x.name}</Button>
+              </Tooltip>
+         {~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))<=2?
           <Tooltip title={`event will ends in ${~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))} days ..`}>
           <ErrorOutlineIcon color="error" style={{marginLeft:"10px"}} />
           </Tooltip>:null}
@@ -244,6 +255,7 @@ const handleCloseOpenOldItems = ()=>{
           ))}
           </div>
       </DialogContent>
+
       </Dialog>
     <div className={classes.root}>
       <CssBaseline />
@@ -383,7 +395,10 @@ const handleCloseOpenOldItems = ()=>{
           </Snackbar>
  
                 <Switch>
-                    <Route path={`${props.match.path}/`} exact component={MainPage} />
+                    <Route path={`${props.match.path}/`} exact 
+                     render={(props) => (
+                      <MainPage item={lastItem}  user={user}{...props} />
+                    )} />
                     <Route path={`${props.match.path}/mywardrobe`} exact component={MyWardrobe} />
                     <Route path={`${props.match.path}/donation`} exact component={Donations} />
                     <Route path={`${props.match.path}/trades`} exact component={Trades} />
