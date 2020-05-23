@@ -25,6 +25,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from "axios";
+import {UserData} from '../../HomeAfterLogin' ;
 
 
 const QontoConnector = withStyles({
@@ -186,6 +187,9 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 export default function Steps(props) {
+
+  const userData = React.useContext(UserData);
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [charity, setCharity] = React.useState(null);
@@ -246,8 +250,8 @@ export default function Steps(props) {
 
 
   const createDonation =()=>{
-    var donObject = {dateDonation:new Date(),items:props.data,charity:charity,userId:window.localStorage.getItem("connectedUserID")}
-    axios.post("https://code-beast.herokuapp.com/donation",donObject)
+    var donObject = {dateDonation:new Date(),items:props.data,charity:charity,userId:window.localStorage.getItem("connectedUserID"),donaterAdr:userData.address,tel:userData.phoneNumber}
+    axios.post("http://localhost:4000/donation",donObject)
         .then(res=>{
             console.log(res)
             sendEmail(charity)

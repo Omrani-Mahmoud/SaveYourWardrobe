@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
 
-import img from "../../Assets/images/stan.jpg"
+import img from "../../Assets/images/outfit.jpg"
+import { Grid } from '@material-ui/core';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -16,18 +17,26 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Deposits() {
+export default function Deposits(props) {
   const classes = useStyles();
+  console.log(props.item[props.item.length-1])
+
   return (
     <React.Fragment>
-      <Title>Recent Item</Title>
+      <Title > 
+      Recent item
+      <span style={{color:"grey",fontSize:"16px"}}> ( wardrobe ) :</span>
+      </Title>
+    
       <Typography component="p" variant="h4">
-        Item name
+      <span style={{fontSize:"16px"}}>{ props.item[props.item.length-1] && props.item[props.item.length-1].name}</span>
       </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
-       Brand : 
+      <Typography color="textSecondary" className={classes.depositContext} style={{paddingBottom:'10px',paddingTop:"10px"}}>
+       Brand : { props.item[props.item.length-1] && props.item[props.item.length-1].brand?props.item[props.item.length-1].brand:'-'}
       </Typography>
-      <img src={img} width="70%" height="100" ></img>
+    
+      <img src={ props.item[props.item.length-1] && props.item[props.item.length-1].image?props.item[props.item.length-1].image:img} height="50%" ></img>
+     
       <div>
       </div>
     </React.Fragment>
