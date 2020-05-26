@@ -185,16 +185,18 @@ export default function SingleSell() {
           <Card className={classes.root}>
             
       <CardActionArea>
+      {sells.items && sells.items.length>0?sells.items.map(x=>(
+         <React.Fragment> 
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
           height="260"
-          image={exchange}
+          image={x.image?x.image:exchange}
           title="Contemplative Reptile"
         />
         <CardContent>
-        {sells.items && sells.items.length>0?sells.items.map(x=>(
-    <React.Fragment> 
+        
+   
     <Typography gutterBottom variant="h5" component="h2"> 
          {x.name} 
     </Typography>
@@ -215,13 +217,15 @@ export default function SingleSell() {
     </Typography>
 
     
-    </React.Fragment>
-   ) ):null}
+   
+  
 
 <Typography variant="subtitle2" color="error" component="p" align="right">
      <strong> Sell price: {sells.price} DT</strong>
     </Typography>
         </CardContent>
+        </React.Fragment>
+         ) ):null}
       </CardActionArea>
     
     </Card>

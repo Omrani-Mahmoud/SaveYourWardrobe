@@ -214,15 +214,15 @@ return(
      </Typography>
    
    <CardActionArea>
-   
+   {i.items && i.items.length>0?i.items.map(x=>(     
+    <React.Fragment> 
    <CardMedia
     className={classes.media}
-    image={exchange}
+    image={x.image?x.image:exchange}
     title={i.name}
    />
    <CardContent>
-   {i.items && i.items.length>0?i.items.map(x=>(     
-    <React.Fragment> 
+   
     <Typography gutterBottom variant="h5" component="h2"> 
          {x.name} 
     </Typography>
@@ -236,8 +236,7 @@ return(
       Color: {x.color}
     </Typography>
     
-    </React.Fragment>
-   ) ):null}
+    
    
    
    
@@ -251,7 +250,8 @@ return(
    
    
    </CardContent>
- 
+   </React.Fragment>
+   ) ):null}
    </CardActionArea>
    <CardActions>
    
