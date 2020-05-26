@@ -71,7 +71,7 @@ const fireAlert =(e) =>{
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Confirm it!'
+    confirmButtonText: 'Yes, ask for trade!'
   }).then((result) => {
     if (result.value) {
       UpdateTrade(e)
