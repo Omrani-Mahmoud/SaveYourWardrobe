@@ -261,14 +261,17 @@ export default function ScrollableTabsButtonForce() {
             <Link to={'/home/selling/sellDetails/'+i._id} className="link">
            
       <CardActionArea>
+
+      {i.items && i.items.length>0?i.items.map(x=>(
+        <React.Fragment> 
         <CardMedia
           className={classes.media}
-          image={exchange}
+          image={x.image?x.image:exchange}
           title={i.name}
         />
         <CardContent>
-        {i.items && i.items.length>0?i.items.map(x=>(
-          <React.Fragment> 
+       
+          
           <Typography gutterBottom variant="h5" component="h2"> 
                {x.name} 
           </Typography>
@@ -276,8 +279,7 @@ export default function ScrollableTabsButtonForce() {
                {x.description} 
           </Typography>
       
-          </React.Fragment>
-         ) ):null}
+          
         
         
          
@@ -300,6 +302,9 @@ export default function ScrollableTabsButtonForce() {
         
 
         </CardContent>
+        </React.Fragment>
+         
+        ) ):null}
       </CardActionArea>
       </Link>
   
@@ -314,14 +319,15 @@ export default function ScrollableTabsButtonForce() {
 <div className="forsell1" >
 
 <CardActionArea>
+{i.items && i.items.length>0?i.items.map(x=>(
+<React.Fragment> 
 <CardMedia
 className={classes.media}
-image={exchange}
+image={x.image?x.image:exchange}
 title={i.name}
 />
 <CardContent>
-{i.items && i.items.length>0?i.items.map(x=>(
-<React.Fragment> 
+
 <Typography gutterBottom variant="h5" component="h2"> 
     {x.name} 
 </Typography>
@@ -329,8 +335,8 @@ title={i.name}
     {x.description} 
 </Typography>
 
-</React.Fragment>
-) ):null}
+
+
 
 
 
@@ -358,6 +364,9 @@ title={i.name}
 
 
 </CardContent>
+
+</React.Fragment>
+) ):null}
 </CardActionArea>
 
 </div>
@@ -373,14 +382,15 @@ title={i.name}
             <div className="forsell" >
             
        <CardActionArea>
+       {i.items && i.items.length>0?i.items.map(x=>(
+           <React.Fragment> 
          <CardMedia
            className={classes.media}
-           image={exchange}
+           image={x.image?x.image:exchange}
            title={i.name}
          />
          <CardContent>
-         {i.items && i.items.length>0?i.items.map(x=>(
-           <React.Fragment> 
+         
            <Typography gutterBottom variant="h5" component="h2"> 
                 {x.name} 
            </Typography>
@@ -388,8 +398,7 @@ title={i.name}
                 {x.description} 
            </Typography>
        
-           </React.Fragment>
-          ) ):null}
+           
          
          
           
@@ -417,6 +426,8 @@ title={i.name}
          
    
          </CardContent>
+         </React.Fragment>
+          ) ):null}
        </CardActionArea>
      
        </div>
