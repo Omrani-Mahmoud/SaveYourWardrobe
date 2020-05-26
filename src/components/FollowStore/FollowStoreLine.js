@@ -8,6 +8,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import {UserData} from '../../HomeAfterLogin';
 import Button from '@material-ui/core/Button';
 import axios from "axios";
+import {uri} from "../../UrlBase";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,10 +32,12 @@ export default function FollowStoreLine({ item, userStores }) {
 
   const fetchUserData = async () => {
     const datatFromDataBase = await fetch(
-      `https://code-beast.herokuapp.com/user/`+window.localStorage.getItem("connectedUserID")
+      `${uri.link}user/followed/stores/`+window.localStorage.getItem("connectedUserID")
     );
     const data = await datatFromDataBase.json();
+    
     setUserData(data);
+    console.log('DATA', data)
     //console.log("Debug subscribtionStoreItems", subscribtionStoreItems);
   };
 
@@ -47,7 +50,7 @@ export default function FollowStoreLine({ item, userStores }) {
     var result = false;
     userData && userData.followedStores && userData.followedStores.map((x) => {
         console.log('Comparing: ', x,' - ', item._id)
-        if(x == item._id) {
+        if(x._id == item._id) {
             //console.log('Exist')
             result = true;
         }
@@ -56,7 +59,7 @@ export default function FollowStoreLine({ item, userStores }) {
   }
 
   async function followStore(id_store) {
-    await axios.post(`https://code-beast.herokuapp.com/follow/store/`, {
+    await axios.post(`${uri.link}follow/store/`, {
       user: window.localStorage.getItem("connectedUserID"),
       store: id_store
     })
@@ -72,18 +75,26 @@ export default function FollowStoreLine({ item, userStores }) {
       }
 
       async function unfollowStore(id_store) {
-        await axios.delete(`https://code-beast.herokuapp.com/unfollow/store/`, {
-          user: window.localStorage.getItem("connectedUserID"),
-          store: id_store
-        })
-            .then(res=>{
-                setReload(!reload)
-                console.log(res)
-            })
-            .catch(err=>{
-                console.log(err)
-            })
+        // await axios.delete(`${uri.link}unfollow/store/`, {
+        //   user: window.localStorage.getItem("connectedUserID"),
+        //   store: id_store
+        // })
+        //     .then(res=>{
+        //         setReload(!reload)
+        //         console.log(res)
+        //     })
+        //     .catch(err=>{
+        //         console.log(err)
+        //     })
             //setReload(!reload)
+            await axios({
+              method: 'delete',
+              url: uri.link+'unfollow/store/',
+              data: {
+                user: window.localStorage.getItem("connectedUserID"),
+                store: id_store
+              }
+            }).then(()=> setReload(!reload))
           }
 
   return (
