@@ -37,8 +37,7 @@ export default function TradeDialog(props) {
 
   const UpdateTrade=(e) =>{
     trade.TradeTo=window.localStorage.getItem("connectedUserID");
-    trade.status="Confirmed";
-    e.traded="traded";
+    trade.status="In Progress";
     trade.items.push(e);
     axios.patch(`${uri.link}trade/${trade._id}`,trade)
     .then(res=>{
@@ -67,7 +66,7 @@ const fireAlert =(e) =>{
   handleClose()
   Swal.fire({
     title: 'Are you sure?',
-    text: "You Accept this trade!",
+    text: "You will ask for this trade!",
     icon: 'info',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -77,8 +76,8 @@ const fireAlert =(e) =>{
     if (result.value) {
       UpdateTrade(e)
       Swal.fire(
-        'Trade Done!',
-        'Your trade has been confirmed.',
+        'Done!',
+        'Trade in progress.',
         'success'
       )
     }
