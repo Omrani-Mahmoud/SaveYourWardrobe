@@ -428,7 +428,7 @@ if(user && user.role==="admin" && window.localStorage.getItem("tokenWardrobe"))
   window.location.replace('/association')
  
   if(user && user.role==="Store" && window.localStorage.getItem("tokenWardrobe"))
-  return (<HomeStore />)  
+  window.location.replace('/store')
   return(
     (<LoginPage />)
   )
