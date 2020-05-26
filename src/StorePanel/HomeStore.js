@@ -187,7 +187,7 @@ export default function HomeStore(props) {
         </div>
         <Divider />
         <List>
-        <Link to={`/home`}  > <ListItem button>
+        <Link to={`/store`}  > <ListItem button>
              <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
               <ListItemText primary={"Associations"} />
             </ListItem></Link>
@@ -207,17 +207,9 @@ export default function HomeStore(props) {
       
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        startIcon={<AddCircleOutlineIcon />}
-        style={{float:"right"}}
-      >
-        add item
-      </Button>
+    
                 <Switch>
-                    <Route path={`/home`} exact component={StoreMain} />
+                    <Route path={`/store`} exact component={StoreMain} />
                    
                 </Switch>
       </main>

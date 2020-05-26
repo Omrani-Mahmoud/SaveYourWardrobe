@@ -8,9 +8,10 @@ import Paper from '@material-ui/core/Paper';
 
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import ItemList from './ItemList';
+import Button from '@material-ui/core/Button';
 
 import {uri} from "../UrlBase";
-
+import AddItem from './AddItem';
 
 const drawerWidth = 240;
 
@@ -110,6 +111,7 @@ React.useEffect(() => {
 })
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const [hide,setHide] = React.useState(true);
 
   return (
     <div className={classes.root}>
@@ -117,11 +119,24 @@ React.useEffect(() => {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
+
+       
+
+         
             {/* Chart */}
          <Grid item xs={12} md={10} lg={10}>
-              <h3>Items </h3>
+         <Button variant="contained" color="primary" onClick={()=>setHide(!hide)} disabled={!hide}>
+          Add item
+      </Button>
+
+
+      <div hidden={hide}>
+            <AddItem />
+          </div>
+          <div>
+              <h3>Your items </h3>
               <ItemList data ={listItem} />
-            
+            </div>
   </Grid> 
    
         </Grid>
