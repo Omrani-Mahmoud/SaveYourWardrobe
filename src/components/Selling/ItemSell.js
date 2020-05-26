@@ -308,7 +308,7 @@ const ChangeHandler=event=>{
     <Card className={classes.root} className="head">
         <CardMedia
         className={classes.cover}
-        image={exchange}
+        image={kk.image?kk.image:exchange}
         title="Live from space album cover"
         
       />
@@ -457,7 +457,7 @@ const ChangeHandler=event=>{
 <Card  className="head1">
         <CardMedia
         className={classes.cover2}
-        image={exchange}
+        image={kk.image?kk.image:exchange}
         title="Live from space album cover"
         
       />

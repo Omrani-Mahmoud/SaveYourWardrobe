@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import {uri} from "../UrlBase";
 
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -32,12 +33,14 @@ function ItemList(props) {
   return (
     <div>
         <Card>
-         
+     
         <CardContent>
+
+       
       {
       
-          props.data.length!==0?props.data.map(element =>(
-              element.items.length?
+      props.data && props.data.length!==0?props.data.map(element =>(
+              element && element.items && element.items.length?
               <h1>here ur items</h1>
               :
               null

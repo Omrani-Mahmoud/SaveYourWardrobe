@@ -76,20 +76,6 @@ function AllTrades(props) {
 
 
 
-const UserWardrobeItems=() =>{
-    
-    axios.get(`${uri.link}user/${window.localStorage.getItem("connectedUserID")}`)
-    .then(res=>{
-        console.log(res)
-        setItemTrade(res);
-        
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-
-}
-
 
   const fireAlert =() =>{
     Swal.fire({
@@ -111,22 +97,67 @@ const UserWardrobeItems=() =>{
       }
     })
   }
-
-  const showIt = ()=>{
+  const confirmAlert=()=>{
     Swal.fire({
-      text: 'This trade is confirmed',
-      width: 600,
-      icon: 'info',
-      padding: '3em',
-      backdrop: `
-        rgba(0,0,0,0.4)
-       
-      `
-     
-  
+      title: 'Are you sure?',
+      text: "You will Confirm this trade and exchange items!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Trade!'
+    }).then((result) => {
+      if (result.value) {
+        ConfirmTrade(props.data)
+        Swal.fire(
+          'Traded!',
+          'Your trade has been confirmed.',
+          'success'
+        )
+      }
+      else if(result.dismiss === Swal.DismissReason.cancel) {
+        CancelTrade(props.data)
+        Swal.fire(
+          
+          'Cancelled',
+          'You have not accept the trade',
+          'error'
+        )
+      }
     })
   }
 
+  const ConfirmTrade=(trade) =>{
+    trade.status="Confirmed";
+    axios.patch(`${uri.link}trade/${trade._id}`,trade)
+    .then(res=>{
+        console.log(res) 
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const CancelTrade=(trade) =>{
+  console.log("hethi l trade: "+trade);
+  trade.status="pending";
+  trade.TradeTo=null;
+  trade.items.pop();
+  axios.patch(`${uri.link}backitem/${trade._id}`)
+  .then(res=>{
+    axios.patch(`${uri.link}trade/${trade._id}`,trade)
+      .then(res=>{
+          console.log(res)          
+      })
+      .catch(err=>{
+          console.log(err)
+      })
+      console.log(res) 
+  })
+  .catch(err=>{
+      console.log(err)
+  })
+}
 
     return (
     
@@ -151,14 +182,18 @@ const UserWardrobeItems=() =>{
           </Badge>
         </TableCell>
         <TableCell align="left">
-        <div hidden={props.data.status=="Confirmed"}>
+        <div hidden={props.data.status=="Confirmed" || props.data.status=="In Progress"}>
         <Help  style={{ color:"red"  }} />
         {`${props.data.status}`}
         </div>
-        <div hidden={props.data.status=="pending"}>
+        <div hidden={props.data.status=="pending" || props.data.status=="In Progress"}>
         <Help  style={{ color:"green"  }} />
         {`${props.data.status}`}
         </div> 
+        <div hidden={props.data.status=="Confirmed" || props.data.status=="pending"}>
+        <Help  style={{ color:"orange"  }} />
+        {`${props.data.status}`}
+        </div>
         </TableCell>
         <TableCell align="left">
         <In />
@@ -166,7 +201,11 @@ const UserWardrobeItems=() =>{
         </TableCell>
 
       
-
+        <TableCell>
+          <div hidden={props.data.status=="Confirmed" || props.data.status=="pending"}>
+          <Button onClick={()=>confirmAlert()}>Confirm Trade</Button>
+          </div>
+        </TableCell>
         <TableCell>
         <div hidden={isEit || props.data.shiped}>
         <Button size="small" color="primary" onClick={()=>fireAlert()}>Remove this trade</Button>
