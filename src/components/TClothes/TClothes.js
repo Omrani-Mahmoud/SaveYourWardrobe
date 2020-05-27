@@ -77,7 +77,7 @@ export default function TClothes() {
 
   const fetchStores = async () => {
     const datatFromDataBase = await fetch(
-      `https://code-beast.herokuapp.com/store`
+      `${uri.link}store`
     );
     const data = await datatFromDataBase.json();
     setStores(data);
