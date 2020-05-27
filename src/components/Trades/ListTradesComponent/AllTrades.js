@@ -151,12 +151,16 @@ const UserWardrobeItems=() =>{
           </Badge>
         </TableCell>
         <TableCell align="left">
-        <div hidden={props.data.status=="Confirmed"}>
+        <div hidden={props.data.status=="Confirmed" || props.data.status=="In Progress"}>
         <Help  style={{ color:"red"  }} />
         {`${props.data.status}`}
         </div>
-        <div hidden={props.data.status=="pending"}>
+        <div hidden={props.data.status=="pending" || props.data.status=="In Progress"}>
         <Help  style={{ color:"green"  }} />
+        {`${props.data.status}`}
+        </div> 
+        <div hidden={props.data.status=="Confirmed" || props.data.status=="pending"}>
+        <Help  style={{ color:"orange"  }} />
         {`${props.data.status}`}
         </div>
         </TableCell>
@@ -171,8 +175,8 @@ const UserWardrobeItems=() =>{
         </TableCell>
 
         <TableCell>
-        <div hidden={props.data.status==="Confirmed"}>
-      <Button size="small" color="primary" onClick={()=>{setTradeState(true);UserWardrobeItems()}}>Accept Trade</Button>
+        <div hidden={props.data.status==="Confirmed" || props.data.status=="In Progress"}>
+      <Button size="small" color="primary" onClick={()=>{setTradeState(true);UserWardrobeItems()}}>Trade With</Button>
       </div>
       <TradeDialog  selectedValue={selectedValue} onClose={handleClose} open={TradeState} data={itemTrade} trade={props.data} />
       <div hidden={props.data.status==="pending"}>

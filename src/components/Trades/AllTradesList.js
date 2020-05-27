@@ -38,9 +38,10 @@ React.useEffect(() => {
             <TableCell>Location</TableCell>
             <TableCell>Date Trade</TableCell>
             <TableCell>Items in trade</TableCell>
-            <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Trade From</TableCell>
-            <TableCell align="right">Trade To</TableCell>
+            <TableCell align="left">Status</TableCell>
+            <TableCell align="left">Trade From</TableCell>
+            <TableCell align="left">Trade To</TableCell>
+            <TableCell align="left">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

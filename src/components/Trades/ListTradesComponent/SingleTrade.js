@@ -99,8 +99,8 @@ function AllTrades(props) {
   }
   const confirmAlert=()=>{
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You will Confirm this trade and exchange items!",
+      title: 'You can accept/cancel the exchanged item',
+      text: "Please choose an action!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -118,7 +118,6 @@ function AllTrades(props) {
       else if(result.dismiss === Swal.DismissReason.cancel) {
         CancelTrade(props.data)
         Swal.fire(
-          
           'Cancelled',
           'You have not accept the trade',
           'error'
@@ -199,16 +198,12 @@ const CancelTrade=(trade) =>{
         <In />
         {`: ${props.data && props.data.TradeTo && props.data.TradeTo.email?props.data.TradeTo.email:"Not Traded"}`}                                                                  
         </TableCell>
-
-      
-        <TableCell>
-          <div hidden={props.data.status=="Confirmed" || props.data.status=="pending"}>
-          <Button onClick={()=>confirmAlert()}>Confirm Trade</Button>
-          </div>
-        </TableCell>
         <TableCell>
         <div hidden={isEit || props.data.shiped}>
         <Button size="small" color="primary" onClick={()=>fireAlert()}>Remove this trade</Button>
+          </div>
+          <div hidden={props.data.status=="Confirmed" || props.data.status=="pending"}>
+          <Button onClick={()=>confirmAlert()}>Accept/Cancel</Button>
           </div>
         </TableCell>
 
