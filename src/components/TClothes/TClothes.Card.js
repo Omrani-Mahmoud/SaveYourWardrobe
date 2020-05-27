@@ -72,7 +72,7 @@ export default function TClothesCard({data,onFavoriteClick}) {
     console.log('handle Close click')
     onFavoriteClick({
       isClicked: true,
-      action: -1,
+      action: 0,
       item_id: data.item._id
     })
 

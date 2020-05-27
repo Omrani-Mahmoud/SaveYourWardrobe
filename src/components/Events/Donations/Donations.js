@@ -201,13 +201,13 @@ const handleCloseNot = () => {
                             {items[selectedItemIndex].name}
                           </Typography>
                           <Typography variant="subtitle1" color="textSecondary">
-                            Brand : {items[selectedItemIndex].brand}
+                            Brand : {items[selectedItemIndex].brand?items[selectedItemIndex].brand : "-"}
                           </Typography>
                           <Typography variant="subtitle1" color="textSecondary">
-                            Color : {items[selectedItemIndex].color}
+                            Color : {items[selectedItemIndex].color?items[selectedItemIndex].color:'-'}
                           </Typography>
                           <Typography variant="subtitle1" color="textSecondary">
-                            Size : {items[selectedItemIndex].size}
+                            Size : {items[selectedItemIndex].size?items[selectedItemIndex].size:'-'}
                           </Typography>
                         </CardContent>
 

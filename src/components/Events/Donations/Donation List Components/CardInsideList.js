@@ -36,16 +36,16 @@ export default function CardInsideList(props) {
             {props.data.name}
           </Typography>
           <Typography color="textSecondary">
-            <b>Brand : </b>{props.data.brand}
+            <b>Brand : </b>{props.data.brand?props.data.brand:"-"}
           </Typography>
           <Typography color="textSecondary">
-          <b>Size : </b>{props.data.size}
+          <b>Size : </b>{props.data.size?props.data.size:"-"}
           </Typography>
           <Typography color="textSecondary">
-            <b>Color : </b>{props.data.color}
+            <b>Color : </b>{props.data.color?props.data.color:"-"}
           </Typography>
           <Typography color="textSecondary" >
-          <b>Price : </b>{props.data.price}
+          <b>Price : </b>{props.data.price?props.data.price:"-"}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {props.data.description}

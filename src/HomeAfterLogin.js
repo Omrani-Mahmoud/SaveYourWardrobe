@@ -423,11 +423,12 @@ const handleCloseOpenOldItems = ()=>{
 }
 else{
 if(user && user.role==="admin" && window.localStorage.getItem("tokenWardrobe"))
-  return (<HomeAdmin />)
+    window.location.replace('/admin')
   if(user && user.role==="Association" && window.localStorage.getItem("tokenWardrobe"))
-  return (<HomeAssociation />)  
+  window.location.replace('/association')
+ 
   if(user && user.role==="Store" && window.localStorage.getItem("tokenWardrobe"))
-  return (<HomeStore />)  
+  window.location.replace('/store')
   return(
     (<LoginPage />)
   )
