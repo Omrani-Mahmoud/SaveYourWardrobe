@@ -227,7 +227,7 @@ React.useEffect(() => {
         </IconButton>
         </Tooltip>
                    <FormControl style={{width:'220px', marginBottom:"1%"}} >
-                   <InputLabel htmlFor="search">Search methode</InputLabel>
+                   <InputLabel htmlFor="search">Parsing Methods</InputLabel>
         <Select
 
             style={{marginBottom:"10%"}}
@@ -239,10 +239,10 @@ React.useEffect(() => {
             id: 'search',
           }}
         >
-          <option aria-label="None" value="" />
-          <option value="">-</option>
-          <option value="image">image</option>
-          <option value="text">text</option>
+          
+          <option value=""> Product Informations (without product image)</option>
+          <option value="image">Product Informations (50% to get product image)</option>
+          <option value="text">Product Informations (100% to get product image)</option>
         </Select>
        { /*<Input type="file" onChange={onChangeHandler} />
         <Input type="file" onChange={onChangeHandlerT} />*/}
