@@ -239,7 +239,7 @@ React.useEffect(() => {
             id: 'search',
           }}
         >
-          
+          <option aria-label="None" value="" />
           <option value=""> Product Informations (without product image)</option>
           <option value="image">Product Informations (50% to get product image)</option>
           <option value="text">Product Informations (100% to get product image)</option>
