@@ -96,6 +96,7 @@ function PerEmail() {
     const [openLink, setOpenLink] = React.useState(false);
     const [myEmails, setMyEmails] = React.useState([]);
     const [chosedList, setChosedlist] = React.useState([]);
+    const [filterStr, setFilterStr] = React.useState("");
 
     const [loadingMails, setLoadingMails] = React.useState(false);
 
@@ -215,7 +216,7 @@ React.useEffect(() => {
 }, [])
 
 const filterTable = myEmails
-    .filter(e => e.name.toUpperCase().includes(filterStr.toUpperCase()))
+    .filter(e => e.messageId.toUpperCase().includes(filterStr.toUpperCase()))
 
 
     return (
@@ -251,6 +252,8 @@ const filterTable = myEmails
         <Input type="file" onChange={onChangeHandlerT} />*/}
       </FormControl>
       <Grid item xs={3}  md={12}>
+      <TextField id="standard-basic" label="Filter mails"  onChange={(e)=>{setFilterStr(e.target.value)}} style={{float:"right"}}/>
+
       <Button variant="contained" color="primary" href="#contained-buttons" onClick={()=>getMyEmails()}   >
                     Get my emails
         </Button>
@@ -294,7 +297,7 @@ const filterTable = myEmails
         </TableHead>
       
         <TableBody>
-          {myEmails.map((row) => (
+          {filterTable.map((row) => (
             
            <RowMail row={row} push={pushToChosedList} fetch={fetchIt}/>
           ))}
