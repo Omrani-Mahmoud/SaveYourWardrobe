@@ -214,6 +214,9 @@ React.useEffect(() => {
   
 }, [])
 
+const filterTable = myEmails
+    .filter(e => e.name.toUpperCase().includes(filterStr.toUpperCase()))
+
 
     return (
         <Grid container spacing={3} >

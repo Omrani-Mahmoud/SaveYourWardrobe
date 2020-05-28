@@ -244,7 +244,7 @@ const handleCloseOpenOldItems = ()=>{
                 <Tooltip title={x.type?x.type:'-'}>
               <Button variant="outlined" style={{color:"#010d75",borderColor:"#010d75",borderRadius:'100px'}} fullWidth={true}>{x.name}</Button>
               </Tooltip>
-         {~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))<=2?
+         {~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))<=2 ?
           <Tooltip title={`event will ends in ${~~((new Date(x.endDate).getTime()-new Date().getTime())/ (1000 * 3600 * 24))} days ..`}>
           <ErrorOutlineIcon color="error" style={{marginLeft:"10px"}} />
           </Tooltip>:null}
