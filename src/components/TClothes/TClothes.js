@@ -77,7 +77,7 @@ export default function TClothes() {
 
   const fetchStores = async () => {
     const datatFromDataBase = await fetch(
-      `https://code-beast.herokuapp.com/store`
+      `${uri.link}store`
     );
     const data = await datatFromDataBase.json();
     setStores(data);
@@ -86,11 +86,11 @@ export default function TClothes() {
 
   const fetchSubscribedStoreItems = async () => {
     const datatFromDataBase = await fetch(
-      `${uri.link}userStoreItemsToReact/`+window.localStorage.getItem("connectedUserID")
+      `${uri.link}user/followed/stores/items/`+window.localStorage.getItem("connectedUserID")
     );
     const data = await datatFromDataBase.json();
-    setSubscribtionStoreItems(data);
-    //console.log("Debug subscribtionStoreItems", subscribtionStoreItems);
+    setSubscribtionStoreItems(data.followed_stores_items);
+    console.log("Debug subscribtionStoreItems", subscribtionStoreItems);
   };
   React.useEffect(() => {
     fetchStores();
@@ -103,13 +103,11 @@ export default function TClothes() {
   }, [reload]);
 
   async function handleChildClick(favorite) {
-    await axios.patch(uri.link+"updateUserStoreItemsToReact/"+window.localStorage.getItem("connectedUserID")+"/"+favorite.action+"/"+favorite.item_id)
-        .then(res=>{
-            console.log(res)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+    await axios.post(uri.link+"reaction", {
+      user: window.localStorage.getItem("connectedUserID"),
+      item: favorite.item_id,
+      status: favorite.action
+    })
         setReload(!reload)
       }
 
@@ -133,7 +131,7 @@ export default function TClothes() {
       <FollowStoreComponent stores = {stores}></FollowStoreComponent>
       </Dialog>
     </div>
-      {subscribtionStoreItems.map((store,i) => (
+      {/* {subscribtionStoreItems.map((store,i) => (
         store.userStoreItemsReaction.items.map((item,j) => {
           console.log(item);
           console.log(j);
@@ -144,30 +142,20 @@ export default function TClothes() {
             <TClothesCard key={j} data={data} onFavoriteClick={handleChildClick}></TClothesCard>
           );
         })
-      ))}
+      ))} */
+     
+      subscribtionStoreItems.map((item,j) => {
+          console.log(item);
+          console.log(j);
+          let data = {
+            item: item
+            }
+          return (
+            <TClothesCard key={j} data={data} onFavoriteClick={handleChildClick}></TClothesCard>
+          );
+        })
+      
+      }
     </div>
   );
 }
-
-
-// return (
-//   <div className="card-list">
-//     {subscribtionStoreItems.map((store,i) => (
-//       store.items.map((item,j) => {
-//         console.log(item);
-//         console.log(j);
-//         let data = {
-//           storeName: store.name,
-//           item: item,
-//           position: {
-//             x: i,
-//             y: j
-//           }
-//           }
-//         return (
-//           <TClothesCard key={j} data={data} onFavoriteClick={handleChildClick}></TClothesCard>
-//         );
-//       })
-//     ))}
-//   </div>
-// );

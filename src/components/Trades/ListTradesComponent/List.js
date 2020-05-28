@@ -40,6 +40,7 @@ React.useEffect(() => {
             <TableCell>Items in trade</TableCell>
             <TableCell>Status</TableCell>
             <TableCell>Traded To</TableCell>
+            <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
